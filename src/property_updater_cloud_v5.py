@@ -43,6 +43,20 @@ def classify_build(desc, title=""):
     if check_keywords(text, NEW_BUILD_KEYWORDS): return "New Build / Likely Eligible"
     return "Established / Assume Quarantined" if not ASSUME_NEW_BUILD_DEFAULT else "New Build / Assumed"
 
+def parse_price(val):
+    if isinstance(val, (int, float)):
+        return float(val)
+    if not isinstance(val, str):
+        return 0.0
+    cleaned = val.replace('$', '').replace(',', '').lower()
+    nums = re.findall(r'\d+(?:\.\d+)?', cleaned)
+    if not nums:
+        return 0.0
+    prices = [float(n) for n in nums if float(n) > 100000]
+    if not prices:
+        return 0.0
+    return max(prices)
+
 def parse_rent_price(val):
     if isinstance(val, (int, float)): return float(val)
     if not isinstance(val, str): return None
@@ -166,10 +180,7 @@ def main():
     print("=== BUY ===")
     buy_rows = []
     for item in fetch_with_apify(client, "buy"):
-        try:
-           price = float(str(item.get("price") or "0").replace(",","").split()[0])
-        except (ValueError, IndexError):
-           price = 0.0
+        price = parse_price(item.get("price") or item.get("priceText") or item.get("displayPrice") or "")
         suburb  = item.get("suburb") or item.get("address","").split(",")[0].strip() or "Unknown"
         rent    = suburb_medians.get(suburb, 900.0)
         land_m2 = float(item.get("landArea") or 0)
@@ -213,10 +224,7 @@ def main():
     print("=== SOLD ===")
     sold_rows = []
     for item in fetch_with_apify(client, "sold"):
-        try:
-           price = float(str(item.get("price") or "0").replace(",","").split()[0])
-        except (ValueError, IndexError):
-           price = 0.0
+        price = parse_price(item.get("price") or item.get("priceText") or item.get("displayPrice") or "")
         land_m2 = float(item.get("landArea") or 0)
         suburb  = item.get("suburb") or item.get("address","").split(",")[0].strip() or "Unknown"
         sold_rows.append({
