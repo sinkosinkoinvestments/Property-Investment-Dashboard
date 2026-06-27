@@ -165,7 +165,10 @@ def main():
     print("=== BUY ===")
     buy_rows = []
     for item in fetch_with_apify(client, "buy"):
-        price   = float(item.get("price") or 0)
+        try:
+    price = float(str(item.get("price") or "0").replace(",","").split()[0])
+except (ValueError, IndexError):
+    price = 0.0
         suburb  = item.get("suburb") or item.get("address","").split(",")[0].strip() or "Unknown"
         rent    = suburb_medians.get(suburb, 900.0)
         land_m2 = float(item.get("landArea") or 0)
@@ -209,7 +212,10 @@ def main():
     print("=== SOLD ===")
     sold_rows = []
     for item in fetch_with_apify(client, "sold"):
-        price   = float(item.get("price") or 0)
+        try:
+    price = float(str(item.get("price") or "0").replace(",","").split()[0])
+except (ValueError, IndexError):
+    price = 0.)
         land_m2 = float(item.get("landArea") or 0)
         suburb  = item.get("suburb") or item.get("address","").split(",")[0].strip() or "Unknown"
         sold_rows.append({
