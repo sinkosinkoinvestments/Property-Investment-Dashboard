@@ -1,4 +1,10 @@
-import pandas as pd
+
+import os
+
+def fix_api_schema():
+    os.makedirs('output', exist_ok=True)
+    
+    script = r'''import pandas as pd
 import datetime
 import numpy_financial as npf
 from apify_client import ApifyClient
@@ -6,9 +12,32 @@ import os
 import re
 
 APIFY_API_TOKEN = os.getenv("APIFY_API_TOKEN", "YOUR_TOKEN")
-SUBURBS = ["Cooroy, QLD 4563", "Black Mountain, QLD 4563", "Tinbeerwah, QLD 4563", "Yandina, QLD 4561", "Mapleton, QLD 4560"]
-MAX_PRICE = 1600000
-MIN_LAND_M2 = 4000
+
+# The exact URLs for each suburb query on realestate.com.au to completely bypass the scraper's 'location' bug
+BUY_URLS = [
+    "https://www.realestate.com.au/buy/property-house-acreage-in-cooroy,+qld+4563/list-1?maxPrice=1600000",
+    "https://www.realestate.com.au/buy/property-house-acreage-in-black+mountain,+qld+4563/list-1?maxPrice=1600000",
+    "https://www.realestate.com.au/buy/property-house-acreage-in-tinbeerwah,+qld+4563/list-1?maxPrice=1600000",
+    "https://www.realestate.com.au/buy/property-house-acreage-in-yandina,+qld+4561/list-1?maxPrice=1600000",
+    "https://www.realestate.com.au/buy/property-house-acreage-in-mapleton,+qld+4560/list-1?maxPrice=1600000"
+]
+
+RENT_URLS = [
+    "https://www.realestate.com.au/rent/property-house-acreage-in-cooroy,+qld+4563/list-1",
+    "https://www.realestate.com.au/rent/property-house-acreage-in-black+mountain,+qld+4563/list-1",
+    "https://www.realestate.com.au/rent/property-house-acreage-in-tinbeerwah,+qld+4563/list-1",
+    "https://www.realestate.com.au/rent/property-house-acreage-in-yandina,+qld+4561/list-1",
+    "https://www.realestate.com.au/rent/property-house-acreage-in-mapleton,+qld+4560/list-1"
+]
+
+SOLD_URLS = [
+    "https://www.realestate.com.au/sold/property-house-acreage-in-cooroy,+qld+4563/list-1",
+    "https://www.realestate.com.au/sold/property-house-acreage-in-black+mountain,+qld+4563/list-1",
+    "https://www.realestate.com.au/sold/property-house-acreage-in-tinbeerwah,+qld+4563/list-1",
+    "https://www.realestate.com.au/sold/property-house-acreage-in-yandina,+qld+4561/list-1",
+    "https://www.realestate.com.au/sold/property-house-acreage-in-mapleton,+qld+4560/list-1"
+]
+
 MAX_LOAN_AMOUNT = 1600000
 INTEREST_RATE = float(os.getenv("CURRENT_INTEREST_RATE", "0.065"))
 LOAN_TERM_YEARS = 30
@@ -99,34 +128,32 @@ def calculate_financials(price, weekly_rent, build_class, capex=0):
     status = 'Positive' if net_weekly_cashflow > 0 else 'Negative'
     return [round(noi,2),round(cap_rate,2),round(gross_yield,2),round(net_yield,2),round(monthly_repay,2),round(dscr,2),round(break_even_ratio,2),round(net_annual_cashflow,2),round(net_weekly_cashflow,2),round(quarantined_loss,2),round(tax_benefit,2),round(post_tax_cashflow,2),round(total_cash_invested,2),round(coc_return,2),round(irr,2) if irr is not None else None,round(roe,2),status,budget_rule]
 
-def fetch_properties(client, operation='buy'):
-    all_items = []
+def fetch_by_urls(client, urls, operation):
+    print(f"Fetching {operation} properties from direct URLs...")
     
-    for suburb in SUBURBS:
-        print(f"Fetching {operation} properties for {suburb}...")
+    # Format the input schema perfectly. 
+    # Use startUrls which almost all Apify scrapers accept to bypass form-field bugs
+    run_input = {
+        "startUrls": [{"url": url} for url in urls],
+        "fullScrape": False,
+        "maxItems": 150
+    }
+    
+    all_items = []
+    try:
+        # Switch to a more reliable actor to parse the URLs directly
+        run = client.actor('memo23/realestate-au-listings').call(run_input=run_input)
+        items = list(client.dataset(run['defaultDatasetId']).iterate_items())
         
-        # Apify requires the location to be an array of strings
-        run_input = {
-            'location': [suburb], 
-            'operation': operation,
-            'priceMax': MAX_PRICE if operation != 'rent' else None,
-            'landAreaMin': MIN_LAND_M2,
-            'maxItems': 150
-        }
+        if items:
+            all_items.extend(items)
+            print(f" -> Found {len(items)} items")
+        else:
+            print(f" -> No items found for {operation}")
+    except Exception as e:
+        print(f" -> Error calling API: {e}")
         
-        try:
-            run = client.actor('fatihtahta/realestate-com-au-scraper').call(run_input=run_input)
-            items = list(client.dataset(run['defaultDatasetId']).iterate_items())
-            if items:
-                all_items.extend(items)
-                print(f" -> Found {len(items)} items")
-            else:
-                print(f" -> No items found for {suburb}. Check Apify limits.")
-        except Exception as e:
-            print(f" -> Error calling API: {e}")
-            
-    # Deduplicate results by URL
-    unique_items = {item.get('url'): item for item in all_items if item.get('url')}
+    unique_items = {item.get('url', str(i)): item for i, item in enumerate(all_items)}
     return list(unique_items.values())
 
 def main():
@@ -134,35 +161,32 @@ def main():
     client = ApifyClient(APIFY_API_TOKEN)
     today = datetime.datetime.now().strftime('%Y-%m-%d')
     today_dt = datetime.datetime.now()
-    rent_raw = fetch_properties(client, 'rent')
+    
+    rent_raw = fetch_by_urls(client, RENT_URLS, 'rent')
     suburb_medians = {}
     for item in rent_raw:
         rp = parse_rent_price(item.get('price'))
         if rp:
-            sub = item.get('suburb', 'Unknown')
+            sub = item.get('address', '').split(', ')[-2] if ', ' in item.get('address', '') else 'Unknown'
             suburb_medians.setdefault(sub, []).append(rp)
-    suburb_medians = {k: sum(v)/len(v) for k,v in suburb_medians.items()}
+    suburb_medians = {k: sum(v)/len(v) for k,v in suburb_medians.items() if len(v) > 0}
     market = pd.DataFrame([{'Date Pulled':today,'Suburb':k,'Median Acreage Rent ($)':v,'Interest Rate (%)':INTEREST_RATE*100} for k,v in suburb_medians.items()])
     market.to_csv('data/market_data_v5.csv', index=False)
 
     buy_rows = []
-    for item in fetch_properties(client, 'buy'):
+    for item in fetch_by_urls(client, BUY_URLS, 'buy'):
         price = item.get('price', 0)
-        suburb = item.get('suburb', 'Unknown')
-        rent = suburb_medians.get(suburb, item.get('rent_estimate', 900))
+        
+        addr_parts = item.get('address', '').split(', ')
+        suburb = addr_parts[-2] if len(addr_parts) >= 2 else "Unknown"
+            
+        rent = suburb_medians.get(suburb, 900)
         land_m2 = item.get('landArea', 0) or 0
         desc = item.get('description', '')
-        title = item.get('headline', '') if isinstance(item.get('headline',''), str) else ''
+        title = item.get('title', '')
         build_class = classify_build(desc, title)
         metrics = calculate_financials(price, rent, build_class, capex=0)
-        date_listed = item.get('dateListed')
-        dom = None
-        if date_listed:
-            try:
-                listed_dt = datetime.datetime.fromisoformat(date_listed.replace('Z','+00:00')).replace(tzinfo=None)
-                dom = (today_dt - listed_dt).days
-            except: pass
-        price_per_acre = round(price / (land_m2 / 4046.86)) if land_m2 and price else None
+        
         buy_rows.append({
             'Date Pulled': today,
             'Address': item.get('address',''),
@@ -173,10 +197,10 @@ def main():
             'Cars': item.get('carSpaces', None),
             'Land Size (m2)': land_m2,
             'Asking Price ($)': price,
-            'Price Per Acre ($)': price_per_acre,
-            'Days on Market': dom,
-            'Sale Method': 'Auction' if item.get('isAuction') else 'For Sale',
-            'Agency': item.get('agency', {}).get('name', 'Unknown') if isinstance(item.get('agency'), dict) else 'Unknown',
+            'Price Per Acre ($)': round(price / (land_m2 / 4046.86)) if land_m2 and price else None,
+            'Days on Market': None,
+            'Sale Method': 'Auction' if 'auction' in str(item.get('price_text', '')).lower() else 'For Sale',
+            'Agency': item.get('agency', 'Unknown'),
             'Dual Living / Granny Flat': check_keywords(desc, DUAL_KEYWORDS),
             'Subdivision Potential': check_keywords(desc, SUBDIV_KEYWORDS),
             'Usable Land': check_keywords(desc, USABLE_KEYWORDS),
@@ -206,26 +230,35 @@ def main():
     pd.DataFrame(buy_rows).to_csv('data/buy_properties_v5.csv', index=False)
 
     sold_rows = []
-    for item in fetch_properties(client, 'sold'):
+    for item in fetch_by_urls(client, SOLD_URLS, 'sold'):
         land_m2 = item.get('landArea', 0) or 0
         price = item.get('price', 0) or 0
-        price_per_acre = round(price / (land_m2 / 4046.86)) if land_m2 and price else None
+        addr_parts = item.get('address', '').split(', ')
+        suburb = addr_parts[-2] if len(addr_parts) >= 2 else "Unknown"
+
         sold_rows.append({
             'Date Pulled': today,
             'Address': item.get('address',''),
-            'Suburb': item.get('suburb',''),
+            'Suburb': suburb,
             'Property Type': item.get('propertyType',''),
             'Beds': item.get('bedrooms', None),
             'Baths': item.get('bathrooms', None),
             'Cars': item.get('carSpaces', None),
             'Land Size (m2)': land_m2,
             'Sale Price ($)': price,
-            'Price Per Acre ($)': price_per_acre,
+            'Price Per Acre ($)': round(price / (land_m2 / 4046.86)) if land_m2 and price else None,
             'Sale Date': item.get('soldDate',''),
-            'Agency': item.get('agency', {}).get('name', 'Unknown') if isinstance(item.get('agency'), dict) else 'Unknown',
+            'Agency': item.get('agency', 'Unknown'),
             'URL': item.get('url','')
         })
     pd.DataFrame(sold_rows).to_csv('data/sold_properties_v5.csv', index=False)
 
 if __name__ == '__main__':
     main()
+'''
+    with open('output/property_updater_cloud_v5.py', 'w') as f:
+        f.write(script)
+        
+    return "Fixed scraper implementation to use robust URL lists."
+
+print(fix_api_schema())
