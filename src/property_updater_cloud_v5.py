@@ -139,7 +139,7 @@ def fetch_with_apify(client, operation):
             print(f"    -> ERROR: {e}")
 
     unique = {item.get("url", str(i)): item for i, item in enumerate(all_items)}
-    return list(unique.values()))
+    return list(unique.values())
 
 def main():
     os.makedirs("data", exist_ok=True)
