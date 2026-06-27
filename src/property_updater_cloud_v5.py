@@ -183,7 +183,21 @@ def main():
         price = parse_price(item.get("price") or item.get("priceText") or item.get("displayPrice") or "")
         suburb  = item.get("suburb") or item.get("address","").split(",")[0].strip() or "Unknown"
         rent    = suburb_medians.get(suburb, 900.0)
-        land_m2 = float(item.get("landArea") or 0)
+        raw_land = str(item.get("landArea") or item.get("landSize") or item.get("features", {}).get("landSize") or "0").lower()
+        raw_land = raw_land.replace(',', '').strip()
+
+        if "ha" in raw_land or "hectare" in raw_land:
+            # Convert hectares to square meters
+            num = float(''.join(c for c in raw_land if c.isdigit() or c == '.'))
+            land_m2 = num * 10000
+        elif "acre" in raw_land:
+            # Convert acres to square meters
+            num = float(''.join(c for c in raw_land if c.isdigit() or c == '.'))
+            land_m2 = num * 4046.86
+        else:
+            # Assume square meters
+            num_str = ''.join(c for c in raw_land if c.isdigit() or c == '.')
+            land_m2 = float(num_str) if num_str else 0.0
         desc    = str(item.get("description") or "")
         title   = str(item.get("title") or item.get("headline") or "")
         build   = classify_build(desc, title)
@@ -225,7 +239,17 @@ def main():
     sold_rows = []
     for item in fetch_with_apify(client, "sold"):
         price = parse_price(item.get("price") or item.get("priceText") or item.get("displayPrice") or "")
-        land_m2 = float(item.get("landArea") or 0)
+        raw_land = str(item.get("landArea") or item.get("landSize") or item.get("features", {}).get("landSize") or "0").lower()
+        raw_land = raw_land.replace(',', '').strip()
+
+        if "ha" in raw_land or "hectare" in raw_land:
+            # Convert hectares to square meters
+            num = float(''.join(c for c in raw_land if c.isdigit() or c == '.'))
+            land_m2 = num * 10000
+        elif "acre" in raw_land:
+            # Convert acres to square meters
+            num = float(''.join(c for c in raw_land if c.isdigit() or c == '.'))
+            land_m2 = num * 4046.86
         suburb  = item.get("suburb") or item.get("address","").split(",")[0].strip() or "Unknown"
         sold_rows.append({
             "Date Pulled": today, "Address": item.get("address",""), "Suburb": suburb,
