@@ -215,7 +215,7 @@ except (ValueError, IndexError):
         try:
     price = float(str(item.get("price") or "0").replace(",","").split()[0])
 except (ValueError, IndexError):
-    price = 0.)
+    price = 0.0
         land_m2 = float(item.get("landArea") or 0)
         suburb  = item.get("suburb") or item.get("address","").split(",")[0].strip() or "Unknown"
         sold_rows.append({
