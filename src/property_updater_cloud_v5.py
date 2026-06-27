@@ -10,6 +10,7 @@ INTEREST_RATE = float(os.getenv("CURRENT_INTEREST_RATE", "0.065"))
 ASSUME_NEW_BUILD_DEFAULT = os.getenv("ASSUME_NEW_BUILD_DEFAULT", "No").lower() == "yes"
 
 MAX_LOAN_AMOUNT = 1600000
+MIN_LAND_M2 = 4000    
 LOAN_TERM_YEARS = 30
 MGMT_FEE_PCT = 0.08
 ANNUAL_RATES = 4500
@@ -123,7 +124,7 @@ def fetch_with_apify(client, operation):
 
     for suburb_name, slug in SUBURBS.items():
         print(f"  Fetching {operation} for {suburb_name}...")
-        url = f"https://www.realestate.com.au/{op_path}/property-house-acreage-in-{slug}/list-1"
+        url = f"https://www.realestate.com.au/{op_path}/property-house-acreage-in-{slug}/list-1?minimumLandSize={MIN_LAND_M2}"
         try:
             run_input = {
                 "startUrls": [url],
