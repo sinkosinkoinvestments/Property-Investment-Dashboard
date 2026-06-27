@@ -6,7 +6,7 @@ import os
 import re
 
 APIFY_API_TOKEN = os.getenv("APIFY_API_TOKEN", "YOUR_TOKEN")
-SUBURBS = ["Cooroy QLD 4563", "Black Mountain QLD 4563", "Tinbeerwah QLD 4563", "Yandina QLD 4561", "Mapleton QLD 4560"]
+SUBURBS = ["Cooroy, QLD 4563", "Black Mountain, QLD 4563", "Tinbeerwah, QLD 4563", "Yandina, QLD 4561", "Mapleton, QLD 4560"]
 MAX_PRICE = 1600000
 MIN_LAND_M2 = 4000
 MAX_LOAN_AMOUNT = 1600000
@@ -101,21 +101,31 @@ def calculate_financials(price, weekly_rent, build_class, capex=0):
 
 def fetch_properties(client, operation='buy'):
     all_items = []
-    # Loop through each suburb individually instead of passing a list
+    
     for suburb in SUBURBS:
         print(f"Fetching {operation} properties for {suburb}...")
+        
+        # Apify requires the location to be an array of strings
         run_input = {
-            'location': suburb,
+            'location': [suburb], 
             'operation': operation,
             'priceMax': MAX_PRICE if operation != 'rent' else None,
             'landAreaMin': MIN_LAND_M2,
             'maxItems': 150
         }
-        run = client.actor('fatihtahta/realestate-com-au-scraper').call(run_input=run_input)
-        items = list(client.dataset(run['defaultDatasetId']).iterate_items())
-        all_items.extend(items)
-    
-    # Deduplicate results by URL just in case suburbs overlap
+        
+        try:
+            run = client.actor('fatihtahta/realestate-com-au-scraper').call(run_input=run_input)
+            items = list(client.dataset(run['defaultDatasetId']).iterate_items())
+            if items:
+                all_items.extend(items)
+                print(f" -> Found {len(items)} items")
+            else:
+                print(f" -> No items found for {suburb}. Check Apify limits.")
+        except Exception as e:
+            print(f" -> Error calling API: {e}")
+            
+    # Deduplicate results by URL
     unique_items = {item.get('url'): item for item in all_items if item.get('url')}
     return list(unique_items.values())
 
