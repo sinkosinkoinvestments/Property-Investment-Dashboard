@@ -118,15 +118,19 @@ def calculate_financials(price, weekly_rent, build_class, capex=0):
 def fetch_with_apify(client, operation):
     all_items = []
 
-    # Build direct realestate.com.au search URLs for each suburb
+    # Map operation to URL path
+    op_path = {"buy": "buy", "rent": "rent", "sold": "sold"}.get(operation, "buy")
+
     for suburb_name, slug in SUBURBS.items():
         print(f"  Fetching {operation} for {suburb_name}...")
-        url = f"https://www.realestate.com.au/{operation}/property-house-acreage-in-{slug}/list-1"
+        url = f"https://www.realestate.com.au/{op_path}/property-house-acreage-in-{slug}/list-1"
         try:
             run_input = {
-                "startUrls": [{"url": url}],
-                "fullScrape": False
-             }
+                "startUrls": [url],
+                "includeSurroundingSuburbs": False,
+                "maxItems": 150,
+                "flattenOutput": True
+            }
             run   = client.actor("memo23/realestate-au-listings").call(run_input=run_input)
             items = list(client.dataset(run["defaultDatasetId"]).iterate_items())
             print(f"    -> {len(items)} items")
@@ -135,7 +139,7 @@ def fetch_with_apify(client, operation):
             print(f"    -> ERROR: {e}")
 
     unique = {item.get("url", str(i)): item for i, item in enumerate(all_items)}
-    return list(unique.values())
+    return list(unique.values()))
 
 def main():
     os.makedirs("data", exist_ok=True)
