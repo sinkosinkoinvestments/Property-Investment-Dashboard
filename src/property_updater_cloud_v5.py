@@ -100,9 +100,24 @@ def calculate_financials(price, weekly_rent, build_class, capex=0):
     return [round(noi,2),round(cap_rate,2),round(gross_yield,2),round(net_yield,2),round(monthly_repay,2),round(dscr,2),round(break_even_ratio,2),round(net_annual_cashflow,2),round(net_weekly_cashflow,2),round(quarantined_loss,2),round(tax_benefit,2),round(post_tax_cashflow,2),round(total_cash_invested,2),round(coc_return,2),round(irr,2) if irr is not None else None,round(roe,2),status,budget_rule]
 
 def fetch_properties(client, operation='buy'):
-    run_input = {'location': SUBURBS,'operation': operation,'priceMax': MAX_PRICE if operation != 'rent' else None,'landAreaMin': MIN_LAND_M2,'maxItems': 150}
-    run = client.actor('fatihtahta/realestate-com-au-scraper').call(run_input=run_input)
-    return list(client.dataset(run['defaultDatasetId']).iterate_items())
+    all_items = []
+    # Loop through each suburb individually instead of passing a list
+    for suburb in SUBURBS:
+        print(f"Fetching {operation} properties for {suburb}...")
+        run_input = {
+            'location': suburb,
+            'operation': operation,
+            'priceMax': MAX_PRICE if operation != 'rent' else None,
+            'landAreaMin': MIN_LAND_M2,
+            'maxItems': 150
+        }
+        run = client.actor('fatihtahta/realestate-com-au-scraper').call(run_input=run_input)
+        items = list(client.dataset(run['defaultDatasetId']).iterate_items())
+        all_items.extend(items)
+    
+    # Deduplicate results by URL just in case suburbs overlap
+    unique_items = {item.get('url'): item for item in all_items if item.get('url')}
+    return list(unique_items.values())
 
 def main():
     os.makedirs('data', exist_ok=True)
