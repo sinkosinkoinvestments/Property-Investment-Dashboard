@@ -117,20 +117,23 @@ def calculate_financials(price, weekly_rent, build_class, capex=0):
 
 def fetch_with_apify(client, operation):
     all_items = []
+
+    # Build direct realestate.com.au search URLs for each suburb
     for suburb_name, slug in SUBURBS.items():
         print(f"  Fetching {operation} for {suburb_name}...")
+        url = f"https://www.realestate.com.au/{operation}/property-house-acreage-in-{slug}/list-1"
         try:
             run_input = {
-                "location": suburb_name,
-                "listingType": operation,
-                "maxResults": 150,
+                "startUrls": [{"url": url}],
+                "fullScrape": False
             }
-            run   = client.actor("igolaizola/realestate-au-scraper").call(run_input=run_input)
+            run   = client.actor("memo23/realestate-au-listings").call(run_input=run_input)
             items = list(client.dataset(run["defaultDatasetId"]).iterate_items())
             print(f"    -> {len(items)} items")
             all_items.extend(items)
         except Exception as e:
             print(f"    -> ERROR: {e}")
+
     unique = {item.get("url", str(i)): item for i, item in enumerate(all_items)}
     return list(unique.values())
 
