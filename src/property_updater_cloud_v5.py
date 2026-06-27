@@ -126,7 +126,7 @@ def fetch_with_apify(client, operation):
             run_input = {
                 "startUrls": [{"url": url}],
                 "fullScrape": False
-            }
+             }
             run   = client.actor("memo23/realestate-au-listings").call(run_input=run_input)
             items = list(client.dataset(run["defaultDatasetId"]).iterate_items())
             print(f"    -> {len(items)} items")
