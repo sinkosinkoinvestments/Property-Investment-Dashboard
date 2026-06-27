@@ -1,0 +1,44 @@
+name: Cloud Property Scraper Pipeline (V5 Post-Budget 2026)
+
+on:
+  schedule:
+    - cron: '0 21 * * *'
+  workflow_dispatch:
+
+jobs:
+  scrape-and-analyze:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Python Packages
+        run: pip install -r requirements.txt
+
+      - name: Run Property Scraper & Market Analyzer (V5)
+        env:
+          APIFY_API_TOKEN: ${{ secrets.APIFY_API_TOKEN }}
+          CURRENT_INTEREST_RATE: ${{ vars.CURRENT_INTEREST_RATE || '0.065' }}
+          ASSUME_NEW_BUILD_DEFAULT: ${{ vars.ASSUME_NEW_BUILD_DEFAULT || 'No' }}
+        run: python src/property_updater_cloud_v5.py
+
+      - name: Run Off-Market Email Parser (V3)
+        env:
+          IMAP_USER: ${{ secrets.IMAP_USER }}
+          IMAP_PASSWORD: ${{ secrets.IMAP_PASSWORD }}
+          IMAP_HOST: "imap.gmail.com"
+          IMAP_PORT: "993"
+        run: python src/email_parser_cloud_v2.py
+
+      - name: Commit and Push Updated CSVs
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "Automated Data Update: V5 Pipeline"
+          file_pattern: "data/*.csv"
