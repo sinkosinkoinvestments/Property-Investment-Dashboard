@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sinko Sinko Property Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>
+/* === DESIGN TOKENS === */
+:root, [data-theme="light"] {
+  --color-bg: #f4f3ef;
+  --color-surface: #f9f8f5;
+  --color-surface-2: #ffffff;
+  --color-surface-offset: #eceae4;
+  --color-surface-dynamic: #e2e0d8;
+  --color-divider: #dbd8d0;
+  --color-border: #d0cdc5;
+  --color-text: #1e1c17;
+  --color-text-muted: #6b6a65;
+  --color-text-faint: #b0afa9;
+  --color-text-inverse: #f9f8f4;
+  --color-primary: #01696f;
+  --color-primary-hover: #0c4e54;
+  --color-primary-light: #e0eeec;
+  --color-success: #3a7a1e;
+  --color-success-light: #d4e8cc;
+  --color-error: #b83232;
+  --color-error-light: #f5dada;
+  --color-warning: #9a4a10;
+  --color-warning-light: #f0ddd0;
+  --color-gold: #b88a00;
+  --color-gold-light: #f0e8c8;
+  --color-blue: #0058a0;
+  --color-blue-light: #daeaf5;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-full: 9999px;
+  --shadow-sm: 0 1px 3px oklch(0.2 0.01 80 / 0.07);
+  --shadow-md: 0 4px 12px oklch(0.2 0.01 80 / 0.09);
+  --shadow-lg: 0 12px 32px oklch(0.2 0.01 80 / 0.13);
+  --font-display: 'DM Serif Display', Georgia, serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+  --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+  --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  --text-lg: clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
+  --text-xl: clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
+  --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem; --space-4: 1rem;
+  --space-5: 1.25rem; --space-6: 1.5rem; --space-8: 2rem; --space-10: 2.5rem;
+  --space-12: 3rem; --space-16: 4rem;
+  --transition: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+  --sidebar-w: 220px;
+}
+[data-theme="dark"] {
+  --color-bg: #141310;
+  --color-surface: #1a1916;
+  --color-surface-2: #1f1e1b;
+  --color-surface-offset: #1c1b18;
+  --color-surface-dynamic: #2a2925;
+  --color-divider: #242320;
+  --color-border: #353330;
+  --color-text: #cccac6;
+  --color-text-muted: #757370;
+  --color-text-faint: #504f4c;
+  --color-text-inverse: #1a1916;
+  --color-primary: #4fa0aa;
+  --color-primary-hover: #2a8690;
+  --color-primary-light: #1e3535;
+  --color-success: #5fa832;
+  --color-success-light: #243318;
+  --color-error: #e05555;
+  --color-error-light: #3a1a1a;
+  --color-warning: #d07030;
+  --color-warning-light: #3a2010;
+  --color-gold: #d4aa30;
+  --color-gold-light: #332a10;
+  --color-blue: #4a8fd0;
+  --color-blue-light: #162030;
+  --shadow-sm: 0 1px 3px oklch(0 0 0 / 0.25);
+  --shadow-md: 0 4px 12px oklch(0 0 0 / 0.35);
+  --shadow-lg: 0 12px 32px oklch(0 0 0 / 0.5);
+}
+
+/* === BASE === */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+body { font-family: var(--font-body); font-size: var(--text-sm); color: var(--color-text); background: var(--color-bg); min-height: 100dvh; display: flex; overflow: hidden; }
+button { cursor: pointer; background: none; border: none; font: inherit; color: inherit; }
+a { color: inherit; text-decoration: none; }
+:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 3px; border-radius: var(--radius-sm); }
+
+/* === LAYOUT === */
+.sidebar {
+  width: var(--sidebar-w); min-width: var(--sidebar-w); height: 100dvh;
+  background: var(--color-surface); border-right: 1px solid var(--color-divider);
+  display: flex; flex-direction: column; position: sticky; top: 0;
+  overflow-y: auto; z-index: 10;
+}
+.main { flex: 1; height: 100dvh; overflow-y: auto; display: flex; flex-direction: column; }
+
+/* === SIDEBAR === */
+.sidebar-logo { padding: var(--space-5) var(--space-4); border-bottom: 1px solid var(--color-divider); }
+.logo-mark { display: flex; align-items: center; gap: var(--space-2); }
+.logo-icon { width: 32px; height: 32px; flex-shrink: 0; }
+.logo-text { font-family: var(--font-display); font-size: 1rem; line-height: 1.2; color: var(--color-text); }
+.logo-sub { font-size: var(--text-xs); color: var(--color-text-muted); font-family: var(--font-body); }
+
+.nav-section { padding: var(--space-3) var(--space-3); }
+.nav-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-faint); padding: var(--space-2) var(--space-2) var(--space-1); }
+.nav-item {
+  display: flex; align-items: center; gap: var(--space-2);
+  padding: var(--space-2) var(--space-3); border-radius: var(--radius-md);
+  font-size: var(--text-xs); font-weight: 500; color: var(--color-text-muted);
+  cursor: pointer; transition: background var(--transition), color var(--transition);
+  margin-bottom: 1px;
+}
+.nav-item:hover { background: var(--color-surface-offset); color: var(--color-text); }
+.nav-item.active { background: var(--color-primary-light); color: var(--color-primary); font-weight: 600; }
+.nav-item svg { width: 15px; height: 15px; flex-shrink: 0; }
+
+.sidebar-footer { margin-top: auto; padding: var(--space-4); border-top: 1px solid var(--color-divider); }
+.theme-toggle {
+  display: flex; align-items: center; gap: var(--space-2); width: 100%;
+  padding: var(--space-2) var(--space-3); border-radius: var(--radius-md);
+  font-size: var(--text-xs); color: var(--color-text-muted);
+  transition: background var(--transition), color var(--transition);
+}
+.theme-toggle:hover { background: var(--color-surface-offset); color: var(--color-text); }
+.theme-toggle svg { width: 14px; height: 14px; }
+.last-updated { font-size: 0.65rem; color: var(--color-text-faint); margin-top: var(--space-2); text-align: center; }
+
+/* === TOP BAR === */
+.topbar {
+  position: sticky; top: 0; z-index: 5;
+  background: var(--color-surface); border-bottom: 1px solid var(--color-divider);
+  padding: var(--space-3) var(--space-6); display: flex; align-items: center; justify-content: space-between;
+  gap: var(--space-4);
+}
+.topbar-title { font-family: var(--font-display); font-size: 1.1rem; color: var(--color-text); }
+.topbar-actions { display: flex; align-items: center; gap: var(--space-3); }
+.btn-refresh {
+  display: flex; align-items: center; gap: var(--space-2);
+  padding: var(--space-2) var(--space-4); background: var(--color-primary);
+  color: var(--color-text-inverse); border-radius: var(--radius-md);
+  font-size: var(--text-xs); font-weight: 600;
+  transition: background var(--transition);
+}
+.btn-refresh:hover { background: var(--color-primary-hover); }
+.btn-refresh svg { width: 13px; height: 13px; }
+.btn-refresh.spinning svg { animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* === PAGE === */
+.page { display: none; flex-direction: column; flex: 1; padding: var(--space-6); gap: var(--space-6); }
+.page.active { display: flex; }
+
+/* === KPI GRID === */
+.kpi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: var(--space-4); }
+.kpi-card {
+  background: var(--color-surface-2); border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg); padding: var(--space-5);
+  box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: var(--space-1);
+  transition: box-shadow var(--transition);
+}
+.kpi-card:hover { box-shadow: var(--shadow-md); }
+.kpi-label { font-size: var(--text-xs); color: var(--color-text-muted); font-weight: 500; }
+.kpi-value { font-size: var(--text-xl); font-weight: 700; color: var(--color-text); font-variant-numeric: tabular-nums; line-height: 1; }
+.kpi-sub { font-size: var(--text-xs); color: var(--color-text-faint); }
+.kpi-card.accent { background: var(--color-primary-light); border-color: transparent; }
+.kpi-card.accent .kpi-value { color: var(--color-primary); }
+
+/* === SECTION === */
+.section-header { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); margin-bottom: var(--space-4); }
+.section-title { font-size: var(--text-base); font-weight: 600; color: var(--color-text); }
+.section-sub { font-size: var(--text-xs); color: var(--color-text-muted); margin-top: 2px; }
+
+/* === CHARTS ROW === */
+.charts-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+.chart-card {
+  background: var(--color-surface-2); border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg); padding: var(--space-5); box-shadow: var(--shadow-sm);
+}
+.chart-card.wide { grid-column: 1 / -1; }
+.chart-title { font-size: var(--text-xs); font-weight: 600; color: var(--color-text); margin-bottom: var(--space-4); }
+.chart-wrap { position: relative; height: 220px; }
+
+/* === TABLE === */
+.table-card {
+  background: var(--color-surface-2); border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm);
+}
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: var(--text-xs); }
+thead th {
+  background: var(--color-surface-offset); padding: var(--space-3) var(--space-4);
+  text-align: left; font-weight: 600; font-size: 0.68rem; text-transform: uppercase;
+  letter-spacing: 0.06em; color: var(--color-text-muted); white-space: nowrap;
+  border-bottom: 1px solid var(--color-divider);
+}
+tbody tr { border-bottom: 1px solid var(--color-divider); transition: background var(--transition); }
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: var(--color-surface-offset); }
+tbody td { padding: var(--space-3) var(--space-4); white-space: nowrap; color: var(--color-text); vertical-align: middle; }
+.td-address { white-space: normal; min-width: 160px; max-width: 220px; }
+.td-address a { color: var(--color-primary); font-weight: 500; }
+.td-address a:hover { text-decoration: underline; }
+
+/* === BADGES === */
+.badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 2px var(--space-2); border-radius: var(--radius-full);
+  font-size: 0.68rem; font-weight: 600; white-space: nowrap;
+}
+.badge-green { background: var(--color-success-light); color: var(--color-success); }
+.badge-red { background: var(--color-error-light); color: var(--color-error); }
+.badge-gold { background: var(--color-gold-light); color: var(--color-gold); }
+.badge-blue { background: var(--color-blue-light); color: var(--color-blue); }
+.badge-gray { background: var(--color-surface-offset); color: var(--color-text-muted); }
+
+/* === FILTER BAR === */
+.filter-bar { display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; }
+.filter-select {
+  padding: var(--space-2) var(--space-3); background: var(--color-surface-2);
+  border: 1px solid var(--color-border); border-radius: var(--radius-md);
+  font-size: var(--text-xs); color: var(--color-text); font-family: var(--font-body);
+  cursor: pointer; transition: border-color var(--transition);
+}
+.filter-select:hover { border-color: var(--color-primary); }
+.filter-count { font-size: var(--text-xs); color: var(--color-text-faint); margin-left: auto; }
+
+/* === MARKET TABLE === */
+.market-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: var(--space-4); }
+.market-card {
+  background: var(--color-surface-2); border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg); padding: var(--space-5); box-shadow: var(--shadow-sm);
+}
+.market-suburb { font-weight: 700; font-size: var(--text-sm); color: var(--color-text); margin-bottom: var(--space-2); }
+.market-row { display: flex; justify-content: space-between; align-items: center; padding: 3px 0; border-bottom: 1px solid var(--color-divider); }
+.market-row:last-child { border-bottom: none; }
+.market-lbl { font-size: var(--text-xs); color: var(--color-text-muted); }
+.market-val { font-size: var(--text-xs); font-weight: 600; color: var(--color-text); font-variant-numeric: tabular-nums; }
+
+/* === SKELETON === */
+@keyframes shimmer { 0%{background-position:-200% 0} 100%{background-position:200% 0} }
+.skeleton {
+  background: linear-gradient(90deg, var(--color-surface-offset) 25%, var(--color-surface-dynamic) 50%, var(--color-surface-offset) 75%);
+  background-size: 200% 100%; animation: shimmer 1.5s ease-in-out infinite;
+  border-radius: var(--radius-sm);
+}
+
+/* === EMPTY STATE === */
+.empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: var(--space-16) var(--space-8); color: var(--color-text-muted); }
+.empty-state svg { width: 40px; height: 40px; color: var(--color-text-faint); margin-bottom: var(--space-4); }
+.empty-state p { font-size: var(--text-sm); max-width: 32ch; }
+
+/* === MOBILE === */
+@media (max-width: 768px) {
+  body { flex-direction: column; overflow: auto; }
+  .sidebar { width: 100%; min-width: unset; height: auto; position: relative; flex-direction: row; flex-wrap: wrap; }
+  .sidebar-logo { border-bottom: none; border-right: 1px solid var(--color-divider); }
+  .nav-section { display: flex; gap: var(--space-1); padding: var(--space-2); flex-wrap: wrap; }
+  .nav-label { display: none; }
+  .sidebar-footer { border-top: none; border-left: 1px solid var(--color-divider); margin-top: 0; padding: var(--space-2); }
+  .main { height: auto; overflow: visible; }
+  .charts-row { grid-template-columns: 1fr; }
+  .page { padding: var(--space-4); gap: var(--space-4); }
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">
+      <svg class="logo-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Sinko Sinko Investments">
+        <rect width="32" height="32" rx="8" fill="var(--color-primary)"/>
+        <path d="M8 22 L16 10 L24 22" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <path d="M11 18 L16 10 L21 18" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.5"/>
+        <circle cx="16" cy="25" r="2" fill="white"/>
+      </svg>
+      <div>
+        <div class="logo-text">Sinko Sinko</div>
+        <div class="logo-sub">Property Investments</div>
+      </div>
+    </div>
+  </div>
+
+  <nav class="nav-section">
+    <div class="nav-label">Overview</div>
+    <div class="nav-item active" data-page="dashboard" onclick="showPage('dashboard', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      Dashboard
+    </div>
+    <div class="nav-label">Properties</div>
+    <div class="nav-item" data-page="forsale" onclick="showPage('forsale', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      For Sale
+    </div>
+    <div class="nav-item" data-page="sold" onclick="showPage('sold', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+      Sold Comparables
+    </div>
+    <div class="nav-label">Analysis</div>
+    <div class="nav-item" data-page="market" onclick="showPage('market', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      Market Data
+    </div>
+    <div class="nav-item" data-page="leads" onclick="showPage('leads', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      Off-Market Leads
+    </div>
+  </nav>
+
+  <div class="sidebar-footer">
+    <button class="theme-toggle" onclick="toggleTheme()" data-theme-toggle aria-label="Toggle theme">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="theme-icon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      Toggle theme
+    </button>
+    <div class="last-updated" id="last-updated">Loading…</div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+  <div class="topbar">
+    <h1 class="topbar-title" id="topbar-title">Dashboard</h1>
+    <div class="topbar-actions">
+      <button class="btn-refresh" onclick="loadAllData()" id="refresh-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.95"/></svg>
+        Refresh Data
+      </button>
+    </div>
+  </div>
+
+  <!-- DASHBOARD PAGE -->
+  <section class="page active" id="page-dashboard">
+    <div class="kpi-grid" id="kpi-grid">
+      <!-- filled by JS -->
+    </div>
+    <div class="charts-row">
+      <div class="chart-card">
+        <div class="chart-title">Properties by Suburb</div>
+        <div class="chart-wrap"><canvas id="chart-suburb"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Property Types</div>
+        <div class="chart-wrap"><canvas id="chart-type"></canvas></div>
+      </div>
+      <div class="chart-card wide">
+        <div class="chart-title">Rent Estimates by Suburb ($/wk)</div>
+        <div class="chart-wrap"><canvas id="chart-rent"></canvas></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOR SALE PAGE -->
+  <section class="page" id="page-forsale">
+    <div class="section-header">
+      <div>
+        <div class="section-title">For Sale Properties</div>
+        <div class="section-sub">Active listings across target suburbs</div>
+      </div>
+      <div class="filter-bar">
+        <select class="filter-select" id="filter-suburb" onchange="renderForSaleTable()">
+          <option value="">All Suburbs</option>
+        </select>
+        <select class="filter-select" id="filter-type" onchange="renderForSaleTable()">
+          <option value="">All Types</option>
+        </select>
+        <span class="filter-count" id="forsale-count"></span>
+      </div>
+    </div>
+    <div class="table-card">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Address</th>
+              <th>Suburb</th>
+              <th>Type</th>
+              <th>Beds</th>
+              <th>Baths</th>
+              <th>Cars</th>
+              <th>Land (m²)</th>
+              <th>Asking Price</th>
+              <th>Rent Est ($/wk)</th>
+              <th>Dual Living</th>
+              <th>Subdiv.</th>
+              <th>Usable Land</th>
+              <th>Build</th>
+            </tr>
+          </thead>
+          <tbody id="forsale-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOLD PAGE -->
+  <section class="page" id="page-sold">
+    <div class="section-header">
+      <div>
+        <div class="section-title">Sold Comparables</div>
+        <div class="section-sub">Recent sales for market benchmarking</div>
+      </div>
+      <div class="filter-bar">
+        <select class="filter-select" id="filter-sold-suburb" onchange="renderSoldTable()">
+          <option value="">All Suburbs</option>
+        </select>
+        <span class="filter-count" id="sold-count"></span>
+      </div>
+    </div>
+    <div class="table-card">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Address</th>
+              <th>Suburb</th>
+              <th>Type</th>
+              <th>Beds</th>
+              <th>Baths</th>
+              <th>Cars</th>
+              <th>Land (m²)</th>
+              <th>Sale Price</th>
+              <th>Sale Date</th>
+              <th>Agency</th>
+            </tr>
+          </thead>
+          <tbody id="sold-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARKET PAGE -->
+  <section class="page" id="page-market">
+    <div class="section-header">
+      <div>
+        <div class="section-title">Market Data</div>
+        <div class="section-sub">Median rents and interest rates by suburb</div>
+      </div>
+    </div>
+    <div class="market-grid" id="market-grid"></div>
+  </section>
+
+  <!-- LEADS PAGE -->
+  <section class="page" id="page-leads">
+    <div class="section-header">
+      <div>
+        <div class="section-title">Off-Market Leads</div>
+        <div class="section-sub">Email-parsed off-market opportunities</div>
+      </div>
+      <span class="filter-count" id="leads-count"></span>
+    </div>
+    <div class="table-card">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Sender</th>
+              <th>Subject</th>
+              <th>Dual Living</th>
+              <th>Subdiv.</th>
+              <th>Usable Land</th>
+              <th>Source</th>
+            </tr>
+          </thead>
+          <tbody id="leads-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+// === CONFIG ===
+const RAW = 'https://raw.githubusercontent.com/sinkosinkoinvestments/Property-Investment-Dashboard/main/data/';
+const URLS = {
+  buy:    RAW + 'buy_properties_v5.csv',
+  sold:   RAW + 'sold_properties_v5.csv',
+  market: RAW + 'market_data_v5.csv',
+  leads:  RAW + 'offmarket_leads_v3.csv'
+};
+
+let DATA = { buy: [], sold: [], market: [], leads: [] };
+let charts = {};
+
+// === THEME ===
+(function(){
+  const html = document.documentElement;
+  let d = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+  html.setAttribute('data-theme', d);
+  updateThemeIcon(d);
+})();
+
+function toggleTheme() {
+  const html = document.documentElement;
+  const d = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', d);
+  updateThemeIcon(d);
+  rebuildCharts();
+}
+function updateThemeIcon(d) {
+  const icon = document.getElementById('theme-icon');
+  if (d === 'dark') {
+    icon.innerHTML = '<circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>';
+  } else {
+    icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+  }
+}
+
+// === NAV ===
+const PAGE_TITLES = { dashboard:'Dashboard', forsale:'For Sale', sold:'Sold Comparables', market:'Market Data', leads:'Off-Market Leads' };
+function showPage(id, el) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  el.classList.add('active');
+  document.getElementById('topbar-title').textContent = PAGE_TITLES[id];
+}
+
+// === CSV PARSER ===
+function parseCSV(text) {
+  const lines = text.trim().split('\n');
+  if (lines.length < 2) return [];
+  const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
+  return lines.slice(1).map(line => {
+    const vals = [];
+    let cur = '', inQ = false;
+    for (let i = 0; i < line.length; i++) {
+      const c = line[i];
+      if (c === '"') { inQ = !inQ; }
+      else if (c === ',' && !inQ) { vals.push(cur.trim()); cur = ''; }
+      else { cur += c; }
+    }
+    vals.push(cur.trim());
+    const obj = {};
+    headers.forEach((h, i) => obj[h] = vals[i] ?? '');
+    return obj;
+  });
+}
+
+// === PARSE PRICE ===
+function parsePrice(val) {
+  if (!val || val === '0.0' || val === '0') return null;
+  const s = String(val).replace(/[$,]/g, '').toLowerCase();
+  const nums = [...s.matchAll(/\d+(?:\.\d+)?/g)].map(m => parseFloat(m[0])).filter(n => n > 50000);
+  return nums.length ? Math.max(...nums) : null;
+}
+function fmtPrice(val) {
+  const p = parsePrice(val);
+  if (!p) return '<span style="color:var(--color-text-faint)">Contact Agent</span>';
+  if (p >= 1000000) return '$' + (p/1000000).toFixed(2) + 'M';
+  return '$' + p.toLocaleString();
+}
+function fmtNum(v, fallback='—') {
+  const n = parseFloat(v);
+  return isNaN(n) || n === 0 ? fallback : n.toLocaleString();
+}
+function bool2badge(v) {
+  const t = String(v).toLowerCase();
+  if (t === 'true') return '<span class="badge badge-green">Yes</span>';
+  return '<span class="badge badge-gray">No</span>';
+}
+
+// === LOAD ===
+async function loadAllData() {
+  const btn = document.getElementById('refresh-btn');
+  btn.classList.add('spinning');
+  try {
+    const [buyTxt, soldTxt, mktTxt, leadsTxt] = await Promise.all(
+      Object.values(URLS).map(u => fetch(u).then(r => r.text()))
+    );
+    DATA.buy    = parseCSV(buyTxt);
+    DATA.sold   = parseCSV(soldTxt);
+    DATA.market = parseCSV(mktTxt);
+    DATA.leads  = parseCSV(leadsTxt);
+
+    const dates = DATA.buy.map(r => r['Date Pulled']).filter(Boolean);
+    if (dates.length) document.getElementById('last-updated').textContent = 'Last pulled: ' + dates[0];
+
+    renderDashboard();
+    renderForSaleFilters();
+    renderForSaleTable();
+    renderSoldFilters();
+    renderSoldTable();
+    renderMarket();
+    renderLeads();
+  } catch(e) {
+    document.getElementById('last-updated').textContent = 'Error loading data';
+    console.error(e);
+  }
+  btn.classList.remove('spinning');
+}
+
+// === DASHBOARD ===
+function renderDashboard() {
+  const buy = DATA.buy, sold = DATA.sold, market = DATA.market;
+
+  const dualLiving = buy.filter(r => String(r['Dual Living / Granny Flat']).toLowerCase() === 'true').length;
+  const subdiv = buy.filter(r => String(r['Subdivision Potential']).toLowerCase() === 'true').length;
+  const usable = buy.filter(r => String(r['Usable Land']).toLowerCase() === 'true').length;
+  const medRent = market.length ? (market.reduce((s,r) => s + parseFloat(r['Median Acreage Rent ($)']||0), 0) / market.length) : 0;
+
+  const suburbs = [...new Set(buy.map(r => r.Suburb).filter(Boolean))];
+
+  document.getElementById('kpi-grid').innerHTML = `
+    <div class="kpi-card accent">
+      <div class="kpi-label">For Sale Listings</div>
+      <div class="kpi-value">${buy.length}</div>
+      <div class="kpi-sub">Active properties</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Sold Comparables</div>
+      <div class="kpi-value">${sold.length}</div>
+      <div class="kpi-sub">Recent sales</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Suburbs Tracked</div>
+      <div class="kpi-value">${suburbs.length}</div>
+      <div class="kpi-sub">${suburbs.join(', ')}</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Dual Living / GF</div>
+      <div class="kpi-value">${dualLiving}</div>
+      <div class="kpi-sub">of ${buy.length} listings</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Subdiv. Potential</div>
+      <div class="kpi-value">${subdiv}</div>
+      <div class="kpi-sub">of ${buy.length} listings</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Usable Land</div>
+      <div class="kpi-value">${usable}</div>
+      <div class="kpi-sub">of ${buy.length} listings</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Avg Median Rent</div>
+      <div class="kpi-value">$${Math.round(medRent).toLocaleString()}</div>
+      <div class="kpi-sub">per week across suburbs</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Off-Market Leads</div>
+      <div class="kpi-value">${DATA.leads.length}</div>
+      <div class="kpi-sub">Parsed from email</div>
+    </div>
+  `;
+
+  buildCharts();
+}
+
+function getChartColors() {
+  const dark = document.documentElement.getAttribute('data-theme') === 'dark';
+  return {
+    text: dark ? '#cccac6' : '#1e1c17',
+    grid: dark ? '#242320' : '#dbd8d0',
+    palette: ['#01696f','#437a22','#006494','#d19900','#964219','#7a39bb','#a13544','#da7101']
+  };
+}
+
+function buildCharts() {
+  const buy = DATA.buy;
+  const cc = getChartColors();
+
+  // Suburb counts
+  const suburbCounts = {};
+  buy.forEach(r => { if(r.Suburb) suburbCounts[r.Suburb] = (suburbCounts[r.Suburb]||0)+1; });
+  const sLabels = Object.keys(suburbCounts);
+  const sVals = Object.values(suburbCounts);
+
+  if (charts.suburb) charts.suburb.destroy();
+  charts.suburb = new Chart(document.getElementById('chart-suburb'), {
+    type: 'bar',
+    data: { labels: sLabels, datasets: [{ data: sVals, backgroundColor: cc.palette.slice(0,sLabels.length), borderRadius: 4, borderSkipped: false }] },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } },
+      scales: { x: { ticks: { color: cc.text, font: { size: 11 } }, grid: { color: cc.grid } }, y: { ticks: { color: cc.text, font: { size: 11 } }, grid: { color: cc.grid } } } }
+  });
+
+  // Type counts
+  const typeCounts = {};
+  buy.forEach(r => { const t = r['Property Type']||'Unknown'; typeCounts[t] = (typeCounts[t]||0)+1; });
+  const tLabels = Object.keys(typeCounts);
+  const tVals = Object.values(typeCounts);
+
+  if (charts.type) charts.type.destroy();
+  charts.type = new Chart(document.getElementById('chart-type'), {
+    type: 'doughnut',
+    data: { labels: tLabels, datasets: [{ data: tVals, backgroundColor: cc.palette.slice(0,tLabels.length), borderWidth: 2, borderColor: document.documentElement.getAttribute('data-theme')==='dark'?'#1a1916':'#ffffff' }] },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { color: cc.text, font: { size: 11 }, padding: 12 } } } }
+  });
+
+  // Rent by suburb
+  const rentMap = {};
+  DATA.market.forEach(r => { if(r.Suburb) rentMap[r.Suburb] = parseFloat(r['Median Acreage Rent ($)']||0); });
+  const rLabels = Object.keys(rentMap);
+  const rVals = Object.values(rentMap);
+
+  if (charts.rent) charts.rent.destroy();
+  charts.rent = new Chart(document.getElementById('chart-rent'), {
+    type: 'bar',
+    data: { labels: rLabels, datasets: [{ label: '$/wk', data: rVals, backgroundColor: cc.palette[1], borderRadius: 4, borderSkipped: false }] },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } },
+      scales: { x: { ticks: { color: cc.text, font:{size:11} }, grid: { color: cc.grid } }, y: { ticks: { color: cc.text, font:{size:11}, callback: v => '$'+v }, grid: { color: cc.grid } } } }
+  });
+}
+
+function rebuildCharts() { if(DATA.buy.length) buildCharts(); }
+
+// === FOR SALE ===
+function renderForSaleFilters() {
+  const suburbs = [...new Set(DATA.buy.map(r => r.Suburb).filter(Boolean))].sort();
+  const types = [...new Set(DATA.buy.map(r => r['Property Type']).filter(Boolean))].sort();
+  const ss = document.getElementById('filter-suburb');
+  ss.innerHTML = '<option value="">All Suburbs</option>' + suburbs.map(s => `<option>${s}</option>`).join('');
+  const st = document.getElementById('filter-type');
+  st.innerHTML = '<option value="">All Types</option>' + types.map(t => `<option>${t}</option>`).join('');
+}
+
+function renderForSaleTable() {
+  const sub = document.getElementById('filter-suburb').value;
+  const typ = document.getElementById('filter-type').value;
+  
+  let rows = DATA.buy.filter(r => (!sub || r.Suburb===sub) && (!typ || r['Property Type']===typ));
+  
+  document.getElementById('forsale-count').textContent = rows.length + ' properties';
+  const tbody = document.getElementById('forsale-tbody');
+  
+  if (!rows.length) { tbody.innerHTML = `<tr><td colspan="13"><div class="empty-state"><p>No properties match your filters.</p></div></td></tr>`; return; }
+  
+  tbody.innerHTML = rows.map(r => `
+    <tr>
+      <td class="td-address"><a href="${r.URL||'#'}" target="_blank" rel="noopener">${r.Address||'—'}</a></td>
+      <td>${r.Suburb||'—'}</td>
+      <td><span class="badge badge-blue">${r['Property Type']||'—'}</span></td>
+      <td style="text-align:center">${r.Beds||'—'}</td>
+      <td style="text-align:center">${r.Baths||'—'}</td>
+      <td style="text-align:center">${r.Cars||'—'}</td>
+      <td style="text-align:right">${fmtNum(r['Land Size (m2)'])}</td>
+      <td style="text-align:right;font-weight:600">${fmtPrice(r['Asking Price ($)'])}</td>
+      <td style="text-align:right">$${fmtNum(r['Dynamic Rent Est ($)'],0)}/wk</td>
+      <td>${bool2badge(r['Dual Living / Granny Flat'])}</td>
+      <td>${bool2badge(r['Subdivision Potential'])}</td>
+      <td>${bool2badge(r['Usable Land'])}</td>
+      <td style="font-size:0.68rem;color:var(--color-text-muted);max-width:140px;white-space:normal">${r['Build Classification']||'—'}</td>
+    </tr>`).join('');
+}
+
+// === SOLD ===
+function renderSoldFilters() {
+  const suburbs = [...new Set(DATA.sold.map(r => r.Suburb).filter(Boolean))].sort();
+  const ss = document.getElementById('filter-sold-suburb');
+  ss.innerHTML = '<option value="">All Suburbs</option>' + suburbs.map(s => `<option>${s}</option>`).join('');
+}
+
+function renderSoldTable() {
+  const sub = document.getElementById('filter-sold-suburb').value;
+  let rows = DATA.sold.filter(r => !sub || r.Suburb===sub);
+  document.getElementById('sold-count').textContent = rows.length + ' records';
+  const tbody = document.getElementById('sold-tbody');
+  tbody.innerHTML = rows.map(r => `
+    <tr>
+      <td class="td-address"><a href="${r.URL||'#'}" target="_blank" rel="noopener">${r.Address||'—'}</a></td>
+      <td>${r.Suburb||'—'}</td>
+      <td><span class="badge badge-blue">${r['Property Type']||'—'}</span></td>
+      <td style="text-align:center">${r.Beds||'—'}</td>
+      <td style="text-align:center">${r.Baths||'—'}</td>
+      <td style="text-align:center">${r.Cars||'—'}</td>
+      <td style="text-align:right">${fmtNum(r['Land Size (m2)'])}</td>
+      <td style="text-align:right;font-weight:600">${fmtPrice(r['Sale Price ($)'])}</td>
+      <td>${r['Sale Date']||'—'}</td>
+      <td style="color:var(--color-text-muted)">${r.Agency||'—'}</td>
+    </tr>`).join('');
+}
+
+// === MARKET ===
+function renderMarket() {
+  const grid = document.getElementById('market-grid');
+  grid.innerHTML = DATA.market.map(r => `
+    <div class="market-card">
+      <div class="market-suburb">${r.Suburb||'Unknown'}</div>
+      <div class="market-row"><span class="market-lbl">Median Rent</span><span class="market-val">$${parseFloat(r['Median Acreage Rent ($)']||0).toLocaleString()}/wk</span></div>
+      <div class="market-row"><span class="market-lbl">Interest Rate</span><span class="market-val">${r['Interest Rate (%)']||'—'}%</span></div>
+      <div class="market-row"><span class="market-lbl">Date Pulled</span><span class="market-val" style="font-weight:400;color:var(--color-text-muted)">${r['Date Pulled']||'—'}</span></div>
+    </div>`).join('');
+}
+
+// === LEADS ===
+function renderLeads() {
+  const rows = DATA.leads;
+  document.getElementById('leads-count').textContent = rows.length + ' leads';
+  const tbody = document.getElementById('leads-tbody');
+  tbody.innerHTML = rows.map(r => `
+    <tr>
+      <td>${r['Date Parsed']||'—'}</td>
+      <td style="color:var(--color-text-muted);max-width:180px;white-space:normal;font-size:0.68rem">${r.Sender||'—'}</td>
+      <td style="max-width:260px;white-space:normal">${r.Subject||'—'}</td>
+      <td>${bool2badge(r['Dual Living / Granny Flat'])}</td>
+      <td>${bool2badge(r['Subdivision Potential'])}</td>
+      <td>${bool2badge(r['Usable Land'])}</td>
+      <td><span class="badge badge-gold">${r.Source||'—'}</span></td>
+    </tr>`).join('');
+}
+
+// === INIT ===
+loadAllData();
+</script>
+</body>
+</html>
