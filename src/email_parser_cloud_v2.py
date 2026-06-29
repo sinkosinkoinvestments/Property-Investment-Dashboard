@@ -87,6 +87,13 @@ def main():
                     address = extract_address(subject, body_text)
                     price = extract_price(combined)
                     land_size = extract_land_size(combined)
+
+                     # --- DEBUGGING BLOCK START ---
+                    print(f"\nChecking Email: '{subject}'")
+                    print(f"Extracted Address: {address}")
+                    print(f"Extracted Price: {price}")
+                    print(f"Extracted Land Size: {land_size}")
+                    # --- DEBUGGING BLOCK END ---
                     
                     # 2. Qualification: MUST have Address, Land Size, and Price
                     if address and price and land_size:
