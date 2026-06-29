@@ -361,7 +361,7 @@ def fetch_with_rapidapi(mode):
             "pageSize": "30"
         }
 
-                try:
+            try:
             response = requests.get(url, headers=headers, params=querystring, timeout=30)
             
             # Handle rate limits
