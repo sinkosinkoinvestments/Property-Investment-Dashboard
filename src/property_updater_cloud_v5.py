@@ -8,7 +8,7 @@ import re
 import logging
 import json
 from pathlib import Path
-from urllib import request, parse
+from urllib import request, parse, error
 
 DOMAIN_CLIENT_ID = os.getenv("DOMAIN_CLIENT_ID", "")
 DOMAIN_CLIENT_SECRET = os.getenv("DOMAIN_CLIENT_SECRET", "")
@@ -51,6 +51,8 @@ def get_domain_access_token():
         logging.debug("Domain auth response: %s", payload)
         return payload.get("access_token")
     except Exception as e:
+        if hasattr(e, 'read'):
+            print(f"Domain Auth HTTP Error: {e.read().decode('utf-8')}")
         logging.exception("Domain auth error")
         return None
 
@@ -105,7 +107,13 @@ def search_domain_listings_for_suburb(token, suburb_name, postcode=None, min_lan
                 filtered.append(listing)
         return filtered
     except Exception as e:
+        if hasattr(e, 'read'):
+            try:
+                err_body = e.read().decode('utf-8')
+                print(f"HTTP Error body for {suburb_name}: {err_body}")
+            except: pass
         logging.exception("Domain listings error for %s %s", suburb_name, postcode)
+        print(f"Domain listings error for {suburb_name} {postcode}: {e}")
         return []
 
 def domain_listing_to_buy_row(listing, suburb_medians, today_str, today_dt):
@@ -320,7 +328,7 @@ def fetch_with_apify(client, mode):
         return client.dataset(run["defaultDatasetId"]).iterate_items()
     except Exception as e:
         print(f"Apify fetch failed for {mode}: {e}")
-        return []  # Return empty list so the script doesn't crash
+        return []
 
 def main():
     if not APIFY_API_TOKEN:
@@ -362,9 +370,10 @@ def main():
             postcode = postcode_slug.split("-")[-1] if "-" in postcode_slug else None
             print(f"Domain: searching {suburb_name} {postcode}...")
             listings = search_domain_listings_for_suburb(domain_token, suburb_name, postcode, MIN_LAND_M2)
-            for listing in listings:
-                row = domain_listing_to_buy_row(listing, suburb_medians, today, today_dt)
-                buy_rows.append(row)
+            if listings:
+                for listing in listings:
+                    row = domain_listing_to_buy_row(listing, suburb_medians, today, today_dt)
+                    buy_rows.append(row)
 
     print("Fetching Apify properties...")
     for item in fetch_with_apify(client, "buy"):
