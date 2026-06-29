@@ -28,7 +28,12 @@ import os
 suburbs_file = os.path.join(os.path.dirname(__file__), 'suburbs.json')
 if os.path.exists(suburbs_file):
     with open(suburbs_file, 'r') as f:
-        SUBURBS = json.load(f)
+        try:
+            SUBURBS = json.load(f)
+        except json.JSONDecodeError as e:
+            print(f'JSON Error in suburbs.json: {e}')
+            print('Falling back to default list.')
+            SUBURBS = {}
 else:
     print(f'Warning: {suburbs_file} not found. Using default list.')
     SUBURBS = {
