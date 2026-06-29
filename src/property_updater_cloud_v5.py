@@ -324,8 +324,7 @@ def fetch_with_apify(client, mode):
         for val in SUBURBS.values(): urls.append(f"https://www.domain.com.au/sold-listings/?suburb={val}&ptype=house,acreage")
     
     try:
-        # We changed the actor ID to sahyog-inv/apifydomain-1
-        run_input = {"urls": [{"url": u} for u in urls]} 
+        run_input = {"startUrls": [{"url": u} for u in urls]} 
         run = client.actor("sahyog-inv/apifydomain-1").call(run_input=run_input)
         return client.dataset(run["defaultDatasetId"]).iterate_items()
     except Exception as e:
