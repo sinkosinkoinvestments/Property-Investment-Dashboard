@@ -336,7 +336,8 @@ def fetch_with_rapidapi(mode):
         print("Error: RAPIDAPI_KEY is missing. Skipping RapidAPI fetch.")
         return []
         
-    url = "https://realty-in-au.p.rapidapi.com/properties/list"
+    # The main property search endpoint for Realty in AU
+    url = "https://realty-in-au.p.rapidapi.com/properties/v2/list"
     headers = {
         "X-RapidAPI-Key": RAPIDAPI_KEY,
         "X-RapidAPI-Host": "realty-in-au.p.rapidapi.com"
@@ -344,7 +345,6 @@ def fetch_with_rapidapi(mode):
     
     all_items = []
     
-    # Loop through each suburb
     for suburb_name, postcode_slug in SUBURBS.items():
         postcode = postcode_slug.split("-")[-1] if "-" in postcode_slug else ""
         
@@ -357,11 +357,9 @@ def fetch_with_rapidapi(mode):
         querystring = {
             "channel": channel,
             "searchQuery": f"{suburb_name},{postcode}",
-            "propertyTypes": "house,acreage",
-            "pageSize": "30"
         }
 
-            try:
+        try:
             response = requests.get(url, headers=headers, params=querystring, timeout=30)
             
             # Handle rate limits
@@ -370,43 +368,57 @@ def fetch_with_rapidapi(mode):
                 time.sleep(2)
                 response = requests.get(url, headers=headers, params=querystring, timeout=30)
             
-            # PRINT RAW RESPONSE IF NOT 200 OK
             if response.status_code != 200:
-                print(f"HTTP {response.status_code} Error on {suburb_name}: {response.text}")
+                print(f"HTTP {response.status_code} Error on {suburb_name}")
                 continue
                 
             try:
-                data = response.json()
+                response_json = response.json()
             except ValueError:
-                print(f"Invalid JSON returned for {suburb_name}. Raw text: {response.text}")
+                print(f"Invalid JSON returned for {suburb_name}")
                 continue
             
-            # Extract properties (often under exactResult or tieredResults)
-            results = data.get("exactResult", [])
-            if not results and "tieredResults" in data:
-                for tier in data.get("tieredResults", []):
-                    results.extend(tier.get("results", []))
+            # Extract properties using the exact JSON structure from your screenshot
+            # Note: Depending on the endpoint (agent listings vs property search), it's under 'data'
+            data = response_json.get("data", {})
             
-            # Map RapidAPI JSON format into the old Apify format structure
+            # Look for listings in the common Realty in AU locations
+            results = []
+            if "tieredResults" in data:
+                for tier in data["tieredResults"]:
+                    results.extend(tier.get("results", []))
+            elif "exactResult" in data:
+                results = data.get("exactResult", [])
+            elif "agentListings" in data:
+                results = data["agentListings"].get("listings", [])
+            elif "listings" in data:
+                results = data.get("listings", [])
+            
             for res in results:
-                prop_info = res.get("property", res)
-                price_info = res.get("price", {})
+                # The data structure from your screenshot:
+                address_info = res.get("address", {})
+                features = res.get("generalFeatures", {})
+                price = res.get("price", "")
+                
+                # Sometimes the price is inside a price details object
+                if isinstance(price, dict):
+                    price = price.get("display", "")
                 
                 item = {
-                    "address": prop_info.get("displayAddress", ""),
-                    "suburb": suburb_name,
-                    "propertyType": prop_info.get("propertyType", "House"),
-                    "bedrooms": prop_info.get("bedrooms"),
-                    "bathrooms": prop_info.get("bathrooms"),
-                    "carSpaces": prop_info.get("carSpaces"),
-                    "landArea": prop_info.get("landSize", ""),
-                    "priceText": price_info.get("display", "") or prop_info.get("price", ""),
+                    "address": address_info.get("shortAddress", address_info.get("streetAddress", "")),
+                    "suburb": address_info.get("suburb", suburb_name),
+                    "propertyType": features.get("propertyType", "House"),
+                    "bedrooms": features.get("bedrooms"),
+                    "bathrooms": features.get("bathrooms"),
+                    "carSpaces": features.get("parkingSpaces"),
+                    "landArea": res.get("landSize", features.get("landSize", "")),
+                    "priceText": price,
                     "description": res.get("description", ""),
                     "headline": res.get("headline", ""),
-                    "listingDate": res.get("dateListed", ""),
+                    "listingDate": res.get("dateListed", res.get("listingStatus", "")),
                     "soldDate": res.get("dateSold", ""),
-                    "isAuction": "auction" in str(price_info.get("display", "")).lower(),
-                    "url": res.get("url", prop_info.get("url", "")),
+                    "isAuction": "auction" in str(price).lower(),
+                    "url": res.get("url", res.get("_links", {}).get("canonical", {}).get("href", "")),
                     "agency": {"name": res.get("agency", {}).get("name", "Unknown")}
                 }
                 all_items.append(item)
