@@ -4,7 +4,7 @@ import email
 from email import policy
 from email.parser import BytesParser
 import pandas as pd
-from datetime import datetime
+from datetime import datetime, timedelta
 import re
 
 IMAP_HOST = os.getenv("IMAP_HOST", "imap.gmail.com")
@@ -18,41 +18,45 @@ def check_keywords(text, keyword_list):
 
 def extract_price(text):
     if not text: return None
-    # Look for $ followed by numbers and commas
-    prices = re.findall(r'\$([0-9,]+)', text)
-    if prices:
-        # Convert string like "1,200,000" to float
-        clean_price = prices[0].replace(',', '')
+    text = text.lower().replace(',', '')
+    
+    # Check for $1.8M, $1.8 Mil, etc.
+    mil_match = re.search(r'\$\s*([0-9.]+)\s*(m|mil|million)', text)
+    if mil_match:
         try:
-            return float(clean_price)
-        except:
-            return None
+            val = float(mil_match.group(1)) * 1000000
+            if val > 10000: return val
+        except: pass
+        
+    # Standard $1,800,000
+    prices = re.findall(r'\$([0-9]{4,})', text)
+    if prices:
+        try:
+            val = float(prices[0])
+            if val > 10000: # Ignore $1, $2 footer values
+                return val
+        except: pass
+        
     return None
 
 def extract_land_size(text):
     if not text: return None
-    # Look for numbers followed by sqm, m2, acres, ha
-    match = re.search(r'([0-9,.]+)\s*(sqm|m2|m²|acres|ha)', text, re.IGNORECASE)
+    match = re.search(r'([0-9,.]+)\s*(sqm|m2|m²|acres|acre|ha|hectares)', text, re.IGNORECASE)
     if match:
         val = match.group(1).replace(',', '')
         unit = match.group(2).lower()
         try:
             num = float(val)
-            # Convert to sqm
-            if unit == 'acres': return num * 4046.86
-            if unit == 'ha': return num * 10000
-            return num # sqm or m2
-        except:
-            return None
+            if unit in ['acres', 'acre']: return num * 4046.86
+            if unit in ['ha', 'hectares']: return num * 10000
+            return num 
+        except: return None
     return None
 
 def extract_address(subject, text):
-    # Addresses are tricky. Often they are at the start of the subject or body.
-    # Look for a number followed by words and Street/Rd/Ave etc.
     combined = f"{subject} {text}"
     match = re.search(r'\b(\d{1,4}\s+[A-Za-z\s]+(?:Street|St|Road|Rd|Avenue|Ave|Drive|Dr|Court|Ct|Place|Pl|Lane|Ln|Boulevard|Blvd|Way))\b', combined, re.IGNORECASE)
-    if match:
-        return match.group(1).title()
+    if match: return match.group(1).title()
     return None
 
 def main():
@@ -66,9 +70,11 @@ def main():
     try:
         with imaplib.IMAP4_SSL(IMAP_HOST, IMAP_PORT) as imap:
             imap.login(IMAP_USER, IMAP_PASSWORD)
-            imap.select("INBOX", readonly=False)
+            imap.select("INBOX", readonly=True)
 
-            status, data = imap.search(None, '(UNSEEN)')
+            # Search ALL emails from the last 3 days (ignores seen/unseen status)
+            date = (datetime.now() - timedelta(days=3)).strftime("%d-%b-%Y")
+            status, data = imap.search(None, f'(SINCE {date})')
 
             for msg_id in data[0].split():
                 status, msg_data = imap.fetch(msg_id, '(RFC822)')
@@ -83,33 +89,27 @@ def main():
 
                     combined = f"{subject} {body_text}"
                     
-                    # 1. Extraction
                     address = extract_address(subject, body_text)
                     price = extract_price(combined)
                     land_size = extract_land_size(combined)
-
-                     # --- DEBUGGING BLOCK START ---
-                    print(f"\nChecking Email: '{subject}'")
-                    print(f"Extracted Address: {address}")
-                    print(f"Extracted Price: {price}")
-                    print(f"Extracted Land Size: {land_size}")
-                    # --- DEBUGGING BLOCK END ---
                     
-                    # 2. Qualification: MUST have Address, Land Size, and Price
+                    # Debug block
+                    print(f"\nChecking Email: '{subject}'")
+                    print(f"Address: {address} | Price: {price} | Land: {land_size}")
+                    
+                    # Qualification
                     if address and price and land_size:
-                        
-                        # Find suburb (last word of address as fallback, or regex extraction if needed)
                         suburb_guess = "Off-Market"
                         
                         qualified_rows.append({
                             "Address": address,
                             "Suburb": suburb_guess,
-                            "Property Type": "House", # Default assumption for off-market
+                            "Property Type": "House",
                             "Asking Price ($)": price,
                             "Land Size (m2)": land_size,
-                            "Beds": 3,   # Placeholder or build regex for Beds
-                            "Baths": 1,  # Placeholder or build regex for Baths
-                            "Cars": 1,   # Placeholder or build regex for Cars
+                            "Beds": 3,
+                            "Baths": 1,
+                            "Cars": 1,
                             "URL": "Email Lead",
                             "Dual Living / Granny Flat": str(check_keywords(combined, ['dual living', 'granny flat', 'dual occupancy'])).lower(),
                             "Subdivision Potential": str(check_keywords(combined, ['subdividable', 'stca', 'subdivision', 'development'])).lower(),
@@ -117,8 +117,6 @@ def main():
                             "Cashflow Status": "Unknown"
                         })
                         
-                    imap.store(msg_id, '+FLAGS', '\\Seen')
-
     except Exception as e:
         print(f"IMAP Error: {e}")
 
@@ -126,20 +124,22 @@ def main():
         print("No qualified property emails found.")
         return
 
-    # 3. Save directly to buy_properties_v5.csv
     new_df = pd.DataFrame(qualified_rows)
     file_path = "data/buy_properties_v5.csv"
 
     if os.path.exists(file_path):
-        existing_df = pd.read_csv(file_path)
-        
-        # Combine and drop duplicates based on Address to prevent adding the same property twice
-        df = pd.concat([existing_df, new_df]).drop_duplicates(subset=["Address"], keep='first')
+        try:
+            existing_df = pd.read_csv(file_path)
+            # Combine and drop duplicates based on Address
+            df = pd.concat([existing_df, new_df]).drop_duplicates(subset=["Address"], keep='first')
+        except pd.errors.EmptyDataError:
+            # Handle if the CSV exists but is completely blank
+            df = new_df
     else:
         df = new_df
 
     df.to_csv(file_path, index=False)
-    print(f"Added {len(new_df)} qualified email leads directly to buy_properties_v5.csv.")
+    print(f"\nSuccessfully added {len(new_df)} qualified email leads directly to buy_properties_v5.csv.")
 
 if __name__ == "__main__":
     main()
