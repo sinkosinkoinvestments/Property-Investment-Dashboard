@@ -729,10 +729,32 @@ function renderForSaleFilters() {
 function renderForSaleTable() {
   const sub = document.getElementById('filter-suburb').value;
   const typ = document.getElementById('filter-type').value;
-  let rows = DATA.buy.filter(r => (!sub || r.Suburb===sub) && (!typ || r['Property Type']===typ));
+  
+  // Combine Domain listings (DATA.buy) with Email leads (DATA.leads)
+  // We map the leads slightly so the columns match the For Sale table format
+  const combinedData = DATA.buy.concat(
+    DATA.leads.map(lead => ({
+      Address: lead.Subject, // Use email subject as address
+      Suburb: "Off-Market", 
+      'Property Type': "Lead",
+      Beds: "—", Baths: "—", Cars: "—",
+      'Land Size (m2)': 0,
+      'Asking Price ($)': 0,
+      'Dynamic Rent Est ($)': 0,
+      'Dual Living / Granny Flat': lead['Dual Living / Granny Flat'],
+      'Subdivision Potential': lead['Subdivision Potential'],
+      'Usable Land': lead['Usable Land'],
+      'Build Classification': "Off-Market Lead"
+    }))
+  );
+
+  let rows = combinedData.filter(r => (!sub || r.Suburb===sub) && (!typ || r['Property Type']===typ));
+  
   document.getElementById('forsale-count').textContent = rows.length + ' properties';
   const tbody = document.getElementById('forsale-tbody');
+  
   if (!rows.length) { tbody.innerHTML = `<tr><td colspan="13"><div class="empty-state"><p>No properties match your filters.</p></div></td></tr>`; return; }
+  
   tbody.innerHTML = rows.map(r => `
     <tr>
       <td class="td-address"><a href="${r.URL||'#'}" target="_blank" rel="noopener">${r.Address||'—'}</a></td>
