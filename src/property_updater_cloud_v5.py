@@ -15,10 +15,10 @@ DOMAIN_SCOPE = os.getenv("DOMAIN_SCOPE", "api_listings_read")
 DOMAIN_AUTH_URL = os.getenv("DOMAIN_AUTH_URL", "https://auth.domain.com.au/v1/connect/token")
 DOMAIN_LISTINGS_URL = "https://api.domain.com.au/v1/listings/residential/_search"
 
-LOG_DIR = Path(__file__).resolve().parent.parent / "output"
-LOG_DIR.mkdir(exist_ok=True)
+LOG_DIR = Path(".github") / "logs"
+LOG_DIR.mkdir(parents=True, exist_ok=True)
 
-DOMAIN_LOG_FILE = LOG_DIR / "domain_debug.log"
+DOMAIN_LOG_FILE = LOG_DIR / "domain_debug.log""
 logging.basicConfig(
     filename=str(DOMAIN_LOG_FILE),
     level=logging.DEBUG,
