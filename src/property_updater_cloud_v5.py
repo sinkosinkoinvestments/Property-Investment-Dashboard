@@ -4,6 +4,8 @@ import numpy_financial as npf
 from apify_client import ApifyClient
 import os
 import re
+import logging
+from pathlib import Path
 
 from urllib import request, parse
 
@@ -13,11 +15,22 @@ DOMAIN_SCOPE = os.getenv("DOMAIN_SCOPE", "api_listings_read")
 DOMAIN_AUTH_URL = os.getenv("DOMAIN_AUTH_URL", "https://auth.domain.com.au/v1/connect/token")
 DOMAIN_LISTINGS_URL = "https://api.domain.com.au/v1/listings/residential/_search"
 
+LOG_DIR = Path(__file__).resolve().parent.parent / "output"
+LOG_DIR.mkdir(exist_ok=True)
+
+DOMAIN_LOG_FILE = LOG_DIR / "domain_debug.log"
+logging.basicConfig(
+    filename=str(DOMAIN_LOG_FILE),
+    level=logging.DEBUG,
+    format="%(asctime)s %(levelname)s %(message)s",
+)
+
 
 def get_domain_access_token():
     """Client Credentials grant to get a bearer token from Domain API."""
     if not DOMAIN_CLIENT_ID or not DOMAIN_CLIENT_SECRET:
         print("Domain API credentials missing; skipping Domain fetch.")
+        logging.debug("Domain auth response: %s", payload)
         return None
 
     data = {
@@ -80,6 +93,14 @@ def search_domain_listings_for_suburb(token, suburb_name, postcode=None, min_lan
         "Content-Type": "application/json",
     }
 
+    logging.debug("Domain listings response for %s %s: %s", suburb_name, postcode, data)
+    logging.debug(
+    "Domain listings count for %s %s: %s",
+    suburb_name,
+    postcode,
+    len(listings) if listings else 0
+    )
+    
     loc = {"state": "QLD", "suburb": suburb_name, "includeSurroundingSuburbs": False}
     if postcode:
         loc["postCode"] = postcode
