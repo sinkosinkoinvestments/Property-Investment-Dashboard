@@ -361,7 +361,7 @@ def fetch_with_rapidapi(mode):
             "pageSize": "30"
         }
 
-        try:
+                try:
             response = requests.get(url, headers=headers, params=querystring, timeout=30)
             
             # Handle rate limits
@@ -369,13 +369,22 @@ def fetch_with_rapidapi(mode):
                 print(f"Rate limited on {suburb_name}. Sleeping 2s...")
                 time.sleep(2)
                 response = requests.get(url, headers=headers, params=querystring, timeout=30)
+            
+            # PRINT RAW RESPONSE IF NOT 200 OK
+            if response.status_code != 200:
+                print(f"HTTP {response.status_code} Error on {suburb_name}: {response.text}")
+                continue
                 
-            data = response.json()
+            try:
+                data = response.json()
+            except ValueError:
+                print(f"Invalid JSON returned for {suburb_name}. Raw text: {response.text}")
+                continue
             
             # Extract properties (often under exactResult or tieredResults)
             results = data.get("exactResult", [])
             if not results and "tieredResults" in data:
-                for tier in data["tieredResults"]:
+                for tier in data.get("tieredResults", []):
                     results.extend(tier.get("results", []))
             
             # Map RapidAPI JSON format into the old Apify format structure
@@ -402,7 +411,6 @@ def fetch_with_rapidapi(mode):
                 }
                 all_items.append(item)
             
-            # Sleep slightly between suburbs to respect Free Tier API rate limits
             time.sleep(0.5)
             
         except Exception as e:
