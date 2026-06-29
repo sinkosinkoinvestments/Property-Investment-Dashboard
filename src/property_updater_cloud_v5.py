@@ -343,7 +343,7 @@ def main():
             "Est 10-Yr IRR (%)": m[14], "Est Year 1 ROE (%)": m[15],
             "Cashflow Status": m[16], "URL": item.get("url",""),
         })
-        if buy_rows:
+    if buy_rows:
         pd.DataFrame(buy_rows).to_csv("data/buy_properties_v5.csv", index=False)
     else:
         print("Warning: No buy properties scraped. Skipping overwrite to prevent data loss.")
@@ -375,7 +375,7 @@ def main():
             "Agency": (item.get("agency") or {}).get("name","Unknown") if isinstance(item.get("agency"),dict) else str(item.get("agency","Unknown")),
             "URL": item.get("url",""),
         })
-        if sold_rows:
+    if sold_rows:
         pd.DataFrame(sold_rows).to_csv("data/sold_properties_v5.csv", index=False)
     else:
         print("Warning: No sold properties scraped. Skipping overwrite to prevent data loss.")
