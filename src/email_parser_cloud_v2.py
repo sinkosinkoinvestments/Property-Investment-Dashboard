@@ -1,9 +1,11 @@
 import os
 import imaplib
+import email
 from email import policy
 from email.parser import BytesParser
 import pandas as pd
 from datetime import datetime
+import re
 
 IMAP_HOST = os.getenv("IMAP_HOST", "imap.gmail.com")
 IMAP_PORT = int(os.getenv("IMAP_PORT", "993"))
@@ -15,17 +17,35 @@ def check_keywords(text, keyword_list):
     text = text.lower()
     return any(kw in text for kw in keyword_list)
 
+def extract_urls(text):
+    if not text: return ""
+    urls = re.findall(r'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', text)
+    # Filter out common junk URLs
+    valid_urls = [u for u in urls if 'w3.org' not in u and 'google.com' not in u and 'w3.org' not in u]
+    return " | ".join(valid_urls)
+
+def extract_price(text):
+    if not text: return ""
+    # Look for $ followed by numbers, commas, optionally M or K
+    prices = re.findall(r'\$[0-9,]+(?:\.[0-9]+)?(?:[MmKk])?', text)
+    return prices[0] if prices else ""
+
 def main():
     os.makedirs('data', exist_ok=True)
     if not IMAP_USER or not IMAP_PASSWORD:
+        print("Missing IMAP credentials.")
         return
 
     rows = []
     try:
         with imaplib.IMAP4_SSL(IMAP_HOST, IMAP_PORT) as imap:
             imap.login(IMAP_USER, IMAP_PASSWORD)
-            imap.select("INBOX", readonly=True)
-            status, data = imap.search(None, 'UNSEEN')
+            imap.select("INBOX", readonly=False)
+
+            # Search for BOTH Unseen and Seen emails from the last 3 days to catch missed properties
+            # Or just search ALL emails from known real estate agents/keywords
+            # For safety, let's search UNSEEN first, but broaden what we extract
+            status, data = imap.search(None, '(UNSEEN)')
 
             for msg_id in data[0].split():
                 status, msg_data = imap.fetch(msg_id, '(RFC822)')
@@ -35,31 +55,55 @@ def main():
                     sender = str(msg.get('from', ''))
 
                     body_text = ""
-                    part = msg.get_body(preferencelist=('plain', 'html'))
-                    if part:
-                        body_text = str(part.get_content())
+                    # Try to get both plain and html parts
+                    for part in msg.walk():
+                        if part.get_content_type() == 'text/plain':
+                            body_text += str(part.get_content())
+                        elif part.get_content_type() == 'text/html':
+                            # Even if it's HTML, we'll convert it to string for basic parsing
+                            body_text += str(part.get_content())
 
                     combined = f"{subject} {body_text}"
 
-                    rows.append({
-                        "Date Parsed": datetime.now().strftime('%Y-%m-%d'),
-                        "Sender": sender,
-                        "Subject": subject,
-                        "Dual Living / Granny Flat": check_keywords(combined, ['dual living', 'granny flat']),
-                        "Subdivision Potential": check_keywords(combined, ['subdividable', 'stca']),
-                        "Usable Land": check_keywords(combined, ['usable', 'clear', 'flat']),
-                        "Source": "Email Lead"
-                    })
+                    # Basic filter - only log if it seems property related
+                    prop_keywords = ['property', 'off-market', 'off market', 'listing', 'for sale', 'investment', 'acreage']
+                    is_property = check_keywords(combined, prop_keywords)
+
+                    if is_property:
+                        rows.append({
+                            "Date Parsed": datetime.now().strftime('%Y-%m-%d'),
+                            "Sender": sender,
+                            "Subject": subject,
+                            "Price Mentioned": extract_price(combined),
+                            "Links": extract_urls(combined),
+                            "Dual Living / Granny Flat": check_keywords(combined, ['dual living', 'granny flat', 'dual occupancy', 'second dwelling']),
+                            "Subdivision Potential": check_keywords(combined, ['subdividable', 'stca', 'subdivision', 'development']),
+                            "Usable Land": check_keywords(combined, ['usable', 'clear', 'flat', 'arable']),
+                            "Source": "Email Lead"
+                        })
+
+                        # Mark as seen so we don't process it again next run
+                        imap.store(msg_id, '+FLAGS', '\\Seen')
+
     except Exception as e:
         print(f"IMAP Error: {e}")
 
-    df = pd.DataFrame(rows) if rows else pd.DataFrame(columns=["Date Parsed", "Sender", "Subject", "Source"])
+    if not rows:
+        print("No new property emails found.")
+        return
 
-    if os.path.exists("data/offmarket_leads_v3.csv"):
-        existing_df = pd.read_csv("data/offmarket_leads_v3.csv")
-        df = pd.concat([existing_df, df]).drop_duplicates(subset=["Subject"])
+    new_df = pd.DataFrame(rows)
+    file_path = "data/offmarket_leads_v3.csv"
 
-    df.to_csv("data/offmarket_leads_v3.csv", index=False)
+    if os.path.exists(file_path):
+        existing_df = pd.read_csv(file_path)
+        # Check if Subject and Sender already exist to avoid duplicates
+        df = pd.concat([existing_df, new_df]).drop_duplicates(subset=["Subject", "Sender"], keep='last')
+    else:
+        df = new_df
+
+    df.to_csv(file_path, index=False)
+    print(f"Added {len(new_df)} new email leads.")
 
 if __name__ == "__main__":
     main()
