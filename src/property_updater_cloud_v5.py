@@ -5,6 +5,181 @@ from apify_client import ApifyClient
 import os
 import re
 
+import requests  # used for Domain API calls
+
+DOMAIN_CLIENT_ID = os.getenv("DOMAIN_CLIENT_ID", "")
+DOMAIN_CLIENT_SECRET = os.getenv("DOMAIN_CLIENT_SECRET", "")
+DOMAIN_SCOPE = os.getenv("DOMAIN_SCOPE", "api_listings_read")
+DOMAIN_AUTH_URL = os.getenv("DOMAIN_AUTH_URL", "https://auth.domain.com.au/v1/connect/token")
+DOMAIN_LISTINGS_URL = "https://api.domain.com.au/v1/listings/residential/_search"
+
+
+def get_domain_access_token():
+    """Client Credentials grant to get a bearer token from Domain API."""
+    if not DOMAIN_CLIENT_ID or not DOMAIN_CLIENT_SECRET:
+        print("Domain API credentials missing; skipping Domain fetch.")
+        return None
+
+    data = {
+        "client_id": DOMAIN_CLIENT_ID,
+        "client_secret": DOMAIN_CLIENT_SECRET,
+        "grant_type": "client_credentials",
+        "scope": DOMAIN_SCOPE,
+    }
+
+    try:
+        resp = requests.post(DOMAIN_AUTH_URL, data=data)
+        resp.raise_for_status()
+        token = resp.json().get("access_token")
+        if not token:
+            print("Domain auth: no access_token in response.")
+        return token
+    except Exception as e:
+        print(f"Domain auth error: {e}")
+        return None
+
+
+def extract_land_size_from_domain(listing):
+    """Attempt to derive land size in m2 from Domain listing JSON."""
+    try:
+        land = listing.get("landArea") or listing.get("propertyDetails", {}).get("landArea")
+        if not land:
+            return None
+
+        # Domain may use a structured object or plain number
+        if isinstance(land, dict):
+            value = land.get("value")
+            unit = str(land.get("unit", "")).lower()
+            if value is None:
+                return None
+            if unit in ("square_meter", "sqm", "m2"):
+                return float(value)
+            if unit in ("hectare", "ha"):
+                return float(value) * 10000
+            if unit in ("acre", "acres"):
+                return float(value) * 4046.86
+        else:
+            # If numeric or string, assume m2
+            return float(str(land).replace(",", ""))
+    except Exception:
+        return None
+    return None
+
+
+def search_domain_listings_for_suburb(token, suburb_name, postcode=None, min_land_m2=2000):
+    """Call Domain's residential listings search API for a single suburb and return filtered listings."""
+    if not token:
+        return []
+
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Content-Type": "application/json",
+    }
+
+    loc = {"state": "QLD", "suburb": suburb_name, "includeSurroundingSuburbs": False}
+    if postcode:
+        loc["postCode"] = postcode
+
+    payload = {
+        "listingType": "Sale",
+        "propertyTypes": ["House", "Acreage"],
+        "locations": [loc],
+        "pageSize": 100,
+        "pageNumber": 1,
+    }
+
+    try:
+        resp = requests.post(DOMAIN_LISTINGS_URL, json=payload, headers=headers)
+        resp.raise_for_status()
+        data = resp.json()
+        listings = data.get("results") if isinstance(data, dict) else data
+        if not listings:
+            print(f"Domain: no listings for {suburb_name} {postcode}.")
+            return []
+
+        filtered = []
+        for listing in listings:
+            land_m2 = extract_land_size_from_domain(listing)
+            if land_m2 is None or land_m2 >= min_land_m2:
+                filtered.append(listing)
+        print(f"Domain: {len(filtered)} filtered listings for {suburb_name} {postcode}.")
+        return filtered
+
+    except Exception as e:
+        print(f"Domain listings error for {suburb_name} {postcode}: {e}")
+        return []
+
+
+def domain_listing_to_buy_row(listing, suburb_medians, today, today_dt):
+    """Convert a Domain listing into the buy_rows dict expected by the pipeline."""
+    address_info = listing.get("address", {})
+    addr = address_info.get("display") or address_info.get("streetAddress")
+    suburb = address_info.get("suburb")
+    property_type = listing.get("propertyType") or "House"
+
+    details = listing.get("propertyDetails", {})
+    beds = details.get("bedrooms")
+    baths = details.get("bathrooms")
+    cars = details.get("carspaces")
+
+    price_info = listing.get("priceDetails", {})
+    asking_price = price_info.get("displayPrice") or price_info.get("price")
+    price = parse_price(asking_price or "")
+
+    land_m2 = extract_land_size_from_domain(listing)
+
+    rent = suburb_medians.get(suburb, 900.0)
+
+    desc = listing.get("description") or ""
+    title = listing.get("headline") or listing.get("summary") or ""
+    build = classify_build(desc, title)
+
+    m = calculate_financials(price, rent, build)
+
+    date_listed = listing.get("dateListed") or listing.get("listingDate")
+    dom = None
+    if date_listed:
+        try:
+            listed_dt = datetime.datetime.fromisoformat(str(date_listed).replace("Z", "+00:00")).replace(tzinfo=None)
+            dom = (today_dt - listed_dt).days
+        except Exception:
+            pass
+
+    agency = listing.get("agent", {}) or listing.get("agency", {})
+    agency_name = None
+    if isinstance(agency, dict):
+        agency_name = agency.get("name") or agency.get("agencyName")
+    else:
+        agency_name = str(agency) if agency else "Unknown"
+
+    url = listing.get("listingUrl") or listing.get("url")
+
+    return {
+        "Date Pulled": today,
+        "Address": addr or "",
+        "Suburb": suburb or "",
+        "Property Type": property_type,
+        "Beds": beds, "Baths": baths, "Cars": cars,
+        "Land Size (m2)": land_m2, "Asking Price ($)": price,
+        "Price Per Acre ($)": round(price/(land_m2/4046.86)) if land_m2 and price else None,
+        "Days on Market": dom,
+        "Sale Method": "Auction" if listing.get("isAuction") else "For Sale",
+        "Agency": agency_name or "Unknown",
+        "Dual Living / Granny Flat": check_keywords(desc, DUAL_KEYWORDS),
+        "Subdivision Potential": check_keywords(desc, SUBDIV_KEYWORDS),
+        "Usable Land": check_keywords(desc, USABLE_KEYWORDS),
+        "Build Classification": build, "Budget Rule Applied": m[17],
+        "Dynamic Rent Est ($)": rent,
+        "NOI ($)": m[0], "Cap Rate (%)": m[1], "Gross Yield (%)": m[2], "Net Yield (%)": m[3],
+        "Monthly Repayment ($)": m[4], "DSCR": m[5], "Break-Even Ratio (%)": m[6],
+        "Net Annual Cashflow ($)": m[7], "Net Weekly Cashflow ($)": m[8],
+        "Quarantined Loss Year 1 ($)": m[9], "Tax Benefit Year 1 ($)": m[10],
+        "Post-Tax Cash Flow ($) *Est": m[11], "Est Renovation / Capex ($)": 0,
+        "Total Cash Invested ($)": m[12], "Cash-on-Cash Return (%)": m[13],
+        "Est 10-Yr IRR (%)": m[14], "Est Year 1 ROE (%)": m[15],
+        "Cashflow Status": m[16], "URL": url or "",
+    }
+
 APIFY_API_TOKEN = os.getenv("APIFY_API_TOKEN", "")
 INTEREST_RATE = float(os.getenv("CURRENT_INTEREST_RATE", "0.065"))
 ASSUME_NEW_BUILD_DEFAULT = os.getenv("ASSUME_NEW_BUILD_DEFAULT", "No").lower() == "yes"
@@ -255,6 +430,18 @@ def main():
             "Est 10-Yr IRR (%)": m[14], "Est Year 1 ROE (%)": m[15],
             "Cashflow Status": m[16], "URL": item.get("url",""),
         })
+    # Also fetch listings from Domain API and append to buy_rows
+    token = get_domain_access_token()
+    if token:
+        for suburb_name, slug in SUBURBS.items():
+            try:
+                postcode = int(slug.split("-")[-1])
+            except ValueError:
+                postcode = None
+            listings = search_domain_listings_for_suburb(token, suburb_name, postcode, min_land_m2=MIN_LAND_M2)
+            for listing in listings:
+                row = domain_listing_to_buy_row(listing, suburb_medians, today, today_dt)
+                buy_rows.append(row)
     if buy_rows:
         pd.DataFrame(buy_rows).to_csv("data/buy_properties_v5.csv", index=False)
     else:
@@ -295,4 +482,4 @@ def main():
     print("Pipeline complete.")
 
 if __name__ == "__main__":
-    main()
+    main(
