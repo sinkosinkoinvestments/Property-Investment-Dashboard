@@ -29,6 +29,12 @@ jobs:
           ASSUME_NEW_BUILD_DEFAULT: ${{ vars.ASSUME_NEW_BUILD_DEFAULT || 'No' }}
         run: python src/property_updater_cloud_v5.py
 
+      - name: Upload Domain log
+        uses: actions/upload-artifact@v4
+        with:
+          name: domain-debug-log
+          path: .github/logs/domain_debug.log
+
       - name: Run Off-Market Email Parser (V3)
         env:
           IMAP_USER: ${{ secrets.IMAP_USER }}
