@@ -324,7 +324,9 @@ def fetch_with_apify(client, mode):
         for val in SUBURBS.values(): urls.append(f"https://www.domain.com.au/sold-listings/?suburb={val}&ptype=house,acreage")
     
     try:
-        run = client.actor("krakora/domain-com-au-scraper").call(run_input={"startUrls": [{"url": u} for u in urls]})
+        # We changed the actor ID to sahyog-inv/apifydomain-1
+        run_input = {"urls": [{"url": u} for u in urls]} 
+        run = client.actor("sahyog-inv/apifydomain-1").call(run_input=run_input)
         return client.dataset(run["defaultDatasetId"]).iterate_items()
     except Exception as e:
         print(f"Apify fetch failed for {mode}: {e}")
