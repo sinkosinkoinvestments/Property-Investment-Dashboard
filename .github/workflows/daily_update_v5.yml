@@ -25,6 +25,10 @@ jobs:
       - name: Run Property Scraper & Market Analyzer (V5)
         env:
           APIFY_API_TOKEN: ${{ secrets.APIFY_API_TOKEN }}
+          DOMAIN_CLIENT_ID: ${{ secrets.DOMAIN_CLIENT_ID }}
+          DOMAIN_CLIENT_SECRET: ${{ secrets.DOMAIN_CLIENT_SECRET }}
+          DOMAIN_SCOPE: api_listings_read
+          DOMAIN_AUTH_URL: https://auth.domain.com.au/v1/connect/token
           CURRENT_INTEREST_RATE: ${{ vars.CURRENT_INTEREST_RATE || '0.065' }}
           ASSUME_NEW_BUILD_DEFAULT: ${{ vars.ASSUME_NEW_BUILD_DEFAULT || 'No' }}
         run: python src/property_updater_cloud_v5.py
