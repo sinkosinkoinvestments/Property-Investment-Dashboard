@@ -336,8 +336,7 @@ def fetch_with_rapidapi(mode):
         print("Error: RAPIDAPI_KEY is missing. Skipping RapidAPI fetch.")
         return []
         
-    # The main property search endpoint for Realty in AU
-    url = "https://realty-in-au.p.rapidapi.com/properties/v2/list"
+    url = "https://realty-in-au.p.rapidapi.com/properties/list"
     headers = {
         "X-RapidAPI-Key": RAPIDAPI_KEY,
         "X-RapidAPI-Host": "realty-in-au.p.rapidapi.com"
@@ -354,79 +353,82 @@ def fetch_with_rapidapi(mode):
         elif mode == "sold":
             channel = "sold"
             
+        # Updated to match the exact properties/list requirements
         querystring = {
             "channel": channel,
-            "searchQuery": f"{suburb_name},{postcode}",
+            "searchQuery": f"{suburb_name} QLD {postcode}",
+            "pageSize": "30"
         }
 
         try:
             response = requests.get(url, headers=headers, params=querystring, timeout=30)
             
-            # Handle rate limits
             if response.status_code == 429:
                 print(f"Rate limited on {suburb_name}. Sleeping 2s...")
                 time.sleep(2)
                 response = requests.get(url, headers=headers, params=querystring, timeout=30)
             
             if response.status_code != 200:
-                print(f"HTTP {response.status_code} Error on {suburb_name}")
+                print(f"HTTP {response.status_code} Error on {suburb_name}: {response.text[:100]}")
                 continue
                 
             try:
-                response_json = response.json()
+                data = response.json()
             except ValueError:
                 print(f"Invalid JSON returned for {suburb_name}")
                 continue
             
-            # Extract properties using the exact JSON structure from your screenshot
-            # Note: Depending on the endpoint (agent listings vs property search), it's under 'data'
-            data = response_json.get("data", {})
-            
-            # Look for listings in the common Realty in AU locations
+            # Extract from tieredResults or exactResult depending on what RapidAPI returns
             results = []
             if "tieredResults" in data:
-                for tier in data["tieredResults"]:
+                for tier in data.get("tieredResults", []):
                     results.extend(tier.get("results", []))
             elif "exactResult" in data:
                 results = data.get("exactResult", [])
-            elif "agentListings" in data:
-                results = data["agentListings"].get("listings", [])
             elif "listings" in data:
                 results = data.get("listings", [])
+                
+            if not results:
+                print(f"No properties found for {suburb_name} ({mode})")
             
             for res in results:
-                # The data structure from your screenshot:
-                address_info = res.get("address", {})
-                features = res.get("generalFeatures", {})
-                price = res.get("price", "")
+                # Safely get property and price data regardless of structure
+                prop_info = res.get("property", res)
+                price_info = res.get("price", {})
                 
-                # Sometimes the price is inside a price details object
-                if isinstance(price, dict):
-                    price = price.get("display", "")
+                price_text = ""
+                if isinstance(price_info, dict):
+                    price_text = price_info.get("display", "")
+                elif isinstance(price_info, str):
+                    price_text = price_info
+                
+                # Sometimes features are nested
+                features = res.get("generalFeatures", prop_info)
+                address_info = res.get("address", prop_info)
                 
                 item = {
-                    "address": address_info.get("shortAddress", address_info.get("streetAddress", "")),
+                    "address": address_info.get("streetAddress", address_info.get("shortAddress", "")),
                     "suburb": address_info.get("suburb", suburb_name),
-                    "propertyType": features.get("propertyType", "House"),
-                    "bedrooms": features.get("bedrooms"),
-                    "bathrooms": features.get("bathrooms"),
-                    "carSpaces": features.get("parkingSpaces"),
-                    "landArea": res.get("landSize", features.get("landSize", "")),
-                    "priceText": price,
+                    "propertyType": features.get("propertyType", prop_info.get("propertyType", "House")),
+                    "bedrooms": features.get("bedrooms", prop_info.get("bedrooms")),
+                    "bathrooms": features.get("bathrooms", prop_info.get("bathrooms")),
+                    "carSpaces": features.get("parkingSpaces", prop_info.get("carSpaces")),
+                    "landArea": res.get("landSize", features.get("landSize", prop_info.get("landSize", ""))),
+                    "priceText": price_text,
                     "description": res.get("description", ""),
                     "headline": res.get("headline", ""),
-                    "listingDate": res.get("dateListed", res.get("listingStatus", "")),
+                    "listingDate": res.get("dateListed", ""),
                     "soldDate": res.get("dateSold", ""),
-                    "isAuction": "auction" in str(price).lower(),
+                    "isAuction": "auction" in str(price_text).lower(),
                     "url": res.get("url", res.get("_links", {}).get("canonical", {}).get("href", "")),
                     "agency": {"name": res.get("agency", {}).get("name", "Unknown")}
                 }
                 all_items.append(item)
             
-            time.sleep(0.5)
+            time.sleep(1) # Extra sleep to avoid limits
             
         except Exception as e:
-            print(f"RapidAPI fetch failed for {suburb_name} ({mode}): {e}")
+            print(f"Fetch failed for {suburb_name}: {e}")
             
     return all_items
 
