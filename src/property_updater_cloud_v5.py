@@ -316,16 +316,23 @@ def calculate_financials(price, weekly_rent, build_class):
 
 def fetch_with_apify(client, mode):
     urls = []
+    # Convert SUBURBS dictionary to a list of its values to process
+    suburb_slugs = list(SUBURBS.values())
+    
+    # LIMIT to only the first 3 suburbs to prevent Apify free-tier memory crash
+    suburb_slugs = suburb_slugs[:3]
+    
     if mode == "buy":
-        for val in SUBURBS.values(): urls.append(f"https://www.domain.com.au/sale/?suburb={val}&ptype=house,acreage&excludeunderoffer=1")
+        for val in suburb_slugs: urls.append(f"https://www.domain.com.au/sale/?suburb={val}&ptype=house,acreage&excludeunderoffer=1")
     elif mode == "rent":
-        for val in SUBURBS.values(): urls.append(f"https://www.domain.com.au/rent/?suburb={val}&ptype=house,acreage")
+        for val in suburb_slugs: urls.append(f"https://www.domain.com.au/rent/?suburb={val}&ptype=house,acreage")
     elif mode == "sold":
-        for val in SUBURBS.values(): urls.append(f"https://www.domain.com.au/sold-listings/?suburb={val}&ptype=house,acreage")
+        for val in suburb_slugs: urls.append(f"https://www.domain.com.au/sold-listings/?suburb={val}&ptype=house,acreage")
     
     try:
-        run_input = {"startUrls": [{"url": u} for u in urls]} 
-        run = client.actor("sahyog-inv/apifydomain-1").call(run_input=run_input)
+        run_input = {"startUrls": [{"url": u} for u in urls]}
+        # Wait specifically for the run to finish (prevent GitHub giving up early)
+        run = client.actor("sahyog-inv/apifydomain-1").call(run_input=run_input, wait_secs=120)
         return client.dataset(run["defaultDatasetId"]).iterate_items()
     except Exception as e:
         print(f"Apify fetch failed for {mode}: {e}")
