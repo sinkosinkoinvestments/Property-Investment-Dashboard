@@ -736,7 +736,27 @@ function renderForSale() {
   const pbEl = document.getElementById('fs-priceband');
   const pb = pbEl ? pbEl.value : '';
 
-  const rows = DATA.buy.filter(r => {
+   // Combine Domain listings (DATA.buy) with Email leads (DATA.leads)
+  const combinedData = DATA.buy.concat(
+    (DATA.leads || []).map(lead => ({
+      Address: lead.Subject, // Use email subject as address
+      Suburb: "Off-Market", 
+      'Property Type': "Lead",
+      Beds: "—", Baths: "—", Cars: "—",
+      'Asking Price ($)': null,
+      'Est Weekly Rent ($)': null,
+      'Net Annual Cashflow ($)': null,
+      'Cap Rate (%)': null,
+      'Est 10-Yr IRR (%)': null,
+      'Cashflow Status': 'Unknown',
+      'Dual Living / Granny Flat': lead['Dual Living / Granny Flat'] || 'false',
+      'Subdivision Potential': lead['Subdivision Potential'] || 'false',
+      'Usable Land': lead['Usable Land'] || 'false',
+      URL: '#'
+    }))
+  );
+
+  const rows = combinedData.filter(r => { 
     if (sub && r.Suburb !== sub) return false;
     if (type && r['Property Type'] !== type) return false;
     if (feature === 'dual' && String(r['Dual Living / Granny Flat']).toLowerCase() !== 'true') return false;
