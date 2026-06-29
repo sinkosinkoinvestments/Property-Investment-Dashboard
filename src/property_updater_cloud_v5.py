@@ -18,7 +18,7 @@ DOMAIN_LISTINGS_URL = "https://api.domain.com.au/v1/listings/residential/_search
 LOG_DIR = Path(".github") / "logs"
 LOG_DIR.mkdir(parents=True, exist_ok=True)
 
-DOMAIN_LOG_FILE = LOG_DIR / "domain_debug.log""
+DOMAIN_LOG_FILE = LOG_DIR / "domain_debug.log"
 logging.basicConfig(
     filename=str(DOMAIN_LOG_FILE),
     level=logging.DEBUG,
