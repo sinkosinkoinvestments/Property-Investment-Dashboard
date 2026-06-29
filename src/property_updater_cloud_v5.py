@@ -1,21 +1,44 @@
 import pandas as pd
 import datetime
 import numpy_financial as npf
-from apify_client import ApifyClient
 import os
 import re
-
+import time
 import logging
 import json
 from pathlib import Path
-from urllib import request, parse, error
+from urllib import request, parse
+import requests
+
+# -------------------------------------------------------------------
+# CONFIGURATION & ENV VARIABLES
+# -------------------------------------------------------------------
+RAPIDAPI_KEY = os.getenv("RAPIDAPI_KEY", "")
 
 DOMAIN_CLIENT_ID = os.getenv("DOMAIN_CLIENT_ID", "")
 DOMAIN_CLIENT_SECRET = os.getenv("DOMAIN_CLIENT_SECRET", "")
 DOMAIN_SCOPE = os.getenv("DOMAIN_SCOPE", "api_listings_read")
 DOMAIN_AUTH_URL = os.getenv("DOMAIN_AUTH_URL", "https://auth.domain.com.au/v1/connect/token")
-DOMAIN_LISTINGS_URL = "https://api.domain.com.au/v1/listings/residential/_search"
+DOMAIN_LISTINGS_URL = os.getenv("DOMAIN_LISTINGS_URL", "https://api.domain.com.au/sandbox/v1/listings/residential/_search")
 
+INTEREST_RATE = float(os.getenv("CURRENT_INTEREST_RATE", "0.065"))
+ASSUME_NEW_BUILD_DEFAULT = os.getenv("ASSUME_NEW_BUILD_DEFAULT", "No").lower() == "yes"
+
+MAX_LOAN_AMOUNT = 1600000
+MIN_LAND_M2 = 8000    
+LOAN_TERM_YEARS = 30
+MGMT_FEE_PCT = 0.08
+ANNUAL_RATES = 4500
+ANNUAL_MAINT = 2000
+STAMP_DUTY_FEES = 60000
+CAPITAL_GROWTH_PCT = 0.05
+TAX_RATE = 0.37
+DEPRECIATION_Y1 = 10000
+SALE_COST_PCT = 0.02
+
+# -------------------------------------------------------------------
+# LOGGING SETUP
+# -------------------------------------------------------------------
 LOG_DIR = Path(".github") / "logs"
 LOG_DIR.mkdir(parents=True, exist_ok=True)
 DOMAIN_LOG_FILE = LOG_DIR / "domain_debug.log"
@@ -27,8 +50,141 @@ logging.basicConfig(
 
 logging.debug("property_updater_cloud_v5 started")
 print("property_updater_cloud_v5 started")
-logging.debug("Domain env present: client_id=%s secret=%s", bool(DOMAIN_CLIENT_ID), bool(DOMAIN_CLIENT_SECRET))
 
+# -------------------------------------------------------------------
+# LOAD SUBURBS
+# -------------------------------------------------------------------
+possible_paths = [
+    'src/suburbs.json',
+    'suburbs.json',
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), 'suburbs.json')
+]
+
+SUBURBS = {}
+for path in possible_paths:
+    if os.path.exists(path):
+        print(f"Found suburbs list at: {path}")
+        try:
+            with open(path, 'r', encoding='utf-8') as f:
+                SUBURBS = json.load(f)
+            break
+        except Exception as e:
+            print(f"Error reading JSON from {path}: {e}")
+
+if not SUBURBS:
+    print("Warning: Could not load suburbs.json. Falling back to default list.")
+    SUBURBS = {
+        "Cooroy": "cooroy-qld-4563",
+        "Black Mountain": "black-mountain-qld-4563",
+        "Tinbeerwah": "tinbeerwah-qld-4563",
+        "Yandina": "yandina-qld-4561",
+        "Mapleton": "mapleton-qld-4560"
+    }
+
+NEW_BUILD_KEYWORDS = ["new build","brand new","newly built","under construction","house and land","off the plan"]
+DUAL_KEYWORDS      = ["dual living","granny flat","dual occupancy","second dwelling"]
+SUBDIV_KEYWORDS    = ["subdividable","stca","subdivision","development"]
+USABLE_KEYWORDS    = ["usable","clear","flat","fully fenced","cleared"]
+
+# -------------------------------------------------------------------
+# HELPER FUNCTIONS
+# -------------------------------------------------------------------
+def check_keywords(text, kw_list):
+    if not text: return False
+    return any(k in text.lower() for k in kw_list)
+
+def classify_build(desc, title=""):
+    text = f"{title} {desc}".lower()
+    if check_keywords(text, NEW_BUILD_KEYWORDS): return "New Build / Likely Eligible"
+    return "Established / Assume Quarantined" if not ASSUME_NEW_BUILD_DEFAULT else "New Build / Assumed"
+
+def parse_price(val):
+    if isinstance(val, (int, float)):
+        return float(val)
+    if not isinstance(val, str):
+        return 0.0
+    cleaned = val.replace('$', '').replace(',', '').lower()
+    nums = re.findall(r'\d+(?:\.\d+)?', cleaned)
+    if not nums:
+        return 0.0
+    prices = [float(n) for n in nums if float(n) > 100000]
+    if not prices:
+        return 0.0
+    return max(prices)
+
+def parse_rent_price(val):
+    if isinstance(val, (int, float)): return float(val)
+    if not isinstance(val, str): return None
+    nums = re.findall(r"\d+", val.replace(",", ""))
+    if nums:
+        n = int(nums[0])
+        return float(n) if 200 <= n <= 3000 else None
+    return None
+
+def calculate_financials(price, weekly_rent, build_class):
+    if not price or price <= 0: return [0]*18
+    annual_rent = weekly_rent * 52
+    noi = annual_rent * (1 - MGMT_FEE_PCT) - ANNUAL_RATES - ANNUAL_MAINT
+    cap_rate = noi / price
+    gross_yield = annual_rent / price
+    
+    total_cost = price + STAMP_DUTY_FEES
+    loan_amount = min(price, MAX_LOAN_AMOUNT)
+    equity = total_cost - loan_amount
+    net_yield = noi / total_cost
+
+    monthly_rate = INTEREST_RATE / 12
+    num_payments = LOAN_TERM_YEARS * 12
+    monthly_repayment = float(npf.pmt(monthly_rate, num_payments, loan_amount)) * -1 if loan_amount > 0 else 0
+    annual_repayment = monthly_repayment * 12
+
+    dscr = noi / annual_repayment if annual_repayment > 0 else 0
+    ber = (annual_repayment + ANNUAL_RATES + ANNUAL_MAINT + (annual_rent * MGMT_FEE_PCT)) / annual_rent if annual_rent > 0 else 0
+
+    net_annual_cashflow = noi - annual_repayment
+    net_weekly_cashflow = net_annual_cashflow / 52
+
+    rule_applied = ""
+    is_new = "New Build" in build_class
+    if is_new:
+        rule_applied = "Budget 2026: Negative Gearing Allowed (New Build)"
+        depreciation = DEPRECIATION_Y1
+        taxable_income = net_annual_cashflow - depreciation
+        tax_benefit = max(0, -taxable_income * TAX_RATE)
+        quarantined_loss = 0
+    else:
+        rule_applied = "Budget 2026: Negative Gearing Quarantined (Established)"
+        tax_benefit = 0
+        quarantined_loss = abs(min(0, net_annual_cashflow))
+
+    post_tax_cashflow = net_annual_cashflow + tax_benefit
+    cash_on_cash = post_tax_cashflow / equity if equity > 0 else 0
+    roe = post_tax_cashflow / equity if equity > 0 else 0
+
+    cashflows = [-equity] + [post_tax_cashflow]*9
+    future_value = price * ((1 + CAPITAL_GROWTH_PCT)**10)
+    loan_balance_10 = float(npf.fv(monthly_rate, 10*12, monthly_repayment, loan_amount)) * -1
+    net_proceeds = future_value * (1 - SALE_COST_PCT) - loan_balance_10
+    cashflows.append(post_tax_cashflow + net_proceeds)
+    
+    try: irr = float(npf.irr(cashflows))
+    except: irr = 0
+
+    if net_weekly_cashflow > 0: status = "Positive"
+    elif net_weekly_cashflow > -100: status = "Neutral/Slight Negative"
+    else: status = "Negative"
+
+    return [
+        round(noi), round(cap_rate*100,2), round(gross_yield*100,2), round(net_yield*100,2),
+        round(monthly_repayment), round(dscr,2), round(ber*100,2), round(net_annual_cashflow),
+        round(net_weekly_cashflow), round(quarantined_loss), round(tax_benefit),
+        round(post_tax_cashflow), round(equity), round(cash_on_cash*100,2),
+        round(irr*100,2), round(roe*100,2), status, rule_applied
+    ]
+
+# -------------------------------------------------------------------
+# DOMAIN API FUNCTIONS
+# -------------------------------------------------------------------
 def get_domain_access_token():
     if not DOMAIN_CLIENT_ID or not DOMAIN_CLIENT_SECRET:
         logging.debug("Domain auth skipped: missing credentials")
@@ -172,178 +328,92 @@ def domain_listing_to_buy_row(listing, suburb_medians, today_str, today_dt):
         "Cashflow Status": m[16], "URL": url or "",
     }
 
-APIFY_API_TOKEN = os.getenv("APIFY_API_TOKEN", "")
-INTEREST_RATE = float(os.getenv("CURRENT_INTEREST_RATE", "0.065"))
-ASSUME_NEW_BUILD_DEFAULT = os.getenv("ASSUME_NEW_BUILD_DEFAULT", "No").lower() == "yes"
-
-MAX_LOAN_AMOUNT = 1600000
-MIN_LAND_M2 = 8000    
-LOAN_TERM_YEARS = 30
-MGMT_FEE_PCT = 0.08
-ANNUAL_RATES = 4500
-ANNUAL_MAINT = 2000
-STAMP_DUTY_FEES = 60000
-CAPITAL_GROWTH_PCT = 0.05
-TAX_RATE = 0.37
-DEPRECIATION_Y1 = 10000
-SALE_COST_PCT = 0.02
-
-# Load suburbs from external JSON file
-possible_paths = [
-    'src/suburbs.json',
-    'suburbs.json',
-    os.path.join(os.path.dirname(os.path.abspath(__file__)), 'suburbs.json')
-]
-
-SUBURBS = {}
-for path in possible_paths:
-    if os.path.exists(path):
-        print(f"Found suburbs list at: {path}")
-        try:
-            with open(path, 'r', encoding='utf-8') as f:
-                SUBURBS = json.load(f)
-            break
-        except Exception as e:
-            print(f"Error reading JSON from {path}: {e}")
-
-if not SUBURBS:
-    print("Warning: Could not load suburbs.json. Falling back to default list.")
-    SUBURBS = {
-        "Cooroy": "cooroy-qld-4563",
-        "Black Mountain": "black-mountain-qld-4563",
-        "Tinbeerwah": "tinbeerwah-qld-4563",
-        "Yandina": "yandina-qld-4561",
-        "Mapleton": "mapleton-qld-4560"
-    }
-
-NEW_BUILD_KEYWORDS = ["new build","brand new","newly built","under construction","house and land","off the plan"]
-DUAL_KEYWORDS      = ["dual living","granny flat","dual occupancy","second dwelling"]
-SUBDIV_KEYWORDS    = ["subdividable","stca","subdivision","development"]
-USABLE_KEYWORDS    = ["usable","clear","flat","fully fenced","cleared"]
-
-def check_keywords(text, kw_list):
-    if not text: return False
-    return any(k in text.lower() for k in kw_list)
-
-def classify_build(desc, title=""):
-    text = f"{title} {desc}".lower()
-    if check_keywords(text, NEW_BUILD_KEYWORDS): return "New Build / Likely Eligible"
-    return "Established / Assume Quarantined" if not ASSUME_NEW_BUILD_DEFAULT else "New Build / Assumed"
-
-def parse_price(val):
-    if isinstance(val, (int, float)):
-        return float(val)
-    if not isinstance(val, str):
-        return 0.0
-    cleaned = val.replace('$', '').replace(',', '').lower()
-    nums = re.findall(r'\d+(?:\.\d+)?', cleaned)
-    if not nums:
-        return 0.0
-    prices = [float(n) for n in nums if float(n) > 100000]
-    if not prices:
-        return 0.0
-    return max(prices)
-
-def parse_rent_price(val):
-    if isinstance(val, (int, float)): return float(val)
-    if not isinstance(val, str): return None
-    nums = re.findall(r"\d+", val.replace(",", ""))
-    if nums:
-        n = int(nums[0])
-        return float(n) if 200 <= n <= 3000 else None
-    return None
-
-def calculate_financials(price, weekly_rent, build_class):
-    if not price or price <= 0: return [0]*18
-    annual_rent = weekly_rent * 52
-    noi = annual_rent * (1 - MGMT_FEE_PCT) - ANNUAL_RATES - ANNUAL_MAINT
-    cap_rate = noi / price
-    gross_yield = annual_rent / price
-    
-    total_cost = price + STAMP_DUTY_FEES
-    loan_amount = min(price, MAX_LOAN_AMOUNT)
-    equity = total_cost - loan_amount
-    net_yield = noi / total_cost
-
-    monthly_rate = INTEREST_RATE / 12
-    num_payments = LOAN_TERM_YEARS * 12
-    monthly_repayment = float(npf.pmt(monthly_rate, num_payments, loan_amount)) * -1 if loan_amount > 0 else 0
-    annual_repayment = monthly_repayment * 12
-
-    dscr = noi / annual_repayment if annual_repayment > 0 else 0
-    ber = (annual_repayment + ANNUAL_RATES + ANNUAL_MAINT + (annual_rent * MGMT_FEE_PCT)) / annual_rent if annual_rent > 0 else 0
-
-    net_annual_cashflow = noi - annual_repayment
-    net_weekly_cashflow = net_annual_cashflow / 52
-
-    rule_applied = ""
-    is_new = "New Build" in build_class
-    if is_new:
-        rule_applied = "Budget 2026: Negative Gearing Allowed (New Build)"
-        depreciation = DEPRECIATION_Y1
-        taxable_income = net_annual_cashflow - depreciation
-        tax_benefit = max(0, -taxable_income * TAX_RATE)
-        quarantined_loss = 0
-    else:
-        rule_applied = "Budget 2026: Negative Gearing Quarantined (Established)"
-        tax_benefit = 0
-        quarantined_loss = abs(min(0, net_annual_cashflow))
-
-    post_tax_cashflow = net_annual_cashflow + tax_benefit
-    cash_on_cash = post_tax_cashflow / equity if equity > 0 else 0
-    roe = post_tax_cashflow / equity if equity > 0 else 0
-
-    cashflows = [-equity] + [post_tax_cashflow]*9
-    future_value = price * ((1 + CAPITAL_GROWTH_PCT)**10)
-    loan_balance_10 = float(npf.fv(monthly_rate, 10*12, monthly_repayment, loan_amount)) * -1
-    net_proceeds = future_value * (1 - SALE_COST_PCT) - loan_balance_10
-    cashflows.append(post_tax_cashflow + net_proceeds)
-    
-    try: irr = float(npf.irr(cashflows))
-    except: irr = 0
-
-    if net_weekly_cashflow > 0: status = "Positive"
-    elif net_weekly_cashflow > -100: status = "Neutral/Slight Negative"
-    else: status = "Negative"
-
-    return [
-        round(noi), round(cap_rate*100,2), round(gross_yield*100,2), round(net_yield*100,2),
-        round(monthly_repayment), round(dscr,2), round(ber*100,2), round(net_annual_cashflow),
-        round(net_weekly_cashflow), round(quarantined_loss), round(tax_benefit),
-        round(post_tax_cashflow), round(equity), round(cash_on_cash*100,2),
-        round(irr*100,2), round(roe*100,2), status, rule_applied
-    ]
-
-def fetch_with_apify(client, mode):
-    urls = []
-    # Convert SUBURBS dictionary to a list of its values to process
-    suburb_slugs = list(SUBURBS.values())
-    
-    # LIMIT to only the first 3 suburbs to prevent Apify free-tier memory crash
-    suburb_slugs = suburb_slugs[:3]
-    
-    if mode == "buy":
-        for val in suburb_slugs: urls.append(f"https://www.domain.com.au/sale/?suburb={val}&ptype=house,acreage&excludeunderoffer=1")
-    elif mode == "rent":
-        for val in suburb_slugs: urls.append(f"https://www.domain.com.au/rent/?suburb={val}&ptype=house,acreage")
-    elif mode == "sold":
-        for val in suburb_slugs: urls.append(f"https://www.domain.com.au/sold-listings/?suburb={val}&ptype=house,acreage")
-    
-    try:
-        run_input = {"startUrls": [{"url": u} for u in urls]}
-        # Wait specifically for the run to finish (prevent GitHub giving up early)
-        run = client.actor("sahyog-inv/apifydomain-1").call(run_input=run_input, wait_secs=120)
-        return client.dataset(run["defaultDatasetId"]).iterate_items()
-    except Exception as e:
-        print(f"Apify fetch failed for {mode}: {e}")
+# -------------------------------------------------------------------
+# RAPIDAPI REPLACEMENT FOR APIFY
+# -------------------------------------------------------------------
+def fetch_with_rapidapi(mode):
+    if not RAPIDAPI_KEY:
+        print("Error: RAPIDAPI_KEY is missing. Skipping RapidAPI fetch.")
         return []
+        
+    url = "https://realty-in-au.p.rapidapi.com/properties/list"
+    headers = {
+        "X-RapidAPI-Key": RAPIDAPI_KEY,
+        "X-RapidAPI-Host": "realty-in-au.p.rapidapi.com"
+    }
+    
+    all_items = []
+    
+    # Loop through each suburb
+    for suburb_name, postcode_slug in SUBURBS.items():
+        postcode = postcode_slug.split("-")[-1] if "-" in postcode_slug else ""
+        
+        channel = "buy"
+        if mode == "rent":
+            channel = "rent"
+        elif mode == "sold":
+            channel = "sold"
+            
+        querystring = {
+            "channel": channel,
+            "searchQuery": f"{suburb_name},{postcode}",
+            "propertyTypes": "house,acreage",
+            "pageSize": "30"
+        }
 
+        try:
+            response = requests.get(url, headers=headers, params=querystring, timeout=30)
+            
+            # Handle rate limits
+            if response.status_code == 429:
+                print(f"Rate limited on {suburb_name}. Sleeping 2s...")
+                time.sleep(2)
+                response = requests.get(url, headers=headers, params=querystring, timeout=30)
+                
+            data = response.json()
+            
+            # Extract properties (often under exactResult or tieredResults)
+            results = data.get("exactResult", [])
+            if not results and "tieredResults" in data:
+                for tier in data["tieredResults"]:
+                    results.extend(tier.get("results", []))
+            
+            # Map RapidAPI JSON format into the old Apify format structure
+            for res in results:
+                prop_info = res.get("property", res)
+                price_info = res.get("price", {})
+                
+                item = {
+                    "address": prop_info.get("displayAddress", ""),
+                    "suburb": suburb_name,
+                    "propertyType": prop_info.get("propertyType", "House"),
+                    "bedrooms": prop_info.get("bedrooms"),
+                    "bathrooms": prop_info.get("bathrooms"),
+                    "carSpaces": prop_info.get("carSpaces"),
+                    "landArea": prop_info.get("landSize", ""),
+                    "priceText": price_info.get("display", "") or prop_info.get("price", ""),
+                    "description": res.get("description", ""),
+                    "headline": res.get("headline", ""),
+                    "listingDate": res.get("dateListed", ""),
+                    "soldDate": res.get("dateSold", ""),
+                    "isAuction": "auction" in str(price_info.get("display", "")).lower(),
+                    "url": res.get("url", prop_info.get("url", "")),
+                    "agency": {"name": res.get("agency", {}).get("name", "Unknown")}
+                }
+                all_items.append(item)
+            
+            # Sleep slightly between suburbs to respect Free Tier API rate limits
+            time.sleep(0.5)
+            
+        except Exception as e:
+            print(f"RapidAPI fetch failed for {suburb_name} ({mode}): {e}")
+            
+    return all_items
+
+# -------------------------------------------------------------------
+# MAIN PIPELINE
+# -------------------------------------------------------------------
 def main():
-    if not APIFY_API_TOKEN:
-        print("Error: APIFY_API_TOKEN is missing. Pipeline cannot run.")
-        return
-
-    client = ApifyClient(APIFY_API_TOKEN)
     today = datetime.date.today().strftime("%Y-%m-%d")
     today_dt = datetime.datetime.now()
 
@@ -352,7 +422,9 @@ def main():
     print("=== RENT (MEDIANS) ===")
     suburb_medians = {}
     rent_data = []
-    for item in fetch_with_apify(client, "rent"):
+    
+    # RAPIDAPI CALL
+    for item in fetch_with_rapidapi("rent"):
         rp = parse_rent_price(item.get("price") or item.get("priceText") or "")
         sub = item.get("suburb") or item.get("address", "").split(",")[0].strip()
         if rp and sub: rent_data.append({"Suburb": sub, "Rent": rp})
@@ -372,7 +444,7 @@ def main():
     else:
         print("Failed to acquire Domain token or skipped.")
 
-    # Domain listings first
+    # Domain listings first (if Live permissions exist)
     if domain_token:
         for suburb_name, postcode_slug in SUBURBS.items():
             postcode = postcode_slug.split("-")[-1] if "-" in postcode_slug else None
@@ -383,8 +455,9 @@ def main():
                     row = domain_listing_to_buy_row(listing, suburb_medians, today, today_dt)
                     buy_rows.append(row)
 
-    print("Fetching Apify properties...")
-    for item in fetch_with_apify(client, "buy"):
+    print("Fetching RapidAPI properties...")
+    # RAPIDAPI CALL
+    for item in fetch_with_rapidapi("buy"):
         price = parse_price(item.get("price") or item.get("priceText") or item.get("displayPrice") or "")
         
         raw_land = str(item.get("landArea") or item.get("landSize") or item.get("features", {}).get("landSize") or "0").lower()
@@ -449,7 +522,9 @@ def main():
 
     print("=== SOLD ===")
     sold_rows = []
-    for item in fetch_with_apify(client, "sold"):
+    
+    # RAPIDAPI CALL
+    for item in fetch_with_rapidapi("sold"):
         price = parse_price(item.get("price") or item.get("priceText") or item.get("displayPrice") or "")
         raw_land = str(item.get("landArea") or item.get("landSize") or item.get("features", {}).get("landSize") or "0").lower()
         raw_land = raw_land.replace(',', '').strip()
@@ -460,6 +535,13 @@ def main():
         elif "acre" in raw_land:
             num = float(''.join(c for c in raw_land if c.isdigit() or c == '.'))
             land_m2 = num * 4046.86
+        else:
+            nums = re.findall(r'\d+(?:\.\d+)?', raw_land)
+            if nums:
+                land_m2 = float(nums[0])
+            else:
+                land_m2 = None
+                
         suburb  = item.get("suburb") or item.get("address","").split(",")[0].strip() or "Unknown"
         sold_rows.append({
             "Date Pulled": today, "Address": item.get("address",""), "Suburb": suburb,
