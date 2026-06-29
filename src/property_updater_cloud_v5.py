@@ -21,7 +21,17 @@ TAX_RATE = 0.37
 DEPRECIATION_Y1 = 10000
 SALE_COST_PCT = 0.02
 
-SUBURBS = {
+import json
+import os
+
+# Load suburbs from external JSON file
+suburbs_file = os.path.join(os.path.dirname(__file__), 'suburbs.json')
+if os.path.exists(suburbs_file):
+    with open(suburbs_file, 'r') as f:
+        SUBURBS = json.load(f)
+else:
+    print(f'Warning: {suburbs_file} not found. Using default list.')
+    SUBURBS = {
     "Cooroy":         "cooroy-qld-4563",
     "Black Mountain": "black-mountain-qld-4563",
     "Tinbeerwah":     "tinbeerwah-qld-4563",
