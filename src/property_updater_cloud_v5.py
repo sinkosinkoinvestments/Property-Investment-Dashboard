@@ -25,120 +25,32 @@ import json
 import os
 
 # Load suburbs from external JSON file
-suburbs_file = os.path.join(os.path.dirname(__file__), 'suburbs.json')
-if os.path.exists(suburbs_file):
-    with open(suburbs_file, 'r') as f:
+possible_paths = [
+    'src/suburbs.json',
+    'suburbs.json',
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), 'suburbs.json')
+]
+
+SUBURBS = {}
+for path in possible_paths:
+    if os.path.exists(path):
+        print(f"Found suburbs list at: {path}")
         try:
-            SUBURBS = json.load(f)
-        except json.JSONDecodeError as e:
-            print(f'JSON Error in suburbs.json: {e}')
-            print('Falling back to default list.')
-            SUBURBS = {
-    "Gympie": "gympie-qld-4570",
-    "Southside": "southside-qld-4570",
-    "Pie Creek": "pie-creek-qld-4570",
-    "Jones Hill": "jones-hill-qld-4570",
-    "Chatsworth": "chatsworth-qld-4570",
-    "Kybong": "kybong-qld-4570",
-    "Langshaw": "langshaw-qld-4570",
-    "Dagun": "dagun-qld-4570",
-    "Amamoor": "amamoor-qld-4570",
-    "Kandanga": "kandanga-qld-4570",
-    "Imbil": "imbil-qld-4570",
-    "Brooloo": "brooloo-qld-4570",
-    "Coles Creek": "coles-creek-qld-4570",
-    "Traveston": "traveston-qld-4570",
-    "Tandur": "tandur-qld-4570",
-    "Canina": "canina-qld-4570",
-    "Widgee": "widgee-qld-4570",
-    "Glastonbury": "glastonbury-qld-4570",
-    "The Dawn": "the-dawn-qld-4570",
-    "Mothar Mountain": "mothar-mountain-qld-4570",
-    "Woondum": "woondum-qld-4570",
-    "Wolvi": "wolvi-qld-4570",
-    "Veteran": "veteran-qld-4570",
-    "The Palms": "the-palms-qld-4570",
-    "Araluen": "araluen-qld-4570",
-    "Kin Kin": "kin-kin-qld-4571",
-    "Cooran": "cooran-qld-4568",
-    "Pomona": "pomona-qld-4568",
-    "Pinbarren": "pinbarren-qld-4568",
-    "Federal": "federal-qld-4568",
-    "Cooroy": "cooroy-qld-4563",
-    "Cooroy Mountain": "cooroy-mountain-qld-4563",
-    "Black Mountain": "black-mountain-qld-4563",
-    "Lake Macdonald": "lake-macdonald-qld-4563",
-    "Tinbeerwah": "tinbeerwah-qld-4563",
-    "Ridgewood": "ridgewood-qld-4562",
-    "Carters Ridge": "carters-ridge-qld-4563",
-    "Eumundi": "eumundi-qld-4562",
-    "Doonan": "doonan-qld-4562",
-    "Verrierdale": "verrierdale-qld-4562",
-    "Ringtail Creek": "ringtail-creek-qld-4565",
-    "Eerwah Vale": "eerwah-vale-qld-4562",
-    "Cootharaba": "cootharaba-qld-4565",
-    "Belli Park": "belli-park-qld-4562",
-    "Kenilworth": "kenilworth-qld-4574",
-    "Gheerulla": "gheerulla-qld-4574",
-    "Cambroon": "cambroon-qld-4574",
-    "Kidaman Creek": "kidaman-creek-qld-4574",
-    "Obi Obi": "obi-obi-qld-4574",
-    "North Arm": "north-arm-qld-4561",
-    "Yandina": "yandina-qld-4561",
-    "Yandina Creek": "yandina-creek-qld-4561",
-    "Ninderry": "ninderry-qld-4561",
-    "Bridges": "bridges-qld-4561",
-    "Maroochy River": "maroochy-river-qld-4561",
-    "Valdora": "valdora-qld-4561",
-    "Rosemount": "rosemount-qld-4560",
-    "Mapleton": "mapleton-qld-4560",
-    "Flaxton": "flaxton-qld-4560",
-    "Montville": "montville-qld-4560",
-    "Nambour": "nambour-qld-4560",
-    "Burnside": "burnside-qld-4560",
-    "Coes Creek": "coes-creek-qld-4560",
-    "Woombye": "woombye-qld-4559",
-    "Kiels Mountain": "kiels-mountain-qld-4559",
-    "Palmwoods": "palmwoods-qld-4555",
-    "Eudlo": "eudlo-qld-4554",
-    "Ilkley": "ilkley-qld-4554",
-    "Chevallum": "chevallum-qld-4555",
-    "Cooloolabin": "cooloolabin-qld-4561",
-    "Highworth": "highworth-qld-4560",
-    "Perwillowen": "perwillowen-qld-4560",
-    "Towen Mountain": "towen-mountain-qld-4560",
-    "Dulong": "dulong-qld-4560",
-    "Maleny": "maleny-qld-4552",
-    "Witta": "witta-qld-4552",
-    "Conondale": "conondale-qld-4552",
-    "Curramore": "curramore-qld-4552",
-    "Reesville": "reesville-qld-4552",
-    "Balmoral Ridge": "balmoral-ridge-qld-4552",
-    "Mooloolah Valley": "mooloolah-valley-qld-4553",
-    "Glenview": "glenview-qld-4553",
-    "Diamond Valley": "diamond-valley-qld-4553",
-    "Landsborough": "landsborough-qld-4550",
-    "Mount Mellum": "mount-mellum-qld-4550",
-    "Beerwah": "beerwah-qld-4519",
-    "Peachester": "peachester-qld-4519",
-    "Crohamhurst": "crohamhurst-qld-4519",
-    "Glass House Mountains": "glass-house-mountains-qld-4518",
-    "Beerburrum": "beerburrum-qld-4517",
-    "Palmview": "palmview-qld-4553",
-    "Bald Knob": "bald-knob-qld-4552",
-    "Booroobin": "booroobin-qld-4552",
-    "Bellthorpe": "bellthorpe-qld-4552",
-    "Crystal Waters": "crystal-waters-qld-4552" 
-}
-else:
-    print(f'Warning: {suburbs_file} not found. Using default list.')
+            with open(path, 'r', encoding='utf-8') as f:
+                SUBURBS = json.load(f)
+            break
+        except Exception as e:
+            print(f"Error reading JSON from {path}: {e}")
+
+if not SUBURBS:
+    print("Warning: Could not load suburbs.json. Falling back to default list.")
     SUBURBS = {
-    "Cooroy":         "cooroy-qld-4563",
-    "Black Mountain": "black-mountain-qld-4563",
-    "Tinbeerwah":     "tinbeerwah-qld-4563",
-    "Yandina":        "yandina-qld-4561",
-    "Mapleton":       "mapleton-qld-4560",
-}
+        "Cooroy": "cooroy-qld-4563",
+        "Black Mountain": "black-mountain-qld-4563",
+        "Tinbeerwah": "tinbeerwah-qld-4563",
+        "Yandina": "yandina-qld-4561",
+        "Mapleton": "mapleton-qld-4560"
+    }
 
 NEW_BUILD_KEYWORDS = ["new build","brand new","newly built","under construction","house and land","off the plan"]
 DUAL_KEYWORDS      = ["dual living","granny flat","dual occupancy","second dwelling"]
