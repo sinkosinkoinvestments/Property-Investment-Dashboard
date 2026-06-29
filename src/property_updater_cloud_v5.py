@@ -336,10 +336,19 @@ def fetch_with_rapidapi(mode):
         print("Error: RAPIDAPI_KEY is missing. Skipping RapidAPI fetch.")
         return []
         
-    url = "https://realty-in-au.p.rapidapi.com/properties/list"
+    # The endpoints are specific to the mode for the Domain AU (by Vibe) API
+    if mode == "buy":
+        url = "https://domain-au.p.rapidapi.com/properties/buy/search"
+    elif mode == "rent":
+        url = "https://domain-au.p.rapidapi.com/properties/rent/search"
+    elif mode == "sold":
+        url = "https://domain-au.p.rapidapi.com/properties/sold/search"
+    else:
+        return []
+
     headers = {
         "X-RapidAPI-Key": RAPIDAPI_KEY,
-        "X-RapidAPI-Host": "realty-in-au.p.rapidapi.com"
+        "X-RapidAPI-Host": "domain-au.p.rapidapi.com"
     }
     
     all_items = []
@@ -347,17 +356,13 @@ def fetch_with_rapidapi(mode):
     for suburb_name, postcode_slug in SUBURBS.items():
         postcode = postcode_slug.split("-")[-1] if "-" in postcode_slug else ""
         
-        channel = "buy"
-        if mode == "rent":
-            channel = "rent"
-        elif mode == "sold":
-            channel = "sold"
-            
-        # Updated to match the exact properties/list requirements
+        # This API likely expects a "query" or "locations" parameter. 
+        # Usually, a single string search is supported under a generic query parameter.
         querystring = {
-            "channel": channel,
-            "searchQuery": f"{suburb_name} QLD {postcode}",
-            "pageSize": "30"
+            "query": f"{suburb_name} QLD {postcode}",
+            # If the API specifically requires a location object/array instead of a string query, 
+            # you might need to adjust this parameter based on the API docs. 
+            # Most accept 'query' or 'search' or 'keyword'
         }
 
         try:
@@ -373,59 +378,45 @@ def fetch_with_rapidapi(mode):
                 continue
                 
             try:
-                data = response.json()
+                response_json = response.json()
             except ValueError:
                 print(f"Invalid JSON returned for {suburb_name}")
                 continue
             
-            # Extract from tieredResults or exactResult depending on what RapidAPI returns
-            results = []
-            if "tieredResults" in data:
-                for tier in data.get("tieredResults", []):
-                    results.extend(tier.get("results", []))
-            elif "exactResult" in data:
-                results = data.get("exactResult", [])
-            elif "listings" in data:
-                results = data.get("listings", [])
-                
+            # According to your screenshot, the properties are in the "data" array
+            results = response_json.get("data", [])
+            
             if not results:
                 print(f"No properties found for {suburb_name} ({mode})")
-            
+                
             for res in results:
-                # Safely get property and price data regardless of structure
-                prop_info = res.get("property", res)
-                price_info = res.get("price", {})
+                price_info = res.get("priceDetails", {})
+                price_text = price_info.get("displayPrice", "")
                 
-                price_text = ""
-                if isinstance(price_info, dict):
-                    price_text = price_info.get("display", "")
-                elif isinstance(price_info, str):
-                    price_text = price_info
-                
-                # Sometimes features are nested
-                features = res.get("generalFeatures", prop_info)
-                address_info = res.get("address", prop_info)
+                # The screenshot doesn't show the address block expanded, but usually it's under 'address'
+                address_info = res.get("address", {})
                 
                 item = {
-                    "address": address_info.get("streetAddress", address_info.get("shortAddress", "")),
+                    "address": address_info.get("displayAddress", address_info.get("streetAddress", "")),
                     "suburb": address_info.get("suburb", suburb_name),
-                    "propertyType": features.get("propertyType", prop_info.get("propertyType", "House")),
-                    "bedrooms": features.get("bedrooms", prop_info.get("bedrooms")),
-                    "bathrooms": features.get("bathrooms", prop_info.get("bathrooms")),
-                    "carSpaces": features.get("parkingSpaces", prop_info.get("carSpaces")),
-                    "landArea": res.get("landSize", features.get("landSize", prop_info.get("landSize", ""))),
+                    "propertyType": res.get("propertyType", "House"),
+                    "bedrooms": res.get("bedrooms"),
+                    "bathrooms": res.get("bathrooms"),
+                    "carSpaces": res.get("carspaces"),
+                    "landArea": res.get("landArea", ""),
                     "priceText": price_text,
                     "description": res.get("description", ""),
                     "headline": res.get("headline", ""),
                     "listingDate": res.get("dateListed", ""),
                     "soldDate": res.get("dateSold", ""),
                     "isAuction": "auction" in str(price_text).lower(),
-                    "url": res.get("url", res.get("_links", {}).get("canonical", {}).get("href", "")),
-                    "agency": {"name": res.get("agency", {}).get("name", "Unknown")}
+                    # Adjust URL construction if the API provides relative links vs full URLs
+                    "url": f"https://www.domain.com.au/property-profile/{res.get('id', '')}" if res.get('id') else "",
+                    "agency": {"name": res.get("advertiser", {}).get("name", "Unknown")}
                 }
                 all_items.append(item)
             
-            time.sleep(1) # Extra sleep to avoid limits
+            time.sleep(0.5) 
             
         except Exception as e:
             print(f"Fetch failed for {suburb_name}: {e}")
