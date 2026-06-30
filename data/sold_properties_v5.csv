@@ -1,1 +1,1361 @@
-
+Date Pulled,Address,Suburb,Property Type,Beds,Baths,Cars,Land Size (m2),Sale Price ($),Price Per Acre ($),Sale Date,Agency,URL
+2026-06-30,,Southside,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Southside,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Southside,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Southside,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Southside,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Southside,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Southside,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Southside,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Southside,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Southside,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Southside,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Southside,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Southside,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Southside,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Southside,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Southside,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Southside,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Southside,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Southside,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Southside,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Chatsworth,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Chatsworth,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Chatsworth,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Chatsworth,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Chatsworth,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Chatsworth,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Chatsworth,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Chatsworth,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Chatsworth,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Chatsworth,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Chatsworth,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Chatsworth,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Chatsworth,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Chatsworth,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Chatsworth,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Chatsworth,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Chatsworth,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Chatsworth,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Chatsworth,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Chatsworth,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Langshaw,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Langshaw,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Langshaw,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Langshaw,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Langshaw,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Langshaw,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Langshaw,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Langshaw,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Langshaw,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Langshaw,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Langshaw,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Langshaw,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Langshaw,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Langshaw,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Langshaw,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Langshaw,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Langshaw,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Langshaw,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Langshaw,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Langshaw,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Dagun,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Dagun,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Dagun,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Dagun,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Dagun,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Dagun,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Dagun,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Dagun,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Dagun,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Dagun,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Dagun,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Dagun,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Dagun,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Dagun,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Dagun,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Dagun,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Dagun,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Dagun,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Dagun,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Dagun,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Amamoor,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Amamoor,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Amamoor,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Amamoor,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Amamoor,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Amamoor,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Amamoor,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Amamoor,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Amamoor,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Amamoor,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Amamoor,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Amamoor,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Amamoor,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Amamoor,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Amamoor,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Amamoor,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Amamoor,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Amamoor,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Amamoor,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Amamoor,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Imbil,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Imbil,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Imbil,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Imbil,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Imbil,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Imbil,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Imbil,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Imbil,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Imbil,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Imbil,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Imbil,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Imbil,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Imbil,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Imbil,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Imbil,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Imbil,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Imbil,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Imbil,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Imbil,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Imbil,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Brooloo,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Brooloo,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Brooloo,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Brooloo,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Brooloo,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Brooloo,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Brooloo,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Brooloo,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Brooloo,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Brooloo,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Brooloo,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Brooloo,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Brooloo,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Brooloo,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Brooloo,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Brooloo,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Brooloo,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Brooloo,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Brooloo,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Brooloo,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Coles Creek,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Coles Creek,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Coles Creek,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Coles Creek,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Coles Creek,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Coles Creek,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Coles Creek,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Coles Creek,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Coles Creek,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Coles Creek,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Coles Creek,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Coles Creek,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Coles Creek,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Coles Creek,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Coles Creek,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Coles Creek,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Coles Creek,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Coles Creek,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Coles Creek,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Coles Creek,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Tandur,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Tandur,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Tandur,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Tandur,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Tandur,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Tandur,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Tandur,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Tandur,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Tandur,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Tandur,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Tandur,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Tandur,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Tandur,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Tandur,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Tandur,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Tandur,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Tandur,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Tandur,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Tandur,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Tandur,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Canina,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Canina,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Canina,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Canina,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Canina,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Canina,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Canina,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Canina,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Canina,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Canina,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Canina,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Canina,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Canina,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Canina,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Canina,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Canina,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Canina,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Canina,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Canina,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Canina,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Widgee,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Widgee,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Widgee,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Widgee,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Widgee,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Widgee,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Widgee,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Widgee,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Widgee,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Widgee,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Widgee,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Widgee,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Widgee,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Widgee,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Widgee,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Widgee,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Widgee,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Widgee,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Widgee,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Widgee,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Glastonbury,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Glastonbury,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Glastonbury,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Glastonbury,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Glastonbury,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Glastonbury,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Glastonbury,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Glastonbury,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Glastonbury,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Glastonbury,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Glastonbury,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Glastonbury,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Glastonbury,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Glastonbury,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Glastonbury,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Glastonbury,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Glastonbury,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Glastonbury,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Glastonbury,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Glastonbury,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Woondum,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Woondum,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Woondum,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Woondum,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Woondum,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Woondum,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Woondum,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Woondum,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Woondum,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Woondum,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Woondum,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Woondum,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Woondum,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Woondum,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Woondum,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Woondum,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Woondum,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Woondum,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Woondum,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Woondum,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Wolvi,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Wolvi,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Wolvi,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Wolvi,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Wolvi,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Wolvi,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Wolvi,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Wolvi,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Wolvi,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Wolvi,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Wolvi,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Wolvi,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Wolvi,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Wolvi,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Wolvi,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Wolvi,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Wolvi,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Wolvi,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Wolvi,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Wolvi,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,The Palms,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,The Palms,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,The Palms,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,The Palms,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,The Palms,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,The Palms,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,The Palms,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,The Palms,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,The Palms,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,The Palms,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,The Palms,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,The Palms,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,The Palms,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,The Palms,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,The Palms,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,The Palms,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,The Palms,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,The Palms,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,The Palms,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,The Palms,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Araluen,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Araluen,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Araluen,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Araluen,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Araluen,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Araluen,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Araluen,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Araluen,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Araluen,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Araluen,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Araluen,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Araluen,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Araluen,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Araluen,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Araluen,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Araluen,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Araluen,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Araluen,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Araluen,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Araluen,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Kin Kin,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Kin Kin,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Kin Kin,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Kin Kin,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Kin Kin,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Kin Kin,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Kin Kin,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Kin Kin,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Kin Kin,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Kin Kin,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Kin Kin,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Kin Kin,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Kin Kin,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Kin Kin,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Kin Kin,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Kin Kin,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Kin Kin,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Kin Kin,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Kin Kin,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Kin Kin,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Cooran,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Cooran,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Cooran,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Cooran,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Cooran,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Cooran,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Cooran,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Cooran,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Cooran,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Cooran,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Cooran,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Cooran,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Cooran,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Cooran,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Cooran,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Cooran,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Cooran,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Cooran,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Cooran,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Cooran,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Pomona,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Pomona,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Pomona,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Pomona,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Pomona,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Pomona,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Pomona,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Pomona,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Pomona,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Pomona,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Pomona,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Pomona,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Pomona,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Pomona,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Pomona,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Pomona,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Pomona,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Pomona,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Pomona,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Pomona,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Pinbarren,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Pinbarren,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Pinbarren,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Pinbarren,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Pinbarren,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Pinbarren,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Pinbarren,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Pinbarren,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Pinbarren,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Pinbarren,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Pinbarren,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Pinbarren,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Pinbarren,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Pinbarren,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Pinbarren,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Pinbarren,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Pinbarren,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Pinbarren,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Pinbarren,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Pinbarren,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Federal,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Federal,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Federal,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Federal,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Federal,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Federal,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Federal,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Federal,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Federal,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Federal,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Federal,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Federal,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Federal,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Federal,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Federal,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Federal,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Federal,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Federal,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Federal,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Federal,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Cooroy,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Cooroy,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Cooroy,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Cooroy,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Cooroy,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Cooroy,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Cooroy,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Cooroy,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Cooroy,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Cooroy,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Cooroy,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Cooroy,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Cooroy,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Cooroy,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Cooroy,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Cooroy,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Cooroy,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Cooroy,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Cooroy,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Cooroy,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Lake Macdonald,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Lake Macdonald,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Lake Macdonald,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Lake Macdonald,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Lake Macdonald,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Lake Macdonald,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Lake Macdonald,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Lake Macdonald,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Lake Macdonald,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Lake Macdonald,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Lake Macdonald,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Lake Macdonald,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Lake Macdonald,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Lake Macdonald,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Lake Macdonald,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Lake Macdonald,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Lake Macdonald,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Lake Macdonald,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Lake Macdonald,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Lake Macdonald,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Tinbeerwah,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Tinbeerwah,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Tinbeerwah,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Tinbeerwah,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Tinbeerwah,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Tinbeerwah,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Tinbeerwah,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Tinbeerwah,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Tinbeerwah,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Tinbeerwah,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Tinbeerwah,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Tinbeerwah,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Tinbeerwah,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Tinbeerwah,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Tinbeerwah,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Tinbeerwah,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Tinbeerwah,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Tinbeerwah,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Tinbeerwah,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Tinbeerwah,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Carters Ridge,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Carters Ridge,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Carters Ridge,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Carters Ridge,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Carters Ridge,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Carters Ridge,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Carters Ridge,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Carters Ridge,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Carters Ridge,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Carters Ridge,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Carters Ridge,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Carters Ridge,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Carters Ridge,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Carters Ridge,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Carters Ridge,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Carters Ridge,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Carters Ridge,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Carters Ridge,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Carters Ridge,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Carters Ridge,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Eumundi,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Eumundi,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Eumundi,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Eumundi,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Eumundi,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Eumundi,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Eumundi,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Eumundi,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Eumundi,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Eumundi,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Eumundi,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Eumundi,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Eumundi,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Eumundi,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Eumundi,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Eumundi,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Eumundi,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Eumundi,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Eumundi,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Eumundi,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Doonan,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Doonan,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Doonan,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Doonan,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Doonan,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Doonan,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Doonan,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Doonan,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Doonan,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Doonan,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Doonan,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Doonan,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Doonan,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Doonan,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Doonan,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Doonan,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Doonan,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Doonan,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Doonan,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Doonan,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Verrierdale,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Verrierdale,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Verrierdale,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Verrierdale,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Verrierdale,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Verrierdale,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Verrierdale,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Verrierdale,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Verrierdale,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Verrierdale,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Verrierdale,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Verrierdale,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Verrierdale,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Verrierdale,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Verrierdale,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Verrierdale,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Verrierdale,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Verrierdale,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Verrierdale,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Verrierdale,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Ringtail Creek,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Ringtail Creek,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Ringtail Creek,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Ringtail Creek,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Ringtail Creek,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Ringtail Creek,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Ringtail Creek,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Ringtail Creek,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Ringtail Creek,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Ringtail Creek,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Ringtail Creek,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Ringtail Creek,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Ringtail Creek,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Ringtail Creek,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Ringtail Creek,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Ringtail Creek,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Ringtail Creek,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Ringtail Creek,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Ringtail Creek,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Ringtail Creek,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Cootharaba,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Cootharaba,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Cootharaba,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Cootharaba,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Cootharaba,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Cootharaba,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Cootharaba,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Cootharaba,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Cootharaba,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Cootharaba,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Cootharaba,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Cootharaba,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Cootharaba,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Cootharaba,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Cootharaba,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Cootharaba,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Cootharaba,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Cootharaba,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Cootharaba,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Cootharaba,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Kenilworth,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Kenilworth,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Kenilworth,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Kenilworth,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Kenilworth,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Kenilworth,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Kenilworth,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Kenilworth,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Kenilworth,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Kenilworth,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Kenilworth,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Kenilworth,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Kenilworth,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Kenilworth,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Kenilworth,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Kenilworth,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Kenilworth,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Kenilworth,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Kenilworth,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Kenilworth,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Gheerulla,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Gheerulla,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Gheerulla,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Gheerulla,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Gheerulla,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Gheerulla,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Gheerulla,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Gheerulla,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Gheerulla,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Gheerulla,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Gheerulla,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Gheerulla,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Gheerulla,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Gheerulla,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Gheerulla,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Gheerulla,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Gheerulla,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Gheerulla,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Gheerulla,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Gheerulla,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Cambroon,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Cambroon,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Cambroon,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Cambroon,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Cambroon,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Cambroon,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Cambroon,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Cambroon,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Cambroon,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Cambroon,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Cambroon,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Cambroon,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Cambroon,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Cambroon,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Cambroon,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Cambroon,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Cambroon,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Cambroon,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Cambroon,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Cambroon,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Kidaman Creek,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Kidaman Creek,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Kidaman Creek,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Kidaman Creek,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Kidaman Creek,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Kidaman Creek,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Kidaman Creek,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Kidaman Creek,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Kidaman Creek,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Kidaman Creek,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Kidaman Creek,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Kidaman Creek,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Kidaman Creek,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Kidaman Creek,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Kidaman Creek,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Kidaman Creek,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Kidaman Creek,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Kidaman Creek,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Kidaman Creek,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Kidaman Creek,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Yandina,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Yandina,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Yandina,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Yandina,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Yandina,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Yandina,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Yandina,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Yandina,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Yandina,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Yandina,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Yandina,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Yandina,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Yandina,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Yandina,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Yandina,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Yandina,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Yandina,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Yandina,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Yandina,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Yandina,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Yandina Creek,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Yandina Creek,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Yandina Creek,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Yandina Creek,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Yandina Creek,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Yandina Creek,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Yandina Creek,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Yandina Creek,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Yandina Creek,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Yandina Creek,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Yandina Creek,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Yandina Creek,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Yandina Creek,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Yandina Creek,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Yandina Creek,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Yandina Creek,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Yandina Creek,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Yandina Creek,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Yandina Creek,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Yandina Creek,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Ninderry,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Ninderry,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Ninderry,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Ninderry,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Ninderry,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Ninderry,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Ninderry,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Ninderry,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Ninderry,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Ninderry,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Ninderry,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Ninderry,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Ninderry,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Ninderry,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Ninderry,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Ninderry,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Ninderry,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Ninderry,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Ninderry,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Ninderry,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Bridges,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Bridges,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Bridges,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Bridges,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Bridges,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Bridges,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Bridges,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Bridges,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Bridges,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Bridges,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Bridges,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Bridges,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Bridges,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Bridges,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Bridges,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Bridges,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Bridges,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Bridges,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Bridges,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Bridges,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Maroochy River,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Maroochy River,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Maroochy River,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Maroochy River,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Maroochy River,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Maroochy River,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Maroochy River,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Maroochy River,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Maroochy River,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Maroochy River,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Maroochy River,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Maroochy River,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Maroochy River,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Maroochy River,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Maroochy River,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Maroochy River,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Maroochy River,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Maroochy River,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Maroochy River,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Maroochy River,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Rosemount,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Rosemount,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Rosemount,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Rosemount,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Rosemount,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Rosemount,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Rosemount,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Rosemount,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Rosemount,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Rosemount,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Rosemount,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Rosemount,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Rosemount,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Rosemount,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Rosemount,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Rosemount,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Rosemount,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Rosemount,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Rosemount,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Rosemount,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Flaxton,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Flaxton,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Flaxton,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Flaxton,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Flaxton,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Flaxton,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Flaxton,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Flaxton,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Flaxton,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Flaxton,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Flaxton,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Flaxton,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Flaxton,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Flaxton,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Flaxton,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Flaxton,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Flaxton,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Flaxton,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Flaxton,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Flaxton,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Montville,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Montville,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Montville,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Montville,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Montville,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Montville,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Montville,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Montville,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Montville,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Montville,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Montville,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Montville,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Montville,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Montville,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Montville,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Montville,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Montville,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Montville,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Montville,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Montville,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Nambour,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Nambour,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Nambour,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Nambour,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Nambour,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Nambour,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Nambour,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Nambour,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Nambour,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Nambour,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Nambour,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Nambour,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Nambour,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Nambour,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Nambour,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Nambour,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Nambour,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Nambour,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Nambour,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Nambour,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Coes Creek,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Coes Creek,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Coes Creek,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Coes Creek,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Coes Creek,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Coes Creek,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Coes Creek,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Coes Creek,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Coes Creek,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Coes Creek,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Coes Creek,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Coes Creek,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Coes Creek,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Coes Creek,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Coes Creek,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Coes Creek,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Coes Creek,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Coes Creek,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Coes Creek,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Coes Creek,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Kiels Mountain,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Kiels Mountain,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Kiels Mountain,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Kiels Mountain,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Kiels Mountain,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Kiels Mountain,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Kiels Mountain,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Kiels Mountain,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Kiels Mountain,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Kiels Mountain,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Kiels Mountain,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Kiels Mountain,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Kiels Mountain,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Kiels Mountain,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Kiels Mountain,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Kiels Mountain,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Kiels Mountain,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Kiels Mountain,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Kiels Mountain,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Kiels Mountain,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Palmwoods,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Palmwoods,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Palmwoods,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Palmwoods,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Palmwoods,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Palmwoods,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Palmwoods,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Palmwoods,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Palmwoods,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Palmwoods,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Palmwoods,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Palmwoods,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Palmwoods,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Palmwoods,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Palmwoods,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Palmwoods,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Palmwoods,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Palmwoods,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Palmwoods,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Palmwoods,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Eudlo,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Eudlo,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Eudlo,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Eudlo,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Eudlo,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Eudlo,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Eudlo,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Eudlo,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Eudlo,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Eudlo,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Eudlo,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Eudlo,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Eudlo,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Eudlo,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Eudlo,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Eudlo,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Eudlo,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Eudlo,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Eudlo,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Eudlo,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Ilkley,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Ilkley,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Ilkley,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Ilkley,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Ilkley,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Ilkley,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Ilkley,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Ilkley,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Ilkley,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Ilkley,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Ilkley,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Ilkley,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Ilkley,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Ilkley,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Ilkley,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Ilkley,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Ilkley,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Ilkley,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Ilkley,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Ilkley,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Cooloolabin,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Cooloolabin,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Cooloolabin,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Cooloolabin,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Cooloolabin,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Cooloolabin,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Cooloolabin,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Cooloolabin,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Cooloolabin,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Cooloolabin,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Cooloolabin,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Cooloolabin,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Cooloolabin,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Cooloolabin,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Cooloolabin,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Cooloolabin,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Cooloolabin,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Cooloolabin,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Cooloolabin,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Cooloolabin,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Perwillowen,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Perwillowen,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Perwillowen,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Perwillowen,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Perwillowen,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Perwillowen,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Perwillowen,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Perwillowen,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Perwillowen,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Perwillowen,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Perwillowen,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Perwillowen,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Perwillowen,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Perwillowen,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Perwillowen,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Perwillowen,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Perwillowen,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Perwillowen,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Perwillowen,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Perwillowen,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Towen Mountain,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Towen Mountain,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Towen Mountain,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Towen Mountain,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Towen Mountain,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Towen Mountain,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Towen Mountain,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Towen Mountain,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Towen Mountain,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Towen Mountain,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Towen Mountain,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Towen Mountain,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Towen Mountain,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Towen Mountain,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Towen Mountain,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Towen Mountain,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Towen Mountain,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Towen Mountain,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Towen Mountain,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Towen Mountain,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Dulong,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Dulong,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Dulong,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Dulong,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Dulong,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Dulong,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Dulong,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Dulong,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Dulong,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Dulong,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Dulong,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Dulong,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Dulong,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Dulong,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Dulong,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Dulong,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Dulong,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Dulong,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Dulong,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Dulong,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Witta,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Witta,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Witta,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Witta,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Witta,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Witta,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Witta,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Witta,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Witta,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Witta,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Witta,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Witta,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Witta,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Witta,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Witta,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Witta,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Witta,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Witta,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Witta,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Witta,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Curramore,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Curramore,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Curramore,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Curramore,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Curramore,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Curramore,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Curramore,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Curramore,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Curramore,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Curramore,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Curramore,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Curramore,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Curramore,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Curramore,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Curramore,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Curramore,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Curramore,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Curramore,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Curramore,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Curramore,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Reesville,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Reesville,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Reesville,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Reesville,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Reesville,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Reesville,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Reesville,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Reesville,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Reesville,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Reesville,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Reesville,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Reesville,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Reesville,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Reesville,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Reesville,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Reesville,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Reesville,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Reesville,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Reesville,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Reesville,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Balmoral Ridge,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Balmoral Ridge,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Balmoral Ridge,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Balmoral Ridge,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Balmoral Ridge,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Balmoral Ridge,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Balmoral Ridge,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Balmoral Ridge,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Balmoral Ridge,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Balmoral Ridge,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Balmoral Ridge,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Balmoral Ridge,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Balmoral Ridge,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Balmoral Ridge,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Balmoral Ridge,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Balmoral Ridge,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Balmoral Ridge,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Balmoral Ridge,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Balmoral Ridge,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Balmoral Ridge,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Mooloolah Valley,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Mooloolah Valley,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Mooloolah Valley,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Mooloolah Valley,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Mooloolah Valley,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Mooloolah Valley,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Mooloolah Valley,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Mooloolah Valley,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Mooloolah Valley,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Mooloolah Valley,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Mooloolah Valley,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Mooloolah Valley,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Mooloolah Valley,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Mooloolah Valley,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Mooloolah Valley,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Mooloolah Valley,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Mooloolah Valley,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Mooloolah Valley,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Mooloolah Valley,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Mooloolah Valley,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Diamond Valley,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Diamond Valley,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Diamond Valley,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Diamond Valley,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Diamond Valley,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Diamond Valley,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Diamond Valley,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Diamond Valley,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Diamond Valley,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Diamond Valley,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Diamond Valley,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Diamond Valley,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Diamond Valley,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Diamond Valley,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Diamond Valley,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Diamond Valley,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Diamond Valley,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Diamond Valley,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Diamond Valley,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Diamond Valley,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Landsborough,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Landsborough,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Landsborough,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Landsborough,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Landsborough,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Landsborough,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Landsborough,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Landsborough,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Landsborough,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Landsborough,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Landsborough,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Landsborough,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Landsborough,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Landsborough,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Landsborough,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Landsborough,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Landsborough,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Landsborough,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Landsborough,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Landsborough,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Mount Mellum,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Mount Mellum,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Mount Mellum,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Mount Mellum,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Mount Mellum,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Mount Mellum,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Mount Mellum,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Mount Mellum,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Mount Mellum,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Mount Mellum,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Mount Mellum,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Mount Mellum,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Mount Mellum,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Mount Mellum,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Mount Mellum,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Mount Mellum,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Mount Mellum,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Mount Mellum,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Mount Mellum,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Mount Mellum,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Beerwah,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Beerwah,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Beerwah,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Beerwah,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Beerwah,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Beerwah,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Beerwah,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Beerwah,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Beerwah,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Beerwah,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Beerwah,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Beerwah,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Beerwah,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Beerwah,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Beerwah,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Beerwah,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Beerwah,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Beerwah,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Beerwah,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Beerwah,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Peachester,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Peachester,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Peachester,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Peachester,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Peachester,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Peachester,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Peachester,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Peachester,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Peachester,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Peachester,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Peachester,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Peachester,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Peachester,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Peachester,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Peachester,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Peachester,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Peachester,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Peachester,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Peachester,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Peachester,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Crohamhurst,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Crohamhurst,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Crohamhurst,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Crohamhurst,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Crohamhurst,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Crohamhurst,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Crohamhurst,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Crohamhurst,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Crohamhurst,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Crohamhurst,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Crohamhurst,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Crohamhurst,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Crohamhurst,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Crohamhurst,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Crohamhurst,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Crohamhurst,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Crohamhurst,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Crohamhurst,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Crohamhurst,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Crohamhurst,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Glass House Mountains,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Glass House Mountains,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Glass House Mountains,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Glass House Mountains,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Glass House Mountains,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Glass House Mountains,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Glass House Mountains,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Glass House Mountains,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Glass House Mountains,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Glass House Mountains,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Glass House Mountains,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Glass House Mountains,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Glass House Mountains,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Glass House Mountains,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Glass House Mountains,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Glass House Mountains,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Glass House Mountains,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Glass House Mountains,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Glass House Mountains,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Glass House Mountains,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Bald Knob,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Bald Knob,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Bald Knob,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Bald Knob,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Bald Knob,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Bald Knob,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Bald Knob,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Bald Knob,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Bald Knob,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Bald Knob,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Bald Knob,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Bald Knob,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Bald Knob,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Bald Knob,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Bald Knob,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Bald Knob,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Bald Knob,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Bald Knob,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Bald Knob,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Bald Knob,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Booroobin,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Booroobin,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Booroobin,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Booroobin,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Booroobin,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Booroobin,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Booroobin,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Booroobin,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Booroobin,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Booroobin,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Booroobin,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Booroobin,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Booroobin,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Booroobin,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Booroobin,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Booroobin,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Booroobin,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Booroobin,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Booroobin,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Booroobin,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Bellthorpe,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Bellthorpe,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Bellthorpe,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Bellthorpe,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Bellthorpe,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Bellthorpe,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Bellthorpe,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Bellthorpe,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Bellthorpe,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Bellthorpe,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Bellthorpe,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Bellthorpe,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Bellthorpe,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Bellthorpe,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Bellthorpe,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Bellthorpe,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Bellthorpe,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Bellthorpe,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Bellthorpe,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Bellthorpe,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
+2026-06-30,,Crystal Waters,VacantLand,3.0,1.0,,601500.0,600000.0,4037.0,,Unknown,https://www.domain.com.au/property-profile/2019514628
+2026-06-30,,Crystal Waters,Rural,4.0,2.0,2.0,210400.0,660000.0,12695.0,,Unknown,https://www.domain.com.au/property-profile/2016080585
+2026-06-30,,Crystal Waters,House,4.0,2.0,2.0,703.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008069325
+2026-06-30,,Crystal Waters,VacantLand,,,,713.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2007950981
+2026-06-30,,Crystal Waters,VacantLand,,,,538.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2008161049
+2026-06-30,,Crystal Waters,VacantLand,,,,315.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2009542612
+2026-06-30,,Crystal Waters,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011027406
+2026-06-30,,Crystal Waters,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144602
+2026-06-30,,Crystal Waters,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144605
+2026-06-30,,Crystal Waters,House,3.0,1.0,4.0,1429.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011404350
+2026-06-30,,Crystal Waters,House,4.0,2.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2012106572
+2026-06-30,,Crystal Waters,VacantLand,,,,737.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2011144601
+2026-06-30,,Crystal Waters,House,4.0,2.0,2.0,567.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013309721
+2026-06-30,,Crystal Waters,House,4.0,2.0,2.0,878.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2013979074
+2026-06-30,,Crystal Waters,House,3.0,1.0,2.0,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2014943662
+2026-06-30,,Crystal Waters,VacantLand,,,,0.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015811772
+2026-06-30,,Crystal Waters,House,4.0,2.0,2.0,524.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2015998842
+2026-06-30,,Crystal Waters,VacantLand,,,,580.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2016725500
+2026-06-30,,Crystal Waters,Villa,3.0,2.0,2.0,363.0,0.0,,,Unknown,https://www.domain.com.au/property-profile/2017248337
+2026-06-30,,Crystal Waters,House,4.0,2.0,2.0,635.0,428000.0,2727647.0,,Unknown,https://www.domain.com.au/property-profile/2014066588
