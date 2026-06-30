@@ -4,7 +4,7 @@ import email
 from email import policy
 from email.parser import BytesParser
 import pandas as pd
-from datetime import datetime, timedelta
+from datetime import datetime
 import re
 
 IMAP_HOST = os.getenv("IMAP_HOST", "imap.gmail.com")
@@ -14,49 +14,42 @@ IMAP_PASSWORD = os.getenv("IMAP_PASSWORD", "")
 
 def check_keywords(text, keyword_list):
     if not text: return False
-    return any(kw in text.lower() for kw in keyword_list)
+    text = text.lower()
+    return any(kw in text for kw in keyword_list)
+
+def extract_urls(text):
+    if not text: return ""
+    urls = re.findall(r'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', text)
+    # Filter out common junk URLs
+    valid_urls = [u for u in urls if 'w3.org' not in u and 'google.com' not in u and 'w3.org' not in u]
+    return " | ".join(valid_urls)
 
 def extract_price(text):
-    if not text: return None
+    if not text: return ""
+    # Look for $ followed by numbers, commas, optionally M or K
+    prices = re.findall(r'\$[0-9,]+(?:\.[0-9]+)?(?:[MmKk])?', text)
+    return prices[0] if prices else ""
+
+def parse_price_value(price_str):
+    if not price_str: return None
+    s = price_str.upper().replace('$', '').replace(',', '')
+    if 'M' in s:
+        return float(s.replace('M','')) * 1000000
+    if 'K' in s:
+        return float(s.replace('K','')) * 1000
+    try:
+        return float(s)
+    except:
+        return None
+
+def extract_land_m2(text):
     text = text.lower().replace(',', '')
-    
-    # Check for $1.8M, $1.8 Mil, etc.
-    mil_match = re.search(r'\$\s*([0-9.]+)\s*(m|mil|million)', text)
-    if mil_match:
-        try:
-            val = float(mil_match.group(1)) * 1000000
-            if val > 10000: return val
-        except: pass
-        
-    # Standard $1,800,000
-    prices = re.findall(r'\$([0-9]{4,})', text)
-    if prices:
-        try:
-            val = float(prices[0])
-            if val > 10000: # Ignore $1, $2 footer values
-                return val
-        except: pass
-        
-    return None
-
-def extract_land_size(text):
-    if not text: return None
-    match = re.search(r'([0-9,.]+)\s*(sqm|m2|m²|acres|acre|ha|hectares)', text, re.IGNORECASE)
-    if match:
-        val = match.group(1).replace(',', '')
-        unit = match.group(2).lower()
-        try:
-            num = float(val)
-            if unit in ['acres', 'acre']: return num * 4046.86
-            if unit in ['ha', 'hectares']: return num * 10000
-            return num 
-        except: return None
-    return None
-
-def extract_address(subject, text):
-    combined = f"{subject} {text}"
-    match = re.search(r'\b(\d{1,4}\s+[A-Za-z\s]+(?:Street|St|Road|Rd|Avenue|Ave|Drive|Dr|Court|Ct|Place|Pl|Lane|Ln|Boulevard|Blvd|Way))\b', combined, re.IGNORECASE)
-    if match: return match.group(1).title()
+    if 'ha' in text or 'hectare' in text:
+        nums = re.findall(r'(\d+(?:\.\d+)?)\s*(?:ha|hectare)', text)
+        if nums: return float(nums[0]) * 10000
+    if 'acre' in text:
+        nums = re.findall(r'(\d+(?:\.\d+)?)\s*acre', text)
+        if nums: return float(nums[0]) * 4046.86
     return None
 
 def main():
@@ -65,81 +58,89 @@ def main():
         print("Missing IMAP credentials.")
         return
 
-    qualified_rows = []
-    
+    rows = []
     try:
         with imaplib.IMAP4_SSL(IMAP_HOST, IMAP_PORT) as imap:
             imap.login(IMAP_USER, IMAP_PASSWORD)
-            imap.select("INBOX", readonly=True)
+            imap.select("INBOX", readonly=False)
 
-            # Search ALL emails from the last 3 days (ignores seen/unseen status)
-            date = (datetime.now() - timedelta(days=3)).strftime("%d-%b-%Y")
-            status, data = imap.search(None, f'(SINCE {date})')
+            # Search for BOTH Unseen and Seen emails from the last 3 days to catch missed properties
+            # Or just search ALL emails from known real estate agents/keywords
+            # For safety, let's search UNSEEN first, but broaden what we extract
+            status, data = imap.search(None, '(UNSEEN)')
 
             for msg_id in data[0].split():
                 status, msg_data = imap.fetch(msg_id, '(RFC822)')
                 if status == 'OK' and msg_data[0]:
                     msg = BytesParser(policy=policy.default).parsebytes(msg_data[0][1])
                     subject = str(msg.get('subject', ''))
-                    
+                    sender = str(msg.get('from', ''))
+
                     body_text = ""
+                    # Try to get both plain and html parts
                     for part in msg.walk():
                         if part.get_content_type() == 'text/plain':
                             body_text += str(part.get_content())
+                        elif part.get_content_type() == 'text/html':
+                            # Even if it's HTML, we'll convert it to string for basic parsing
+                            body_text += str(part.get_content())
 
                     combined = f"{subject} {body_text}"
-                    
-                    address = extract_address(subject, body_text)
-                    price = extract_price(combined)
-                    land_size = extract_land_size(combined)
-                    
-                    # Debug block
-                    print(f"\nChecking Email: '{subject}'")
-                    print(f"Address: {address} | Price: {price} | Land: {land_size}")
-                    
-                    # Qualification
-                    if address and price and land_size:
-                        suburb_guess = "Off-Market"
-                        
-                        qualified_rows.append({
-                            "Address": address,
-                            "Suburb": suburb_guess,
-                            "Property Type": "House",
-                            "Asking Price ($)": price,
-                            "Land Size (m2)": land_size,
-                            "Beds": 3,
-                            "Baths": 1,
-                            "Cars": 1,
-                            "URL": "Email Lead",
-                            "Dual Living / Granny Flat": str(check_keywords(combined, ['dual living', 'granny flat', 'dual occupancy'])).lower(),
-                            "Subdivision Potential": str(check_keywords(combined, ['subdividable', 'stca', 'subdivision', 'development'])).lower(),
-                            "Usable Land": str(check_keywords(combined, ['usable', 'clear', 'flat', 'arable'])).lower(),
-                            "Cashflow Status": "Unknown"
+
+                    # Basic filter - only log if it seems property related
+                    prop_keywords = ['property', 'off-market', 'off market', 'listing', 'for sale', 'investment', 'acreage']
+                    is_property = check_keywords(combined, prop_keywords)
+
+                    if is_property:
+                        price_str = extract_price(combined)
+                        price_val = parse_price_value(price_str)
+                        land_m2 = extract_land_m2(combined)
+
+                        # Filter for Price < 1.8M and Land > 2 Acres
+                        if price_val and price_val > 1800000:
+                            continue
+                        if land_m2 and land_m2 < 8094:
+                            continue
+
+                        rows.append({
+                            "Date Parsed": datetime.now().strftime('%Y-%m-%d'),
+                            "Sender": sender,
+                            "Subject": subject,
+                            "Price Mentioned": extract_price(combined),
+                            "Links": extract_urls(combined),
+                            "Dual Living / Granny Flat": check_keywords(combined, ['dual living', 'granny flat', 'dual occupancy', 'second dwelling']),
+                            "Subdivision Potential": check_keywords(combined, ['subdividable', 'stca', 'subdivision', 'development']),
+                            "Usable Land": check_keywords(combined, ['usable', 'clear', 'flat', 'arable']),
+                            "Source": "Email Lead"
                         })
-                        
+
+                        # Mark as seen so we don't process it again next run
+                        imap.store(msg_id, '+FLAGS', '\\Seen')
+
     except Exception as e:
         print(f"IMAP Error: {e}")
 
-    if not qualified_rows:
-        print("No qualified property emails found.")
+    if not rows:
+        print("No new property emails found.")
         return
 
-    new_df = pd.DataFrame(qualified_rows)
-    file_path = "data/buy_properties_v5.csv"
+    new_df = pd.DataFrame(rows)
+    file_path = "data/offmarket_leads_v3.csv"
 
     if os.path.exists(file_path):
         try:
             existing_df = pd.read_csv(file_path)
-            # Combine and drop duplicates based on Address
+            # Combine and drop duplicates based on Address to prevent adding the same property twice
             df = pd.concat([existing_df, new_df]).drop_duplicates(subset=["Address"], keep='first')
         except pd.errors.EmptyDataError:
-            # Handle if the CSV exists but is completely blank
             df = new_df
+        # Check if Subject and Sender already exist to avoid duplicates
+        df = pd.concat([existing_df, new_df]).drop_duplicates(subset=["Subject", "Sender"], keep='last')
     else:
         df = new_df
 
     df.to_csv(file_path, index=False)
-    print(f"\nSuccessfully added {len(new_df)} qualified email leads directly to buy_properties_v5.csv.")
+    print(f"Added {len(new_df)} new email leads.")
 
 if __name__ == "__main__":
     main()
