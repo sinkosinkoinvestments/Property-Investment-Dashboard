@@ -147,7 +147,6 @@ tbody td { padding: 0.6rem 1rem; white-space: nowrap; color: var(--text); vertic
   .page { padding: 1rem; gap: 1rem; }
   .sc-grid { grid-template-columns: 1fr; }
 }
-th:hover { background-color: var(--surface2); cursor: pointer; }
 </style>
 </head>
 <body>
@@ -168,11 +167,7 @@ th:hover { background-color: var(--surface2); cursor: pointer; }
       <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10"></path></svg>
       <span class="nav-lbl">Investment Analysis</span>
     </a>
-        <a href="#target" class="nav-item" onclick="nav('target')">
-      <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
-      <span class="nav-lbl">Target Properties</span>
-    </a>
-<a href="#summary" class="nav-item" onclick="nav('summary')">
+    <a href="#summary" class="nav-item" onclick="nav('summary')">
       <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path></svg>
       <span class="nav-lbl">Property Specs</span>
     </a>
@@ -591,7 +586,6 @@ async function loadAll() {
     populateFilters();
     renderDashboard();
     buildCharts();
-    renderTarget();
     renderAnalysis();
     renderSummary();
     renderForSale();
@@ -638,60 +632,6 @@ function renderDashboard() {
   `;
 }
 
-
-let targetSortOrder = Array(10).fill(1); // 1 for asc, -1 for desc
-function sortTarget(colIdx) {
-  targetSortOrder[colIdx] *= -1;
-  const dir = targetSortOrder[colIdx];
-  const tbody = document.getElementById('target-body');
-  const rows = Array.from(tbody.rows);
-
-  rows.sort((a, b) => {
-    let valA = a.cells[colIdx].innerText.replace(/[^0-9.-]+/g, "");
-    let valB = b.cells[colIdx].innerText.replace(/[^0-9.-]+/g, "");
-
-    // If not numeric, sort alphabetically
-    if (isNaN(valA) || isNaN(valB) || valA === "") {
-        valA = a.cells[colIdx].innerText.toLowerCase();
-        valB = b.cells[colIdx].innerText.toLowerCase();
-        return valA < valB ? -1 * dir : (valA > valB ? 1 * dir : 0);
-    }
-    return (parseFloat(valA) - parseFloat(valB)) * dir;
-  });
-  tbody.innerHTML = '';
-  rows.forEach(r => tbody.appendChild(r));
-}
-
-function renderTarget() {
-  const tb = document.getElementById('target-body');
-  tb.innerHTML = '';
-  if (!db.buy || db.buy.length === 0) return;
-
-  // Filter for < $1.8M and > 2 Acres (8093.71 m2)
-  const targets = db.buy.filter(r => {
-      const price = parseFloat(r['Asking Price ($)']) || 0;
-      const land = parseFloat(r['Land Size (m2)']) || 0;
-      return price > 0 && price <= 1800000 && land >= 8093;
-  });
-
-  targets.forEach(r => {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td>${r['Address']||'-'}</td>
-      <td>${r['Suburb']||'-'}</td>
-      <td>${fmt(r['Asking Price ($)'])}</td>
-      <td>${r['Land Size (m2)'] ? parseInt(r['Land Size (m2)']).toLocaleString() : '-'}</td>
-      <td>${r['Beds']||'-'}</td>
-      <td>${r['Baths']||'-'}</td>
-      <td>${r['Days on Market']||'-'}</td>
-      <td>${(r['Cap Rate (%)']||0).toFixed(2)}%</td>
-      <td>${(r['Net Yield (%)']||0).toFixed(2)}%</td>
-      <td class="${r['Net Annual Cashflow ($)'] >= 0 ? 'pos' : 'neg'}">${fmt(r['Net Annual Cashflow ($)'])}</td>
-      <td>${r['URL'] ? `<a href="${r['URL']}" target="_blank" style="color:var(--blue);text-decoration:none;">View</a>` : '-'}</td>
-    `;
-    tb.appendChild(tr);
-  });
-}
 function renderAnalysis() {
   const sub = document.getElementById('ana-suburb').value;
   const sort = document.getElementById('ana-sort').value;
@@ -796,27 +736,7 @@ function renderForSale() {
   const pbEl = document.getElementById('fs-priceband');
   const pb = pbEl ? pbEl.value : '';
 
-  // Combine Domain listings (DATA.buy) with Email leads (DATA.leads)
-  const combinedData = DATA.buy.concat(
-    (DATA.leads || []).map(lead => ({
-      Address: lead.Subject,
-      Suburb: "Off-Market", 
-      'Property Type': "Lead",
-      Beds: "—", Baths: "—", Cars: "—",
-      'Asking Price ($)': null,
-      'Est Weekly Rent ($)': null,
-      'Net Annual Cashflow ($)': null,
-      'Cap Rate (%)': null,
-      'Est 10-Yr IRR (%)': null,
-      'Cashflow Status': 'Unknown',
-      'Dual Living / Granny Flat': lead['Dual Living / Granny Flat'] || 'false',
-      'Subdivision Potential': lead['Subdivision Potential'] || 'false',
-      'Usable Land': lead['Usable Land'] || 'false',
-      URL: ''
-    }))
-  );
-
-  const rows = combinedData.filter(r => {
+  const rows = DATA.buy.filter(r => {
     if (sub && r.Suburb !== sub) return false;
     if (type && r['Property Type'] !== type) return false;
     if (feature === 'dual' && String(r['Dual Living / Granny Flat']).toLowerCase() !== 'true') return false;
@@ -894,35 +814,4 @@ function toggleTheme() {
 window.onload = loadAll;
 </script>
 </body>
-</html
-<!-- TARGET PROPERTIES -->
-<div id="target" class="page">
-  <div class="header">
-    <div class="h-text">
-      <h2>Target Properties</h2>
-      <p>Properties matching criteria: Price < $1.8M and Land > 2 Acres</p>
-    </div>
-  </div>
-
-  <div class="card" style="overflow-x:auto;">
-    <table class="table" id="target-table">
-      <thead>
-        <tr>
-          <th onclick="sortTarget(0)">Address</th>
-          <th onclick="sortTarget(1)">Suburb</th>
-          <th onclick="sortTarget(2)">Price</th>
-          <th onclick="sortTarget(3)">Land (m²)</th>
-          <th onclick="sortTarget(4)">Beds</th>
-          <th onclick="sortTarget(5)">Baths</th>
-          <th onclick="sortTarget(6)">DOM</th>
-          <th onclick="sortTarget(7)">Cap Rate</th>
-          <th onclick="sortTarget(8)">Net Yield</th>
-          <th onclick="sortTarget(9)">Cashflow</th>
-          <th>Link</th>
-        </tr>
-      </thead>
-      <tbody id="target-body"></tbody>
-    </table>
-  </div>
-</div>
->
+</html>
