@@ -335,8 +335,8 @@ def fetch_with_rapidapi(mode):
     if not RAPIDAPI_KEY:
         print("Error: RAPIDAPI_KEY is missing. Skipping RapidAPI fetch.")
         return []
-        
-    # The endpoints are specific to the mode for the Domain AU (by Vibe) API
+
+    # The endpoints are specific to the mode for the Domain AU API by tvhaudev
     if mode == "buy":
         url = "https://domain-au.p.rapidapi.com/properties/buy/search"
     elif mode == "rent":
@@ -350,55 +350,57 @@ def fetch_with_rapidapi(mode):
         "X-RapidAPI-Key": RAPIDAPI_KEY,
         "X-RapidAPI-Host": "domain-au.p.rapidapi.com"
     }
-    
+
     all_items = []
-    
+
     for suburb_name, postcode_slug in SUBURBS.items():
         postcode = postcode_slug.split("-")[-1] if "-" in postcode_slug else ""
-        
-        # This API likely expects a "query" or "locations" parameter. 
-        # Usually, a single string search is supported under a generic query parameter.
+
+        # Domain AU API expects the query parameter
         querystring = {
-            "query": f"{suburb_name} QLD {postcode}",
-            # If the API specifically requires a location object/array instead of a string query, 
-            # you might need to adjust this parameter based on the API docs. 
-            # Most accept 'query' or 'search' or 'keyword'
+            "query": f"{suburb_name}, QLD {postcode}"
         }
 
         try:
             response = requests.get(url, headers=headers, params=querystring, timeout=30)
-            
+
             if response.status_code == 429:
                 print(f"Rate limited on {suburb_name}. Sleeping 2s...")
                 time.sleep(2)
                 response = requests.get(url, headers=headers, params=querystring, timeout=30)
-            
+
             if response.status_code != 200:
                 print(f"HTTP {response.status_code} Error on {suburb_name}: {response.text[:100]}")
                 continue
-                
+
             try:
                 response_json = response.json()
             except ValueError:
                 print(f"Invalid JSON returned for {suburb_name}")
                 continue
-            
-            # According to your screenshot, the properties are in the "data" array
+
+            # The properties are in the "data" array as per the image
             results = response_json.get("data") or []
-            
+
             if not results:
                 print(f"No properties found for {suburb_name} ({mode})")
-                
+
             for res in results:
                 price_info = res.get("priceDetails", {})
                 price_text = price_info.get("displayPrice", "")
-                
-                # The screenshot doesn't show the address block expanded, but usually it's under 'address'
+
+                # Extract address components safely
                 address_info = res.get("address", {})
-                
+                if isinstance(address_info, str):
+                    address_display = address_info
+                    suburb_display = suburb_name
+                else:
+                    address_display = address_info.get("displayAddress", address_info.get("streetAddress", ""))
+                    suburb_display = address_info.get("suburb", suburb_name)
+
                 item = {
-                    "address": address_info.get("displayAddress", address_info.get("streetAddress", "")),
-                    "suburb": address_info.get("suburb", suburb_name),
+                    "address": address_display,
+                    "suburb": suburb_display,
                     "propertyType": res.get("propertyType", "House"),
                     "bedrooms": res.get("bedrooms"),
                     "bathrooms": res.get("bathrooms"),
@@ -410,17 +412,16 @@ def fetch_with_rapidapi(mode):
                     "listingDate": res.get("dateListed", ""),
                     "soldDate": res.get("dateSold", ""),
                     "isAuction": "auction" in str(price_text).lower(),
-                    # Adjust URL construction if the API provides relative links vs full URLs
-                    "url": f"https://www.domain.com.au/property-profile/{res.get('id', '')}" if res.get('id') else "",
+                    "url": f"https://www.domain.com.au/{res.get('id', '')}" if res.get('id') else "",
                     "agency": {"name": res.get("advertiser", {}).get("name", "Unknown")}
                 }
                 all_items.append(item)
-            
+
             time.sleep(0.5) 
-            
+
         except Exception as e:
             print(f"Fetch failed for {suburb_name}: {e}")
-            
+
     return all_items
 
 # -------------------------------------------------------------------
