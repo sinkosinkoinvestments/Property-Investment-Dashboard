@@ -444,7 +444,16 @@ def main():
                 row = domain_listing_to_buy_row(listing, suburb_medians, today, today_dt)
                 buy_rows.append(row)
     if buy_rows:
-        pd.DataFrame(buy_rows).to_csv("data/buy_properties_v5.csv", index=False)
+        new_df = pd.DataFrame(buy_rows)
+        file_path = "data/buy_properties_v5.csv"
+        if os.path.exists(file_path):
+            existing_df = pd.read_csv(file_path)
+            # Combine and remove duplicates based on Address and Suburb
+            combined_df = pd.concat([existing_df, new_df]).drop_duplicates(subset=["Address", "Suburb"], keep="last")
+        else:
+            combined_df = new_df
+        combined_df.to_csv(file_path, index=False)
+        print(f"  Buy properties appended. Total now: {len(combined_df)} rows")
     else:
         print("Warning: No buy properties scraped. Skipping overwrite to prevent data loss.")
     print(f"  Buy properties saved: {len(buy_rows)} rows")
@@ -476,7 +485,16 @@ def main():
             "URL": item.get("url",""),
         })
     if sold_rows:
-        pd.DataFrame(sold_rows).to_csv("data/sold_properties_v5.csv", index=False)
+        new_df = pd.DataFrame(sold_rows)
+        file_path = "data/sold_properties_v5.csv"
+        if os.path.exists(file_path):
+            existing_df = pd.read_csv(file_path)
+            # Combine and remove duplicates based on Address, Suburb and Sale Date
+            combined_df = pd.concat([existing_df, new_df]).drop_duplicates(subset=["Address", "Suburb", "Sale Date"], keep="last")
+        else:
+            combined_df = new_df
+        combined_df.to_csv(file_path, index=False)
+        print(f"  Sold properties appended. Total now: {len(combined_df)} rows")
     else:
         print("Warning: No sold properties scraped. Skipping overwrite to prevent data loss.")
     print(f"  Sold properties saved: {len(sold_rows)} rows")
