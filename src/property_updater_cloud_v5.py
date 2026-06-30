@@ -1,26 +1,186 @@
 import pandas as pd
 import datetime
 import numpy_financial as npf
+from apify_client import ApifyClient
 import os
 import re
-import time
-import logging
-import json
-from pathlib import Path
-from urllib import request, parse
-import requests
 
-# -------------------------------------------------------------------
-# CONFIGURATION & ENV VARIABLES
-# -------------------------------------------------------------------
-RAPIDAPI_KEY = os.getenv("RAPIDAPI_KEY", "")
+import requests  # used for Domain API calls
 
 DOMAIN_CLIENT_ID = os.getenv("DOMAIN_CLIENT_ID", "")
 DOMAIN_CLIENT_SECRET = os.getenv("DOMAIN_CLIENT_SECRET", "")
 DOMAIN_SCOPE = os.getenv("DOMAIN_SCOPE", "api_listings_read")
 DOMAIN_AUTH_URL = os.getenv("DOMAIN_AUTH_URL", "https://auth.domain.com.au/v1/connect/token")
-DOMAIN_LISTINGS_URL = os.getenv("DOMAIN_LISTINGS_URL", "https://api.domain.com.au/sandbox/v1/listings/residential/_search")
+DOMAIN_LISTINGS_URL = "https://api.domain.com.au/v1/listings/residential/_search"
 
+
+def get_domain_access_token():
+    """Client Credentials grant to get a bearer token from Domain API."""
+    if not DOMAIN_CLIENT_ID or not DOMAIN_CLIENT_SECRET:
+        print("Domain API credentials missing; skipping Domain fetch.")
+        return None
+
+    data = {
+        "client_id": DOMAIN_CLIENT_ID,
+        "client_secret": DOMAIN_CLIENT_SECRET,
+        "grant_type": "client_credentials",
+        "scope": DOMAIN_SCOPE,
+    }
+
+    try:
+        resp = requests.post(DOMAIN_AUTH_URL, data=data)
+        resp.raise_for_status()
+        token = resp.json().get("access_token")
+        if not token:
+            print("Domain auth: no access_token in response.")
+        return token
+    except Exception as e:
+        print(f"Domain auth error: {e}")
+        return None
+
+
+def extract_land_size_from_domain(listing):
+    """Attempt to derive land size in m2 from Domain listing JSON."""
+    try:
+        land = listing.get("landArea") or listing.get("propertyDetails", {}).get("landArea")
+        if not land:
+            return None
+
+        # Domain may use a structured object or plain number
+        if isinstance(land, dict):
+            value = land.get("value")
+            unit = str(land.get("unit", "")).lower()
+            if value is None:
+                return None
+            if unit in ("square_meter", "sqm", "m2"):
+                return float(value)
+            if unit in ("hectare", "ha"):
+                return float(value) * 10000
+            if unit in ("acre", "acres"):
+                return float(value) * 4046.86
+        else:
+            # If numeric or string, assume m2
+            return float(str(land).replace(",", ""))
+    except Exception:
+        return None
+    return None
+
+
+def search_domain_listings_for_suburb(token, suburb_name, postcode=None, min_land_m2=2000):
+    """Call Domain's residential listings search API for a single suburb and return filtered listings."""
+    if not token:
+        return []
+
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Content-Type": "application/json",
+    }
+
+    loc = {"state": "QLD", "suburb": suburb_name, "includeSurroundingSuburbs": False}
+    if postcode:
+        loc["postCode"] = postcode
+
+    payload = {
+        "listingType": "Sale",
+        "propertyTypes": ["House", "Acreage"],
+        "locations": [loc],
+        "pageSize": 100,
+        "pageNumber": 1,
+    }
+
+    try:
+        resp = requests.post(DOMAIN_LISTINGS_URL, json=payload, headers=headers)
+        resp.raise_for_status()
+        data = resp.json()
+        listings = data.get("results") if isinstance(data, dict) else data
+        if not listings:
+            print(f"Domain: no listings for {suburb_name} {postcode}.")
+            return []
+
+        filtered = []
+        for listing in listings:
+            land_m2 = extract_land_size_from_domain(listing)
+            if land_m2 is None or land_m2 >= min_land_m2:
+                filtered.append(listing)
+        print(f"Domain: {len(filtered)} filtered listings for {suburb_name} {postcode}.")
+        return filtered
+
+    except Exception as e:
+        print(f"Domain listings error for {suburb_name} {postcode}: {e}")
+        return []
+
+
+def domain_listing_to_buy_row(listing, suburb_medians, today, today_dt):
+    """Convert a Domain listing into the buy_rows dict expected by the pipeline."""
+    address_info = listing.get("address", {})
+    addr = address_info.get("display") or address_info.get("streetAddress")
+    suburb = address_info.get("suburb")
+    property_type = listing.get("propertyType") or "House"
+
+    details = listing.get("propertyDetails", {})
+    beds = details.get("bedrooms")
+    baths = details.get("bathrooms")
+    cars = details.get("carspaces")
+
+    price_info = listing.get("priceDetails", {})
+    asking_price = price_info.get("displayPrice") or price_info.get("price")
+    price = parse_price(asking_price or "")
+
+    land_m2 = extract_land_size_from_domain(listing)
+
+    rent = suburb_medians.get(suburb, 900.0)
+
+    desc = listing.get("description") or ""
+    title = listing.get("headline") or listing.get("summary") or ""
+    build = classify_build(desc, title)
+
+    m = calculate_financials(price, rent, build)
+
+    date_listed = listing.get("dateListed") or listing.get("listingDate")
+    dom = None
+    if date_listed:
+        try:
+            listed_dt = datetime.datetime.fromisoformat(str(date_listed).replace("Z", "+00:00")).replace(tzinfo=None)
+            dom = (today_dt - listed_dt).days
+        except Exception:
+            pass
+
+    agency = listing.get("agent", {}) or listing.get("agency", {})
+    agency_name = None
+    if isinstance(agency, dict):
+        agency_name = agency.get("name") or agency.get("agencyName")
+    else:
+        agency_name = str(agency) if agency else "Unknown"
+
+    url = listing.get("listingUrl") or listing.get("url")
+
+    return {
+        "Date Pulled": today,
+        "Address": addr or "",
+        "Suburb": suburb or "",
+        "Property Type": property_type,
+        "Beds": beds, "Baths": baths, "Cars": cars,
+        "Land Size (m2)": land_m2, "Asking Price ($)": price,
+        "Price Per Acre ($)": round(price/(land_m2/4046.86)) if land_m2 and price else None,
+        "Days on Market": dom,
+        "Sale Method": "Auction" if listing.get("isAuction") else "For Sale",
+        "Agency": agency_name or "Unknown",
+        "Dual Living / Granny Flat": check_keywords(desc, DUAL_KEYWORDS),
+        "Subdivision Potential": check_keywords(desc, SUBDIV_KEYWORDS),
+        "Usable Land": check_keywords(desc, USABLE_KEYWORDS),
+        "Build Classification": build, "Budget Rule Applied": m[17],
+        "Dynamic Rent Est ($)": rent,
+        "NOI ($)": m[0], "Cap Rate (%)": m[1], "Gross Yield (%)": m[2], "Net Yield (%)": m[3],
+        "Monthly Repayment ($)": m[4], "DSCR": m[5], "Break-Even Ratio (%)": m[6],
+        "Net Annual Cashflow ($)": m[7], "Net Weekly Cashflow ($)": m[8],
+        "Quarantined Loss Year 1 ($)": m[9], "Tax Benefit Year 1 ($)": m[10],
+        "Post-Tax Cash Flow ($) *Est": m[11], "Est Renovation / Capex ($)": 0,
+        "Total Cash Invested ($)": m[12], "Cash-on-Cash Return (%)": m[13],
+        "Est 10-Yr IRR (%)": m[14], "Est Year 1 ROE (%)": m[15],
+        "Cashflow Status": m[16], "URL": url or "",
+    }
+
+APIFY_API_TOKEN = os.getenv("APIFY_API_TOKEN", "")
 INTEREST_RATE = float(os.getenv("CURRENT_INTEREST_RATE", "0.065"))
 ASSUME_NEW_BUILD_DEFAULT = os.getenv("ASSUME_NEW_BUILD_DEFAULT", "No").lower() == "yes"
 
@@ -36,24 +196,10 @@ TAX_RATE = 0.37
 DEPRECIATION_Y1 = 10000
 SALE_COST_PCT = 0.02
 
-# -------------------------------------------------------------------
-# LOGGING SETUP
-# -------------------------------------------------------------------
-LOG_DIR = Path(".github") / "logs"
-LOG_DIR.mkdir(parents=True, exist_ok=True)
-DOMAIN_LOG_FILE = LOG_DIR / "domain_debug.log"
-logging.basicConfig(
-    filename=str(DOMAIN_LOG_FILE),
-    level=logging.DEBUG,
-    format="%(asctime)s %(levelname)s %(message)s",
-)
+import json
+import os
 
-logging.debug("property_updater_cloud_v5 started")
-print("property_updater_cloud_v5 started")
-
-# -------------------------------------------------------------------
-# LOAD SUBURBS
-# -------------------------------------------------------------------
+# Load suburbs from external JSON file
 possible_paths = [
     'src/suburbs.json',
     'suburbs.json',
@@ -86,9 +232,6 @@ DUAL_KEYWORDS      = ["dual living","granny flat","dual occupancy","second dwell
 SUBDIV_KEYWORDS    = ["subdividable","stca","subdivision","development"]
 USABLE_KEYWORDS    = ["usable","clear","flat","fully fenced","cleared"]
 
-# -------------------------------------------------------------------
-# HELPER FUNCTIONS
-# -------------------------------------------------------------------
 def check_keywords(text, kw_list):
     if not text: return False
     return any(k in text.lower() for k in kw_list)
@@ -121,387 +264,143 @@ def parse_rent_price(val):
         return float(n) if 200 <= n <= 3000 else None
     return None
 
-def calculate_financials(price, weekly_rent, build_class):
-    if not price or price <= 0: return [0]*18
+def calculate_financials(price, weekly_rent, build_class, capex=0):
+    try:
+        price = float(price)
+        weekly_rent = float(weekly_rent)
+    except (TypeError, ValueError):
+        return [None]*16 + ["Unknown", ""]
+    if price == 0 or weekly_rent == 0:
+        return [None]*16 + ["Unknown", ""]
+
     annual_rent = weekly_rent * 52
-    noi = annual_rent * (1 - MGMT_FEE_PCT) - ANNUAL_RATES - ANNUAL_MAINT
-    cap_rate = noi / price
-    gross_yield = annual_rent / price
-    
-    total_cost = price + STAMP_DUTY_FEES
-    loan_amount = min(price, MAX_LOAN_AMOUNT)
-    equity = total_cost - loan_amount
-    net_yield = noi / total_cost
+    op_expenses = (annual_rent * MGMT_FEE_PCT) + ANNUAL_RATES + ANNUAL_MAINT
+    noi = annual_rent - op_expenses
+    cap_rate    = (noi / price) * 100
+    gross_yield = (annual_rent / price) * 100
+    net_yield   = (noi / price) * 100
+
+    actual_loan = MAX_LOAN_AMOUNT if price >= MAX_LOAN_AMOUNT else price * 0.80
+    total_cash_invested = max((price - actual_loan) + STAMP_DUTY_FEES, STAMP_DUTY_FEES) + capex
 
     monthly_rate = INTEREST_RATE / 12
-    num_payments = LOAN_TERM_YEARS * 12
-    monthly_repayment = float(npf.pmt(monthly_rate, num_payments, loan_amount)) * -1 if loan_amount > 0 else 0
-    annual_repayment = monthly_repayment * 12
+    months = LOAN_TERM_YEARS * 12
+    monthly_repay = actual_loan * (monthly_rate * (1 + monthly_rate)**months) / ((1 + monthly_rate)**months - 1)
+    annual_repay  = monthly_repay * 12
 
-    dscr = noi / annual_repayment if annual_repayment > 0 else 0
-    ber = (annual_repayment + ANNUAL_RATES + ANNUAL_MAINT + (annual_rent * MGMT_FEE_PCT)) / annual_rent if annual_rent > 0 else 0
+    dscr       = noi / annual_repay if annual_repay > 0 else 0
+    break_even = ((op_expenses + annual_repay) / annual_rent) * 100 if annual_rent > 0 else 0
+    net_annual_cf = noi - annual_repay
+    net_weekly_cf = net_annual_cf / 52
+    y1_interest   = actual_loan * INTEREST_RATE
+    paper_pl      = annual_rent - op_expenses - y1_interest - DEPRECIATION_Y1
 
-    net_annual_cashflow = noi - annual_repayment
-    net_weekly_cashflow = net_annual_cashflow / 52
-
-    rule_applied = ""
-    is_new = "New Build" in build_class
-    if is_new:
-        rule_applied = "Budget 2026: Negative Gearing Allowed (New Build)"
-        depreciation = DEPRECIATION_Y1
-        taxable_income = net_annual_cashflow - depreciation
-        tax_benefit = max(0, -taxable_income * TAX_RATE)
-        quarantined_loss = 0
+    if "New Build" in build_class:
+        budget_rule      = "2026 Budget: losses deductible against other income"
+        quarantined_loss = 0.0
+        tax_benefit      = abs(paper_pl) * TAX_RATE if paper_pl < 0 else -(paper_pl * TAX_RATE)
     else:
-        rule_applied = "Budget 2026: Negative Gearing Quarantined (Established)"
-        tax_benefit = 0
-        quarantined_loss = abs(min(0, net_annual_cashflow))
+        budget_rule      = "2026 Budget: established losses quarantined, no wage offset"
+        quarantined_loss = abs(paper_pl) if paper_pl < 0 else 0.0
+        tax_benefit      = 0.0
 
-    post_tax_cashflow = net_annual_cashflow + tax_benefit
-    cash_on_cash = post_tax_cashflow / equity if equity > 0 else 0
-    roe = post_tax_cashflow / equity if equity > 0 else 0
+    post_tax_cf = net_annual_cf + tax_benefit
+    coc_return  = (net_annual_cf / total_cash_invested) * 100 if total_cash_invested > 0 else 0
+    y1_equity   = total_cash_invested + (price * CAPITAL_GROWTH_PCT)
+    roe         = (net_annual_cf / y1_equity) * 100 if y1_equity > 0 else 0
 
-    cashflows = [-equity] + [post_tax_cashflow]*9
-    future_value = price * ((1 + CAPITAL_GROWTH_PCT)**10)
-    loan_balance_10 = float(npf.fv(monthly_rate, 10*12, monthly_repayment, loan_amount)) * -1
-    net_proceeds = future_value * (1 - SALE_COST_PCT) - loan_balance_10
-    cashflows.append(post_tax_cashflow + net_proceeds)
-    
-    try: irr = float(npf.irr(cashflows))
-    except: irr = 0
+    cash_flows = [-total_cash_invested] + [net_annual_cf] * 9
+    fv = price * ((1 + CAPITAL_GROWTH_PCT) ** 10)
+    pr = (LOAN_TERM_YEARS - 10) * 12
+    remaining_loan = monthly_repay * ((1 - (1 + monthly_rate)**-pr) / monthly_rate)
+    nominal_gain = max(fv - price, 0)
+    cgt = nominal_gain * 0.25 * TAX_RATE if "New Build" in build_class else max(nominal_gain * 0.30 - quarantined_loss, 0)
+    net_proceeds = fv - remaining_loan - (fv * SALE_COST_PCT) - cgt
+    cash_flows.append(net_annual_cf + net_proceeds)
+    try: irr = round(npf.irr(cash_flows) * 100, 2)
+    except: irr = None
 
-    if net_weekly_cashflow > 0: status = "Positive"
-    elif net_weekly_cashflow > -100: status = "Neutral/Slight Negative"
-    else: status = "Negative"
+    status = "Positive" if net_weekly_cf > 0 else "Negative"
+    return [round(noi,2), round(cap_rate,2), round(gross_yield,2), round(net_yield,2),
+            round(monthly_repay,2), round(dscr,2), round(break_even,2),
+            round(net_annual_cf,2), round(net_weekly_cf,2),
+            round(quarantined_loss,2), round(tax_benefit,2), round(post_tax_cf,2),
+            round(total_cash_invested,2), round(coc_return,2), irr, round(roe,2),
+            status, budget_rule]
 
-    return [
-        round(noi), round(cap_rate*100,2), round(gross_yield*100,2), round(net_yield*100,2),
-        round(monthly_repayment), round(dscr,2), round(ber*100,2), round(net_annual_cashflow),
-        round(net_weekly_cashflow), round(quarantined_loss), round(tax_benefit),
-        round(post_tax_cashflow), round(equity), round(cash_on_cash*100,2),
-        round(irr*100,2), round(roe*100,2), status, rule_applied
-    ]
-
-# -------------------------------------------------------------------
-# DOMAIN API FUNCTIONS
-# -------------------------------------------------------------------
-def get_domain_access_token():
-    if not DOMAIN_CLIENT_ID or not DOMAIN_CLIENT_SECRET:
-        logging.debug("Domain auth skipped: missing credentials")
-        return None
-    data = {
-        "client_id": DOMAIN_CLIENT_ID,
-        "client_secret": DOMAIN_CLIENT_SECRET,
-        "grant_type": "client_credentials",
-        "scope": DOMAIN_SCOPE,
-    }
-    try:
-        req = request.Request(
-            DOMAIN_AUTH_URL,
-            data=parse.urlencode(data).encode("utf-8"),
-            headers={"Content-Type": "application/x-www-form-urlencoded"},
-            method="POST",
-        )
-        with request.urlopen(req, timeout=30) as resp:
-            payload = json.loads(resp.read().decode("utf-8"))
-        logging.debug("Domain auth response: %s", payload)
-        return payload.get("access_token")
-    except Exception as e:
-        if hasattr(e, 'read'):
-            print(f"Domain Auth HTTP Error: {e.read().decode('utf-8')}")
-        logging.exception("Domain auth error")
-        return None
-
-def extract_land_size_from_domain(listing):
-    try:
-        land = listing.get("landArea") or listing.get("propertyDetails", {}).get("landArea")
-        if not land: return None
-        if isinstance(land, dict):
-            val = land.get("value")
-            unit = str(land.get("unit", "")).lower()
-            if val is None: return None
-            if unit in ("square_meter", "sqm", "m2"): return float(val)
-            if unit in ("hectare", "ha"): return float(val) * 10000
-            if unit in ("acre", "acres"): return float(val) * 4046.86
-        else:
-            return float(str(land).replace(",", ""))
-    except:
-        return None
-    return None
-
-def search_domain_listings_for_suburb(token, suburb_name, postcode=None, min_land_m2=2000):
-    if not token: return []
-    headers = {
-        "Authorization": f"Bearer {token}",
-        "Content-Type": "application/json",
-    }
-    loc = {"state": "QLD", "suburb": suburb_name, "includeSurroundingSuburbs": False}
-    if postcode: loc["postCode"] = postcode
-    payload = {
-        "listingType": "Sale",
-        "propertyTypes": ["House", "Acreage"],
-        "locations": [loc],
-        "pageSize": 100,
-        "pageNumber": 1,
-    }
-    try:
-        req = request.Request(
-            DOMAIN_LISTINGS_URL,
-            data=json.dumps(payload).encode("utf-8"),
-            headers=headers,
-            method="POST",
-        )
-        with request.urlopen(req, timeout=30) as resp:
-            data = json.loads(resp.read().decode("utf-8"))
-        logging.debug("Domain listings response for %s %s: %s", suburb_name, postcode, data)
-        listings = data.get("results") if isinstance(data, dict) else data
-        if not listings: return []
-        filtered = []
-        for listing in listings:
-            lm2 = extract_land_size_from_domain(listing)
-            if lm2 is None or lm2 >= min_land_m2:
-                filtered.append(listing)
-        return filtered
-    except Exception as e:
-        if hasattr(e, 'read'):
-            try:
-                err_body = e.read().decode('utf-8')
-                print(f"HTTP Error body for {suburb_name}: {err_body}")
-            except: pass
-        logging.exception("Domain listings error for %s %s", suburb_name, postcode)
-        print(f"Domain listings error for {suburb_name} {postcode}: {e}")
-        return []
-
-def domain_listing_to_buy_row(listing, suburb_medians, today_str, today_dt):
-    address_info = listing.get("address", {})
-    addr = address_info.get("display") or address_info.get("streetAddress")
-    suburb = address_info.get("suburb") or "Unknown"
-    property_type = listing.get("propertyType") or "House"
-
-    details = listing.get("propertyDetails", {})
-    beds = details.get("bedrooms")
-    baths = details.get("bathrooms")
-    cars = details.get("carspaces")
-
-    price_info = listing.get("priceDetails", {})
-    asking_price = price_info.get("displayPrice") or price_info.get("price")
-    price = parse_price(asking_price or "")
-    land_m2 = extract_land_size_from_domain(listing)
-    rent = suburb_medians.get(suburb, 900.0)
-
-    desc = listing.get("description") or ""
-    title = listing.get("headline") or listing.get("summary") or ""
-    build = classify_build(desc, title)
-    m = calculate_financials(price, rent, build)
-
-    date_listed = listing.get("dateListed") or listing.get("listingDate")
-    dom = None
-    if date_listed:
-        try:
-            listed_dt = datetime.datetime.fromisoformat(str(date_listed).replace("Z", "+00:00")).replace(tzinfo=None)
-            dom = (today_dt - listed_dt).days
-        except: pass
-
-    agency = listing.get("agent", {}) or listing.get("agency", {})
-    agency_name = agency.get("name") or agency.get("agencyName") if isinstance(agency, dict) else str(agency or "Unknown")
-    url = listing.get("listingUrl") or listing.get("url")
-
-    return {
-        "Date Pulled": today_str, "Address": addr or "", "Suburb": suburb,
-        "Property Type": property_type, "Beds": beds, "Baths": baths, "Cars": cars,
-        "Land Size (m2)": land_m2, "Asking Price ($)": price,
-        "Price Per Acre ($)": round(price/(land_m2/4046.86)) if land_m2 and price else None,
-        "Days on Market": dom, "Sale Method": "Auction" if listing.get("isAuction") else "For Sale",
-        "Agency": agency_name,
-        "Dual Living / Granny Flat": check_keywords(desc, DUAL_KEYWORDS),
-        "Subdivision Potential": check_keywords(desc, SUBDIV_KEYWORDS),
-        "Usable Land": check_keywords(desc, USABLE_KEYWORDS),
-        "Build Classification": build, "Budget Rule Applied": m[17],
-        "Dynamic Rent Est ($)": rent,
-        "NOI ($)": m[0], "Cap Rate (%)": m[1], "Gross Yield (%)": m[2], "Net Yield (%)": m[3],
-        "Monthly Repayment ($)": m[4], "DSCR": m[5], "Break-Even Ratio (%)": m[6],
-        "Net Annual Cashflow ($)": m[7], "Net Weekly Cashflow ($)": m[8],
-        "Quarantined Loss Year 1 ($)": m[9], "Tax Benefit Year 1 ($)": m[10],
-        "Post-Tax Cash Flow ($) *Est": m[11], "Est Renovation / Capex ($)": 0,
-        "Total Cash Invested ($)": m[12], "Cash-on-Cash Return (%)": m[13],
-        "Est 10-Yr IRR (%)": m[14], "Est Year 1 ROE (%)": m[15],
-        "Cashflow Status": m[16], "URL": url or "",
-    }
-
-# -------------------------------------------------------------------
-# RAPIDAPI REPLACEMENT FOR APIFY
-# -------------------------------------------------------------------
-def fetch_with_rapidapi(mode):
-    if not RAPIDAPI_KEY:
-        print("Error: RAPIDAPI_KEY is missing. Skipping RapidAPI fetch.")
-        return []
-
-    # The endpoints are specific to the mode for the Domain AU API by tvhaudev
-    if mode == "buy":
-        url = "https://domain-au.p.rapidapi.com/properties/buy/search"
-    elif mode == "rent":
-        url = "https://domain-au.p.rapidapi.com/properties/rent/search"
-    elif mode == "sold":
-        url = "https://domain-au.p.rapidapi.com/properties/sold/search"
-    else:
-        return []
-
-    headers = {
-        "X-RapidAPI-Key": RAPIDAPI_KEY,
-        "X-RapidAPI-Host": "domain-au.p.rapidapi.com"
-    }
-
+def fetch_with_apify(client, operation):
     all_items = []
 
-    for suburb_name, postcode_slug in SUBURBS.items():
-        postcode = postcode_slug.split("-")[-1] if "-" in postcode_slug else ""
+    # Map operation to URL path
+    op_path = {"buy": "buy", "rent": "rent", "sold": "sold"}.get(operation, "buy")
 
-        # Domain AU API expects the query parameter
-        querystring = {
-            "query": f"{suburb_name}, QLD {postcode}"
-        }
-
+    for suburb_name, slug in SUBURBS.items():
+        print(f"  Fetching {operation} for {suburb_name}...")
+        url = f"https://www.realestate.com.au/{op_path}/property-house-acreage-in-{slug}/list-1?minimumLandSize={MIN_LAND_M2}"
         try:
-            response = requests.get(url, headers=headers, params=querystring, timeout=30)
-
-            if response.status_code == 429:
-                print(f"Rate limited on {suburb_name}. Sleeping 2s...")
-                time.sleep(2)
-                response = requests.get(url, headers=headers, params=querystring, timeout=30)
-
-            if response.status_code != 200:
-                print(f"HTTP {response.status_code} Error on {suburb_name}: {response.text[:100]}")
-                continue
-
-            try:
-                response_json = response.json()
-            except ValueError:
-                print(f"Invalid JSON returned for {suburb_name}")
-                continue
-
-            # The properties are in the "data" array as per the image
-            results = response_json.get("data") or []
-
-            if not results:
-                print(f"No properties found for {suburb_name} ({mode})")
-
-            for res in results:
-                price_info = res.get("priceDetails", {})
-                price_text = price_info.get("displayPrice", "")
-
-                # Extract address components safely
-                address_info = res.get("address", {})
-                if isinstance(address_info, str):
-                    address_display = address_info
-                    suburb_display = suburb_name
-                else:
-                    address_display = address_info.get("displayAddress", address_info.get("streetAddress", ""))
-                    suburb_display = address_info.get("suburb", suburb_name)
-
-                item = {
-                    "address": address_display,
-                    "suburb": suburb_display,
-                    "propertyType": res.get("propertyType", "House"),
-                    "bedrooms": res.get("bedrooms"),
-                    "bathrooms": res.get("bathrooms"),
-                    "carSpaces": res.get("carspaces"),
-                    "landArea": res.get("landArea", ""),
-                    "priceText": price_text,
-                    "description": res.get("description", ""),
-                    "headline": res.get("headline", ""),
-                    "listingDate": res.get("dateListed", ""),
-                    "soldDate": res.get("dateSold", ""),
-                    "isAuction": "auction" in str(price_text).lower(),
-                    "url": f"https://www.domain.com.au/{res.get('id', '')}" if res.get('id') else "",
-                    "agency": {"name": res.get("advertiser", {}).get("name", "Unknown")}
-                }
-                all_items.append(item)
-
-            time.sleep(0.5) 
-
+            run_input = {
+                "startUrls": [url],
+                "includeSurroundingSuburbs": False,
+                "maxItems": 150,
+                "flattenOutput": True
+            }
+            run   = client.actor("memo23/realestate-au-listings").call(run_input=run_input)
+            items = list(client.dataset(run["defaultDatasetId"]).iterate_items())
+            print(f"    -> {len(items)} items")
+            all_items.extend(items)
         except Exception as e:
-            print(f"Fetch failed for {suburb_name}: {e}")
+            print(f"    -> ERROR: {e}")
 
-    return all_items
+    unique = {item.get("url", str(i)): item for i, item in enumerate(all_items)}
+    return list(unique.values())
 
-# -------------------------------------------------------------------
-# MAIN PIPELINE
-# -------------------------------------------------------------------
 def main():
-    today = datetime.date.today().strftime("%Y-%m-%d")
+    os.makedirs("data", exist_ok=True)
+    client   = ApifyClient(APIFY_API_TOKEN)
+    today    = datetime.datetime.now().strftime("%Y-%m-%d")
     today_dt = datetime.datetime.now()
 
-    os.makedirs("data", exist_ok=True)
-    
-    print("=== RENT (MEDIANS) ===")
+    print("=== RENT ===")
+    rent_raw = fetch_with_apify(client, "rent")
     suburb_medians = {}
-    rent_data = []
-    
-    # RAPIDAPI CALL
-    for item in fetch_with_rapidapi("rent"):
-        rp = parse_rent_price(item.get("price") or item.get("priceText") or "")
-        sub = item.get("suburb") or item.get("address", "").split(",")[0].strip()
-        if rp and sub: rent_data.append({"Suburb": sub, "Rent": rp})
-    
-    if rent_data:
-        df_rent = pd.DataFrame(rent_data)
-        suburb_medians = df_rent.groupby("Suburb")["Rent"].median().to_dict()
-    print(f"  Captured rent baselines for {len(suburb_medians)} suburbs.")
+    for item in rent_raw:
+        rp  = parse_rent_price(item.get("price") or item.get("rentPrice"))
+        if rp:
+            sub = item.get("suburb") or item.get("address","").split(",")[0].strip() or "Unknown"
+            suburb_medians.setdefault(sub, []).append(rp)
+    suburb_medians = {k: round(sum(v)/len(v),2) for k,v in suburb_medians.items()}
+    pd.DataFrame([
+        {"Date Pulled": today, "Suburb": k, "Median Acreage Rent ($)": v, "Interest Rate (%)": INTEREST_RATE*100}
+        for k,v in suburb_medians.items()
+    ]).to_csv("data/market_data_v5.csv", index=False)
+    print(f"  Market data saved: {len(suburb_medians)} suburbs")
 
     print("=== BUY ===")
     buy_rows = []
-    
-    logging.debug("Requesting Domain access token...")
-    domain_token = get_domain_access_token()
-    if domain_token:
-        print("Domain token acquired successfully.")
-    else:
-        print("Failed to acquire Domain token or skipped.")
-
-    # Domain listings first (if Live permissions exist)
-    if domain_token:
-        for suburb_name, postcode_slug in SUBURBS.items():
-            postcode = postcode_slug.split("-")[-1] if "-" in postcode_slug else None
-            print(f"Domain: searching {suburb_name} {postcode}...")
-            listings = search_domain_listings_for_suburb(domain_token, suburb_name, postcode, MIN_LAND_M2)
-            if listings:
-                for listing in listings:
-                    row = domain_listing_to_buy_row(listing, suburb_medians, today, today_dt)
-                    buy_rows.append(row)
-
-    print("Fetching RapidAPI properties...")
-    # RAPIDAPI CALL
-    for item in fetch_with_rapidapi("buy"):
+    for item in fetch_with_apify(client, "buy"):
         price = parse_price(item.get("price") or item.get("priceText") or item.get("displayPrice") or "")
-        
+        suburb  = item.get("suburb") or item.get("address","").split(",")[0].strip() or "Unknown"
+        rent    = suburb_medians.get(suburb, 900.0)
         raw_land = str(item.get("landArea") or item.get("landSize") or item.get("features", {}).get("landSize") or "0").lower()
         raw_land = raw_land.replace(',', '').strip()
-        land_m2 = None
 
         if "ha" in raw_land or "hectare" in raw_land:
+            # Convert hectares to square meters
             num = float(''.join(c for c in raw_land if c.isdigit() or c == '.'))
             land_m2 = num * 10000
         elif "acre" in raw_land:
+            # Convert acres to square meters
             num = float(''.join(c for c in raw_land if c.isdigit() or c == '.'))
             land_m2 = num * 4046.86
         else:
-            nums = re.findall(r'\d+(?:\.\d+)?', raw_land)
-            if nums:
-                land_m2 = float(nums[0])
-        
-        if land_m2 is None or land_m2 < MIN_LAND_M2:
-            continue
-
-        suburb = item.get("suburb") or item.get("address", "").split(",")[0].strip() or "Unknown"
-        rent = suburb_medians.get(suburb, 900.0)
-        
-        desc = item.get("description", "")
-        title = item.get("headline", "")
-        build = classify_build(desc, title)
-
-        m = calculate_financials(price, rent, build)
-        
-        date_listed = item.get("dateListed") or item.get("listingDate")
+            # Assume square meters
+            num_str = ''.join(c for c in raw_land if c.isdigit() or c == '.')
+            land_m2 = float(num_str) if num_str else 0.0
+        desc    = str(item.get("description") or "")
+        title   = str(item.get("title") or item.get("headline") or "")
+        build   = classify_build(desc, title)
+        m       = calculate_financials(price, rent, build)
+        date_listed = item.get("dateListed") or item.get("dateFirstListed")
         dom = None
         if date_listed:
             try:
@@ -531,31 +430,39 @@ def main():
             "Est 10-Yr IRR (%)": m[14], "Est Year 1 ROE (%)": m[15],
             "Cashflow Status": m[16], "URL": item.get("url",""),
         })
-    pd.DataFrame(buy_rows).to_csv("data/buy_properties_v5.csv", index=False)
+    # Also fetch listings from Domain API and append to buy_rows
+    token = get_domain_access_token()
+    if token:
+        for suburb_name, slug in SUBURBS.items():
+            try:
+                postcode = int(slug.split("-")[-1])
+            except ValueError:
+                postcode = None
+            listings = search_domain_listings_for_suburb(token, suburb_name, postcode, min_land_m2=MIN_LAND_M2)
+            for listing in listings:
+                row = domain_listing_to_buy_row(listing, suburb_medians, today, today_dt)
+                buy_rows.append(row)
+    if buy_rows:
+        pd.DataFrame(buy_rows).to_csv("data/buy_properties_v5.csv", index=False)
+    else:
+        print("Warning: No buy properties scraped. Skipping overwrite to prevent data loss.")
     print(f"  Buy properties saved: {len(buy_rows)} rows")
 
     print("=== SOLD ===")
     sold_rows = []
-    
-    # RAPIDAPI CALL
-    for item in fetch_with_rapidapi("sold"):
+    for item in fetch_with_apify(client, "sold"):
         price = parse_price(item.get("price") or item.get("priceText") or item.get("displayPrice") or "")
         raw_land = str(item.get("landArea") or item.get("landSize") or item.get("features", {}).get("landSize") or "0").lower()
         raw_land = raw_land.replace(',', '').strip()
 
         if "ha" in raw_land or "hectare" in raw_land:
+            # Convert hectares to square meters
             num = float(''.join(c for c in raw_land if c.isdigit() or c == '.'))
             land_m2 = num * 10000
         elif "acre" in raw_land:
+            # Convert acres to square meters
             num = float(''.join(c for c in raw_land if c.isdigit() or c == '.'))
             land_m2 = num * 4046.86
-        else:
-            nums = re.findall(r'\d+(?:\.\d+)?', raw_land)
-            if nums:
-                land_m2 = float(nums[0])
-            else:
-                land_m2 = None
-                
         suburb  = item.get("suburb") or item.get("address","").split(",")[0].strip() or "Unknown"
         sold_rows.append({
             "Date Pulled": today, "Address": item.get("address",""), "Suburb": suburb,
@@ -567,7 +474,10 @@ def main():
             "Agency": (item.get("agency") or {}).get("name","Unknown") if isinstance(item.get("agency"),dict) else str(item.get("agency","Unknown")),
             "URL": item.get("url",""),
         })
-    pd.DataFrame(sold_rows).to_csv("data/sold_properties_v5.csv", index=False)
+    if sold_rows:
+        pd.DataFrame(sold_rows).to_csv("data/sold_properties_v5.csv", index=False)
+    else:
+        print("Warning: No sold properties scraped. Skipping overwrite to prevent data loss.")
     print(f"  Sold properties saved: {len(sold_rows)} rows")
     print("Pipeline complete.")
 
