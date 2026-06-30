@@ -384,7 +384,7 @@ def fetch_with_rapidapi(mode):
                 continue
             
             # According to your screenshot, the properties are in the "data" array
-            results = response_json.get("data", [])
+            results = response_json.get("data") or []
             
             if not results:
                 print(f"No properties found for {suburb_name} ({mode})")
