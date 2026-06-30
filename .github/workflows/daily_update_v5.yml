@@ -25,12 +25,11 @@ jobs:
       - name: Run Property Scraper & Market Analyzer (V5)
         env:
           APIFY_API_TOKEN: ${{ secrets.APIFY_API_TOKEN }}
-          RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
           DOMAIN_CLIENT_ID: ${{ secrets.DOMAIN_CLIENT_ID }}
           DOMAIN_CLIENT_SECRET: ${{ secrets.DOMAIN_CLIENT_SECRET }}
           DOMAIN_SCOPE: api_listings_read
           DOMAIN_AUTH_URL: https://auth.domain.com.au/v1/connect/token
-          DOMAIN_LISTINGS_URL: https://api.domain.com.au/sandbox/v1/listings/residential/_search
+          DOMAIN_LISTINGS_URL: https://api.domain.com.au/v1/listings/residential/_search
           CURRENT_INTEREST_RATE: ${{ vars.CURRENT_INTEREST_RATE || '0.065' }}
           ASSUME_NEW_BUILD_DEFAULT: ${{ vars.ASSUME_NEW_BUILD_DEFAULT || 'No' }}
         run: |
