@@ -336,12 +336,12 @@ def fetch_with_apify(client, operation):
 
     for suburb_name, slug in SUBURBS.items():
         print(f"  Fetching {operation} for {suburb_name}...")
-        url = f"https://www.realestate.com.au/{op_path}/property-house-acreage-in-{slug}/list-1?minimumLandSize={MIN_LAND_M2}"
+        url = f"https://www.realestate.com.au/{op_path}/property-house-acreage-in-{slug}/list-1?minimumLandSize={MIN_LAND_M2}&sort=list-date"
         try:
             run_input = {
                 "startUrls": [url],
                 "includeSurroundingSuburbs": False,
-                "maxItems": 150,
+                "maxItems": 15,
                 "flattenOutput": True
             }
             run   = client.actor("memo23/realestate-au-listings").call(run_input=run_input)
