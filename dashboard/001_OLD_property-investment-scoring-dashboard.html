@@ -665,10 +665,10 @@ function sortTarget(colIdx) {
 function renderTarget() {
   const tb = document.getElementById('target-body');
   tb.innerHTML = '';
-  if (!DATA.buy || DATA.buy.length === 0) return;
+  if (!db.buy || db.buy.length === 0) return;
 
   // Filter for < $1.8M and > 2 Acres (8093.71 m2)
-  const targets = DATA.buy.filter(r => {
+  const targets = db.buy.filter(r => {
       const price = parseFloat(r['Asking Price ($)']) || 0;
       const land = parseFloat(r['Land Size (m2)']) || 0;
       return price > 0 && price <= 1800000 && land >= 8093;
@@ -676,7 +676,6 @@ function renderTarget() {
 
   targets.forEach(r => {
     const tr = document.createElement('tr');
-    const score = scoreProperty(r);
     tr.innerHTML = `
       <td>${r['Address']||'-'}</td>
       <td>${r['Suburb']||'-'}</td>
@@ -685,10 +684,9 @@ function renderTarget() {
       <td>${r['Beds']||'-'}</td>
       <td>${r['Baths']||'-'}</td>
       <td>${r['Days on Market']||'-'}</td>
-      <td>${(parseFloat(r['Cap Rate (%)'])||0).toFixed(2)}%</td>
-      <td>${(parseFloat(r['Net Yield (%)'])||0).toFixed(2)}%</td>
-      <td class="${parseFloat(r['Net Annual Cashflow ($)']) >= 0 ? 'pos' : 'neg'}">${fmt(parseFloat(r['Net Annual Cashflow ($)']))}</td>
-      <td style="font-weight:bold; color:${score && score.score >= 70 ? 'var(--success)' : (score && score.score >= 50 ? 'var(--warn)' : 'var(--error)')}">${score ? score.score : '-'}</td>
+      <td>${(r['Cap Rate (%)']||0).toFixed(2)}%</td>
+      <td>${(r['Net Yield (%)']||0).toFixed(2)}%</td>
+      <td class="${r['Net Annual Cashflow ($)'] >= 0 ? 'pos' : 'neg'}">${fmt(r['Net Annual Cashflow ($)'])}</td>
       <td>${r['URL'] ? `<a href="${r['URL']}" target="_blank" style="color:var(--blue);text-decoration:none;">View</a>` : '-'}</td>
     `;
     tb.appendChild(tr);
@@ -920,7 +918,6 @@ window.onload = loadAll;
           <th onclick="sortTarget(7)">Cap Rate</th>
           <th onclick="sortTarget(8)">Net Yield</th>
           <th onclick="sortTarget(9)">Cashflow</th>
-          <th onclick="sortTarget(10)">Score</th>
           <th>Link</th>
         </tr>
       </thead>
