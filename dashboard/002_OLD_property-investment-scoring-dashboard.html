@@ -680,14 +680,14 @@ function renderTarget() {
     tr.innerHTML = `
       <td>${r['Address']||'-'}</td>
       <td>${r['Suburb']||'-'}</td>
-      <td>${fmtPrice(r['Asking Price ($)'])}</td>
+      <td>${fmt(r['Asking Price ($)'])}</td>
       <td>${r['Land Size (m2)'] ? parseInt(r['Land Size (m2)']).toLocaleString() : '-'}</td>
       <td>${r['Beds']||'-'}</td>
       <td>${r['Baths']||'-'}</td>
       <td>${r['Days on Market']||'-'}</td>
       <td>${(parseFloat(r['Cap Rate (%)'])||0).toFixed(2)}%</td>
       <td>${(parseFloat(r['Net Yield (%)'])||0).toFixed(2)}%</td>
-      <td class="${parseFloat(r['Net Annual Cashflow ($)']) >= 0 ? 'pos' : 'neg'}">${fmtPrice(parseFloat(r['Net Annual Cashflow ($)']))}</td>
+      <td class="${parseFloat(r['Net Annual Cashflow ($)']) >= 0 ? 'pos' : 'neg'}">${fmt(parseFloat(r['Net Annual Cashflow ($)']))}</td>
       <td style="font-weight:bold; color:${score && score.score >= 70 ? 'var(--success)' : (score && score.score >= 50 ? 'var(--warn)' : 'var(--error)')}">${score ? score.score : '-'}</td>
       <td>${r['URL'] ? `<a href="${r['URL']}" target="_blank" style="color:var(--blue);text-decoration:none;">View</a>` : '-'}</td>
     `;
