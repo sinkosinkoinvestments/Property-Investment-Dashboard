@@ -898,7 +898,7 @@ window.onload = loadAll;
 </body>
 </html
 <!-- TARGET PROPERTIES -->
-<div id="target" class="page">
+<section id="target" class="page">
   <div class="section-head">
     <div>
       <h2>Target Properties</h2>
@@ -906,27 +906,27 @@ window.onload = loadAll;
     </div>
   </div>
 
-  <div class="tbl-card" style="width: 100%; max-width: 100%; overflow: hidden;">
-    <div class="tbl-wrap" style="width: 100%; overflow-x: auto;">
-      <table id="target-table" style="min-width: 1200px; width: 100%;">
-      <thead>
-        <tr>
-          <th onclick="sortTarget(0)">Address</th>
-          <th onclick="sortTarget(1)">Suburb</th>
-          <th onclick="sortTarget(2)">Price</th>
-          <th onclick="sortTarget(3)">Land (m²)</th>
-          <th onclick="sortTarget(4)">Beds</th>
-          <th onclick="sortTarget(5)">Baths</th>
-          <th onclick="sortTarget(6)">DOM</th>
-          <th onclick="sortTarget(7)">Cap Rate</th>
-          <th onclick="sortTarget(8)">Net Yield</th>
-          <th onclick="sortTarget(9)">Cashflow</th>
-          <th onclick="sortTarget(10)">Score</th>
-          <th>Link</th>
-        </tr>
-      </thead>
-      <tbody id="target-body"></tbody>
+  <div class="tbl-card">
+    <div class="tbl-wrap">
+      <table id="target-table">
+        <thead>
+          <tr>
+            <th onclick="sortTarget(0)">Address</th>
+            <th onclick="sortTarget(1)">Suburb</th>
+            <th onclick="sortTarget(2)">Price</th>
+            <th onclick="sortTarget(3)">Land (m²)</th>
+            <th onclick="sortTarget(4)">Beds</th>
+            <th onclick="sortTarget(5)">Baths</th>
+            <th onclick="sortTarget(6)">DOM</th>
+            <th onclick="sortTarget(7)">Cap Rate</th>
+            <th onclick="sortTarget(8)">Net Yield</th>
+            <th onclick="sortTarget(9)">Cashflow</th>
+            <th onclick="sortTarget(10)">Score</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody id="target-body"></tbody>
       </table>
     </div>
   </div>
-</div>
+</section>
