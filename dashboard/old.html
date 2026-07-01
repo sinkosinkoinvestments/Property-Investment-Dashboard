@@ -604,11 +604,6 @@ async function loadAll() {
 
 function populateFilters() {
   const suburbs = [...new Set(DATA.buy.map(r=>r.Suburb).filter(Boolean))].sort();
-  // Populate Target suburb
-  const tgt = document.getElementById('target-suburb');
-  if (tgt) {
-    tgt.innerHTML = '<option value="">All Suburbs</option>' + suburbs.map(s=>`<option value="${s}">${s}</option>`).join('');
-  }
   const types = [...new Set(DATA.buy.map(r=>r['Property Type']).filter(Boolean))].sort();
   ['ana-suburb','fs-suburb','sum-suburb'].forEach(id => {
     document.getElementById(id).innerHTML = '<option value="">All Suburbs</option>' + suburbs.map(s=>`<option>${s}</option>`).join('');
@@ -644,68 +639,61 @@ function renderDashboard() {
 }
 
 
-function renderTarget() {
-  const grid = document.getElementById('target-grid');
-  const sub = document.getElementById('target-suburb').value;
-  const sort = document.getElementById('target-sort').value;
-  grid.innerHTML = '';
-  if (!DATA.buy || DATA.buy.length === 0) return;
+let targetSortOrder = Array(10).fill(1); // 1 for asc, -1 for desc
+function sortTarget(colIdx) {
+  targetSortOrder[colIdx] *= -1;
+  const dir = targetSortOrder[colIdx];
+  const tbody = document.getElementById('target-body');
+  const rows = Array.from(tbody.rows);
 
-  let targets = DATA.buy.filter(r => {
-    const price = parseFloat(r['Asking Price ($)']) || 0;
-    const land = parseFloat(r['Land Size (m2)']) || 0;
-    if (sub && r.Suburb !== sub) return false;
-    return price > 0 && price <= 1800000 && land >= 8093;
+  rows.sort((a, b) => {
+    let valA = a.cells[colIdx].innerText.replace(/[^0-9.-]+/g, "");
+    let valB = b.cells[colIdx].innerText.replace(/[^0-9.-]+/g, "");
+
+    // If not numeric, sort alphabetically
+    if (isNaN(valA) || isNaN(valB) || valA === "") {
+        valA = a.cells[colIdx].innerText.toLowerCase();
+        valB = b.cells[colIdx].innerText.toLowerCase();
+        return valA < valB ? -1 * dir : (valA > valB ? 1 * dir : 0);
+    }
+    return (parseFloat(valA) - parseFloat(valB)) * dir;
   });
-
-  if (sort === 'score') targets.sort((a,b) => (scoreProperty(b)?.score??-1) - (scoreProperty(a)?.score??-1));
-  else if (sort === 'price') targets.sort((a,b) => (fN(a['Asking Price ($)'])||1e9) - (fN(b['Asking Price ($)'])||1e9));
-  else if (sort === 'land') targets.sort((a,b) => (fN(b['Land Size (m2)'])||0) - (fN(a['Land Size (m2)'])||0));
-  else if (sort === 'cap') targets.sort((a,b) => (fN(b['Cap Rate (%)'])||0) - (fN(a['Cap Rate (%)'])||0));
-  else if (sort === 'cashflow') targets.sort((a,b) => (fN(b['Net Annual Cashflow ($)'])||0) - (fN(a['Net Annual Cashflow ($)'])||0));
-  else if (sort === 'dom') targets.sort((a,b) => (fN(b['Days on Market'])||0) - (fN(a['Days on Market'])||0));
-
-  document.getElementById('target-count').textContent = targets.length + ' properties';
-
-  if (!targets.length) {
-    grid.innerHTML = '<div class="empty"><p>No properties match the target criteria.</p></div>';
-    return;
-  }
-
-  const landAcres = (m2) => m2 ? (m2 / 4046.86).toFixed(1) + ' ac' : '—';
-  const cf = (v) => { const n = fN(v); return n === null ? '—' : (n >= 0 ? '+' : '') + '$' + Math.round(n/52).toLocaleString() + '/wk'; };
-
-  grid.innerHTML = targets.map(r => {
-    const s = scoreProperty(r);
-    const hasScore = s !== null;
-    const cls = hasScore ? scoreClass(s.score) : 'score-f';
-    const land = fN(r['Land Size (m2)']);
-    const cashflowPos = (fN(r['Net Annual Cashflow ($)']) || 0) >= 0;
-    return `
-      <div class="sc-card">
-        <div class="sc-card-head">
-          <div>
-            <div class="sc-addr"><a href="${r['URL']||'#'}" target="_blank">${r['Address']||'—'}</a></div>
-            <div class="sc-suburb">${r['Suburb']||'—'}</div>
-          </div>
-          <div class="score-ring ${cls}">${hasScore ? s.score : 'N/A'}</div>
-        </div>
-        <div class="sc-metrics">
-          <div class="sc-metric"><div class="sc-metric-lbl">Price</div><div class="sc-metric-val">${fmtPrice(r['Asking Price ($)'])}</div></div>
-          <div class="sc-metric"><div class="sc-metric-lbl">Land</div><div class="sc-metric-val">${land ? land.toLocaleString()+'m²' : '—'} (${landAcres(land)})</div></div>
-          <div class="sc-metric"><div class="sc-metric-lbl">Beds / Baths</div><div class="sc-metric-val">${r['Beds']||'—'} bd / ${r['Baths']||'—'} ba</div></div>
-          <div class="sc-metric"><div class="sc-metric-lbl">Days on Market</div><div class="sc-metric-val">${r['Days on Market']||'—'} days</div></div>
-          <div class="sc-metric"><div class="sc-metric-lbl">Cap Rate</div><div class="sc-metric-val">${(fN(r['Cap Rate (%)'])||0).toFixed(2)}%</div></div>
-          <div class="sc-metric"><div class="sc-metric-lbl">Net Yield</div><div class="sc-metric-val">${(fN(r['Net Yield (%)'])||0).toFixed(2)}%</div></div>
-          <div class="sc-metric"><div class="sc-metric-lbl">Weekly Cashflow</div><div class="sc-metric-val" style="color:${cashflowPos?'var(--success)':'var(--error)'}">${cf(r['Net Annual Cashflow ($)'])}</div></div>
-          <div class="sc-metric"><div class="sc-metric-lbl">10-Yr IRR</div><div class="sc-metric-val">${(fN(r['Est 10-Yr IRR (%)'])||0).toFixed(2)}%</div></div>
-        </div>
-        ${hasScore ? `<div class="sc-verdict">${s.notes.join(' · ')}</div>` : ''}
-      </div>
-    `;
-  }).join('');
+  tbody.innerHTML = '';
+  rows.forEach(r => tbody.appendChild(r));
 }
 
+function renderTarget() {
+  const tb = document.getElementById('target-body');
+  tb.innerHTML = '';
+  if (!DATA.buy || DATA.buy.length === 0) return;
+
+  // Filter for < $1.8M and > 2 Acres (8093.71 m2)
+  const targets = DATA.buy.filter(r => {
+      const price = parseFloat(r['Asking Price ($)']) || 0;
+      const land = parseFloat(r['Land Size (m2)']) || 0;
+      return price > 0 && price <= 1800000 && land >= 8093;
+  });
+
+  targets.forEach(r => {
+    const tr = document.createElement('tr');
+    const score = scoreProperty(r);
+    tr.innerHTML = `
+      <td class="td-addr">${r['Address']||'-'}</td>
+      <td>${r['Suburb']||'-'}</td>
+      <td>${fmtPrice(r['Asking Price ($)'])}</td>
+      <td>${r['Land Size (m2)'] ? parseInt(r['Land Size (m2)']).toLocaleString() : '-'}</td>
+      <td>${r['Beds']||'-'}</td>
+      <td>${r['Baths']||'-'}</td>
+      <td>${r['Days on Market']||'-'}</td>
+      <td>${(parseFloat(r['Cap Rate (%)'])||0).toFixed(2)}%</td>
+      <td>${(parseFloat(r['Net Yield (%)'])||0).toFixed(2)}%</td>
+      <td class="${parseFloat(r['Net Annual Cashflow ($)']) >= 0 ? 'pos' : 'neg'}">${fmtPrice(parseFloat(r['Net Annual Cashflow ($)']))}</td>
+      <td style="font-weight:bold; color:${score && score.score >= 70 ? 'var(--success)' : (score && score.score >= 50 ? 'var(--warn)' : 'var(--error)')}">${score ? score.score : '-'}</td>
+      <td>${r['URL'] ? `<a href="${r['URL']}" target="_blank" style="color:var(--blue);text-decoration:none;">View</a>` : '-'}</td>
+    `;
+    tb.appendChild(tr);
+  });
+}
 function renderAnalysis() {
   const sub = document.getElementById('ana-suburb').value;
   const sort = document.getElementById('ana-sort').value;
@@ -914,19 +902,31 @@ window.onload = loadAll;
   <div class="section-head">
     <div>
       <h2>Target Properties</h2>
-      <p>Filtered: Price &lt; $1.8M &amp; Land &gt; 2 Acres &nbsp;&bull;&nbsp; <span id="target-count" style="font-weight:600;color:var(--text)">0 properties</span></p>
-    </div>
-    <div class="filters">
-      <select id="target-suburb" onchange="renderTarget()"><option value="">All Suburbs</option></select>
-      <select id="target-sort" onchange="renderTarget()">
-        <option value="score">Sort: Score (High to Low)</option>
-        <option value="price">Sort: Price (Low to High)</option>
-        <option value="land">Sort: Land Size (High to Low)</option>
-        <option value="cap">Sort: Cap Rate (High to Low)</option>
-        <option value="cashflow">Sort: Cashflow (High to Low)</option>
-        <option value="dom">Sort: Days on Market (High to Low)</option>
-      </select>
+      <p>Properties matching criteria: Price < $1.8M and Land > 2 Acres</p>
     </div>
   </div>
-  <div class="sc-grid" id="target-grid"></div>
+
+  <div class="tbl-card">
+    <div class="tbl-wrap">
+      <table id="target-table">
+        <thead>
+          <tr>
+            <th onclick="sortTarget(0)">Address</th>
+            <th onclick="sortTarget(1)">Suburb</th>
+            <th onclick="sortTarget(2)">Price</th>
+            <th onclick="sortTarget(3)">Land (m²)</th>
+            <th onclick="sortTarget(4)">Beds</th>
+            <th onclick="sortTarget(5)">Baths</th>
+            <th onclick="sortTarget(6)">DOM</th>
+            <th onclick="sortTarget(7)">Cap Rate</th>
+            <th onclick="sortTarget(8)">Net Yield</th>
+            <th onclick="sortTarget(9)">Cashflow</th>
+            <th onclick="sortTarget(10)">Score</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody id="target-body"></tbody>
+      </table>
+    </div>
+  </div>
 </section>
