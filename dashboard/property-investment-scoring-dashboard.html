@@ -906,9 +906,9 @@ window.onload = loadAll;
     </div>
   </div>
 
-  <div class="tbl-card">
-    <div class="tbl-wrap">
-      <table id="target-table">
+  <div class="tbl-card" style="width: 100%; max-width: 100%; overflow: hidden;">
+    <div class="tbl-wrap" style="width: 100%; overflow-x: auto;">
+      <table id="target-table" style="width: 100%; table-layout: auto;">
       <thead>
         <tr>
           <th onclick="sortTarget(0)">Address</th>
@@ -930,4 +930,3 @@ window.onload = loadAll;
     </div>
   </div>
 </div>
->
