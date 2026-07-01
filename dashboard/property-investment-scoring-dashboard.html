@@ -63,7 +63,7 @@ h1,h2,h3 { color: var(--text); font-weight: 600; line-height: 1.2; }
 @keyframes spin { 100% { transform: rotate(360deg); } }
 .spinning svg { animation: spin 1s linear infinite; }
 .content { flex: 1; overflow-y: auto; padding: 1.5rem; scroll-behavior: smooth; }
-.page { display: none; flex-direction: column; gap: 1.5rem; max-width: 1400px; margin: 0 auto; }
+.page { display: none; flex-direction: column; width: 100%; gap: 1.5rem; max-width: 1400px; margin: 0 auto; }
 .page.active { display: flex; animation: fadeIn var(--tx); }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 .section-head { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 1rem; }
@@ -89,7 +89,7 @@ select:focus, input:focus { border-color: var(--primary); box-shadow: 0 0 0 2px 
 .chart-title { font-size: var(--xs); font-weight: 600; color: var(--text); margin-bottom: 1rem; }
 .chart-wrap { position: relative; height: 220px; }
 .chart-wrap.tall { height: 280px; }
-.tbl-card { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--rad-lg); overflow: hidden; box-shadow: var(--sh-sm); }
+.tbl-card { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--rad-lg); overflow: hidden; box-shadow: var(--sh-sm); width: 100%; min-width: 0; }
 .tbl-wrap { overflow-x: auto; }
 table { width: 100%; border-collapse: collapse; font-size: var(--xs); }
 thead th { background: var(--offset); padding: 0.6rem 1rem; text-align: left; font-weight: 600; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); white-space: nowrap; border-bottom: 1px solid var(--divider); }
