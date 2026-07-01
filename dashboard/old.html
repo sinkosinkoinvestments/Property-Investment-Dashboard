@@ -99,7 +99,7 @@ tbody tr { border-bottom: 1px solid var(--divider); transition: background var(-
 tbody tr:last-child { border-bottom: none; }
 tbody tr:hover { background: var(--offset); }
 tbody td { padding: 0.6rem 1rem; white-space: nowrap; color: var(--text); vertical-align: middle; }
-.td-addr { white-space: normal; width: 200px; min-width: 200px; max-width: 200px; }
+.td-addr { white-space: normal; min-width: 150px; max-width: 200px; }
 .td-addr a { color: var(--primary); font-weight: 500; }
 .td-addr a:hover { text-decoration: underline; }
 .badge { display: inline-flex; align-items: center; padding: 2px 0.5rem; border-radius: var(--rad-full); font-size: 0.65rem; font-weight: 600; white-space: nowrap; }
@@ -908,7 +908,7 @@ window.onload = loadAll;
 
   <div class="tbl-card" style="width: 100%; max-width: 100%; overflow: hidden;">
     <div class="tbl-wrap" style="width: 100%; overflow-x: auto;">
-      <table id="target-table" style="min-width: 1200px; width: 100%;">
+      <table id="target-table" style="width: 100%; table-layout: auto;">
       <thead>
         <tr>
           <th onclick="sortTarget(0)">Address</th>
