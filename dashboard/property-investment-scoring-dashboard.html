@@ -899,15 +899,16 @@ window.onload = loadAll;
 </html
 <!-- TARGET PROPERTIES -->
 <div id="target" class="page">
-  <div class="header">
-    <div class="h-text">
+  <div class="section-head">
+    <div>
       <h2>Target Properties</h2>
       <p>Properties matching criteria: Price < $1.8M and Land > 2 Acres</p>
     </div>
   </div>
 
-  <div class="card" style="overflow-x:auto;">
-    <table class="table" id="target-table">
+  <div class="tbl-card">
+    <div class="tbl-wrap">
+      <table id="target-table">
       <thead>
         <tr>
           <th onclick="sortTarget(0)">Address</th>
@@ -925,7 +926,8 @@ window.onload = loadAll;
         </tr>
       </thead>
       <tbody id="target-body"></tbody>
-    </table>
+      </table>
+    </div>
   </div>
 </div>
 >
