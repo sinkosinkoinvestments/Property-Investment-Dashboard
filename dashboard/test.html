@@ -303,6 +303,7 @@ th:hover { background-color: var(--surface2); cursor: pointer; }
                 <th>Baths</th>
                 <th>Cars</th>
                 <th>Land Size</th>
+                <th>Dual dwelling</th>
                 <th>2nd Dwelling Room</th>
                 <th>Price</th>
                 <th>DOM</th>
@@ -327,6 +328,7 @@ th:hover { background-color: var(--surface2); cursor: pointer; }
           <select id="fs-feature" onchange="renderForSale()">
             <option value="">All Features</option>
             <option value="dual">Dual Living</option>
+            <option value="dual_dwelling">Dual dwellings</option>
             <option value="sub">Subdivision</option>
             <option value="usable">Usable Land</option>
           </select>
@@ -420,6 +422,10 @@ function fN(v) {
 }
 
 function fmtPrice(v){ const p=fN(v); if(p===null||p===0) return '—'; return '$'+p.toLocaleString(); }
+
+function isDualDwelling(r) {
+  return String(r['Dual Living / Granny Flat']).toLowerCase() === 'true';
+}
 
 function cc(){
   const dark=document.documentElement.getAttribute('data-theme')==='dark';
@@ -797,6 +803,7 @@ function renderSummary() {
         <td>${r.Baths||'-'}</td>
         <td>${r.Cars||'-'}</td>
         <td>${landStr}</td>
+        <td>${isDualDwelling(r) ? 'Yes' : 'No'}</td>
         <td>${secondDwelling}</td>
         <td>${fmtPrice(r['Asking Price ($)'])}</td>
         <td>${r['Days on Market'] ? r['Days on Market'] + ' days' : '—'}</td>
@@ -837,6 +844,7 @@ function renderForSale() {
     if (sub && r.Suburb !== sub) return false;
     if (type && r['Property Type'] !== type) return false;
     if (feature === 'dual' && String(r['Dual Living / Granny Flat']).toLowerCase() !== 'true') return false;
+    if (feature === 'dual_dwelling' && !isDualDwelling(r)) return false;
     if (feature === 'sub' && String(r['Subdivision Potential']).toLowerCase() !== 'true') return false;
     if (feature === 'usable' && String(r['Usable Land']).toLowerCase() !== 'true') return false;
     if (cf && (r['Cashflow Status'] || 'Unknown') !== cf) return false;
