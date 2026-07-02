@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Property Investment Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root {
+  --primary: #01696f; --primary-hover: #015156;
+  --bg: #f4f3ef; --surface: #ffffff; --surface2: #fcfbf8;
+  --text: #1e1c17; --muted: #5e5a52; --faint: #928d80;
+  --border: #e3e0d8; --divider: #eeebe3; --offset: #f8f7f4;
+  --success: #3a7a1e; --success-l: #e6f2e1;
+  --error: #b83232; --error-l: #fae3e3;
+  --warn: #c45b0a; --warn-l: #fcece1;
+  --blue: #006494; --blue-l: #e1f1fa;
+  --gold: #b38600; --gold-l: #fdf5d3;
+  --purple: #7a39bb; --purple-l: #f2e9fc;
+  --tx: 0.15s ease;
+  --sh-sm: 0 1px 2px rgba(0,0,0,0.04);
+  --sh-md: 0 4px 12px rgba(0,0,0,0.06);
+  --rad-sm: 4px; --rad-md: 8px; --rad-lg: 12px; --rad-full: 9999px;
+  --xs: 0.75rem; --sm: 0.875rem; --base: 1rem; --lg: 1.25rem; --xl: 1.5rem;
+}
+[data-theme="dark"] {
+  --primary: #018b94; --primary-hover: #01a3ad;
+  --bg: #141311; --surface: #1e1c19; --surface2: #242320;
+  --text: #e6e4df; --muted: #a39f96; --faint: #6c6962;
+  --border: #3b3934; --divider: #2f2d28; --offset: #1a1916;
+  --success: #55a832; --success-l: #1e2e17;
+  --error: #e85d5d; --error-l: #3a1616;
+  --warn: #e07f36; --warn-l: #3a1f0f;
+  --blue: #3296c9; --blue-l: #0f2533;
+  --gold: #d6a413; --gold-l: #332808;
+  --purple: #9b5ee0; --purple-l: #221233;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; overflow: hidden; font-size: var(--sm); }
+a { text-decoration: none; color: inherit; }
+button { font: inherit; cursor: pointer; border: none; background: none; }
+h1,h2,h3 { color: var(--text); font-weight: 600; line-height: 1.2; }
+.sidebar { width: 220px; min-width: 220px; background: var(--surface); border-right: 1px solid var(--border); display: flex; flex-direction: column; height: 100vh; z-index: 10; }
+.sb-logo { padding: 1.25rem; border-bottom: 1px solid var(--divider); display: flex; align-items: center; gap: 0.75rem; font-weight: 700; font-size: 1.1rem; letter-spacing: -0.02em; }
+.nav-sec { flex: 1; padding: 1rem 0; overflow-y: auto; }
+.nav-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 1.25rem; color: var(--muted); transition: all var(--tx); font-weight: 500; }
+.nav-item:hover { color: var(--text); background: var(--offset); }
+.nav-item.active { color: var(--primary); background: var(--blue-l); border-right: 3px solid var(--primary); }
+.nav-icon { width: 18px; height: 18px; }
+.sb-footer { padding: 1rem; border-top: 1px solid var(--divider); font-size: var(--xs); color: var(--faint); }
+.main { flex: 1; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+.topbar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; z-index: 5; box-shadow: var(--sh-sm); }
+.tb-title h1 { font-size: var(--lg); }
+.tb-sub { font-size: var(--xs); color: var(--muted); margin-top: 2px; }
+.tb-actions { display: flex; gap: 0.75rem; align-items: center; }
+.btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; border-radius: var(--rad-md); font-weight: 500; transition: all var(--tx); border: 1px solid transparent; font-size: var(--sm); }
+.btn-primary { background: var(--primary); color: white; }
+.btn-primary:hover { background: var(--primary-hover); }
+.btn-out { border-color: var(--border); background: var(--surface); color: var(--text); }
+.btn-out:hover { background: var(--offset); border-color: var(--muted); }
+.btn-icon { padding: 0.5rem; border-radius: var(--rad-md); color: var(--muted); transition: all var(--tx); }
+.btn-icon:hover { background: var(--offset); color: var(--text); }
+@keyframes spin { 100% { transform: rotate(360deg); } }
+.spinning svg { animation: spin 1s linear infinite; }
+.content { flex: 1; overflow-y: auto; padding: 1.5rem; scroll-behavior: smooth; }
+.page { display: none; flex-direction: column; width: 100%; gap: 1.5rem; max-width: 1400px; margin: 0 auto; }
+.page.active { display: flex; animation: fadeIn var(--tx); }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+.section-head { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 1rem; }
+.section-head h2 { font-size: var(--base); }
+.section-head p { font-size: var(--xs); color: var(--muted); margin-top: 2px; }
+.filters { display: flex; gap: 0.75rem; flex-wrap: wrap; background: var(--surface2); padding: 0.75rem; border-radius: var(--rad-lg); border: 1px solid var(--border); }
+select, input { padding: 0.4rem 0.75rem; border-radius: var(--rad-sm); border: 1px solid var(--border); background: var(--surface); color: var(--text); font-family: inherit; font-size: var(--sm); outline: none; }
+select:focus, input:focus { border-color: var(--primary); box-shadow: 0 0 0 2px var(--blue-l); }
+.kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+.kpi { background: var(--surface2); padding: 1.25rem; border-radius: var(--rad-lg); border: 1px solid var(--border); box-shadow: var(--sh-sm); display: flex; flex-direction: column; gap: 0.25rem; }
+.kpi.accent { background: var(--primary); color: white; border-color: var(--primary); }
+.kpi.accent .kpi-lbl, .kpi.accent .kpi-sub { color: rgba(255,255,255,0.8); }
+.kpi.good { border-top: 3px solid var(--success); }
+.kpi.warn { border-top: 3px solid var(--warn); }
+.kpi.bad { border-top: 3px solid var(--error); }
+.kpi-lbl { font-size: var(--xs); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
+.kpi-val { font-size: 1.75rem; font-weight: 700; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.kpi-sub { font-size: var(--xs); color: var(--faint); }
+.charts-row { display: grid; grid-template-columns: 2fr 1fr; gap: 1rem; }
+.charts-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+.chart-card { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--rad-lg); padding: 1.25rem; box-shadow: var(--sh-sm); }
+.chart-card.wide { grid-column: 1 / -1; }
+.chart-title { font-size: var(--xs); font-weight: 600; color: var(--text); margin-bottom: 1rem; }
+.chart-wrap { position: relative; height: 220px; }
+.chart-wrap.tall { height: 280px; }
+.tbl-card { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--rad-lg); overflow: hidden; box-shadow: var(--sh-sm); width: 100%; min-width: 0; }
+.tbl-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: var(--xs); }
+thead th { background: var(--offset); padding: 0.6rem 1rem; text-align: left; font-weight: 600; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); white-space: nowrap; border-bottom: 1px solid var(--divider); }
+thead th.sortable { cursor: pointer; user-select: none; }
+thead th.sortable:hover { color: var(--primary); }
+tbody tr { border-bottom: 1px solid var(--divider); transition: background var(--tx); }
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: var(--offset); }
+tbody td { padding: 0.6rem 1rem; white-space: nowrap; color: var(--text); vertical-align: middle; }
+.td-addr { white-space: normal; width: 200px; min-width: 200px; max-width: 200px; }
+.td-addr a { color: var(--primary); font-weight: 500; }
+.td-addr a:hover { text-decoration: underline; }
+.badge { display: inline-flex; align-items: center; padding: 2px 0.5rem; border-radius: var(--rad-full); font-size: 0.65rem; font-weight: 600; white-space: nowrap; }
+.bg { background: var(--success-l); color: var(--success); }
+.br { background: var(--error-l); color: var(--error); }
+.bw { background: var(--warn-l); color: var(--warn); }
+.bb { background: var(--blue-l); color: var(--blue); }
+.bgold { background: var(--gold-l); color: var(--gold); }
+.bgray { background: var(--offset); color: var(--muted); }
+.bpurple { background: var(--purple-l); color: var(--purple); }
+.score-ring { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; font-weight: 700; font-size: 0.85rem; font-variant-numeric: tabular-nums; }
+.score-a { background: var(--success-l); color: var(--success); border: 2px solid var(--success); }
+.score-b { background: var(--blue-l); color: var(--blue); border: 2px solid var(--blue); }
+.score-c { background: var(--gold-l); color: var(--gold); border: 2px solid var(--gold); }
+.score-d { background: var(--warn-l); color: var(--warn); border: 2px solid var(--warn); }
+.score-f { background: var(--error-l); color: var(--error); border: 2px solid var(--error); }
+.sc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+.sc-card { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--rad-lg); padding: 1.25rem; box-shadow: var(--sh-sm); display: flex; flex-direction: column; gap: 0.75rem; transition: box-shadow var(--tx); }
+.sc-card:hover { box-shadow: var(--sh-md); }
+.sc-card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.5rem; }
+.sc-addr { font-weight: 600; font-size: 0.82rem; color: var(--text); line-height: 1.3; }
+.sc-addr a { color: var(--primary); }
+.sc-suburb { font-size: var(--xs); color: var(--muted); margin-top: 2px; }
+.sc-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; }
+.sc-metric { background: var(--offset); border-radius: var(--rad-sm); padding: 0.4rem 0.6rem; }
+.sc-metric-lbl { font-size: 0.6rem; color: var(--faint); text-transform: uppercase; letter-spacing: 0.05em; }
+.sc-metric-val { font-size: 0.78rem; font-weight: 600; color: var(--text); font-variant-numeric: tabular-nums; }
+.sc-flags { display: flex; gap: 0.35rem; flex-wrap: wrap; }
+.sc-verdict { font-size: 0.72rem; color: var(--muted); border-top: 1px solid var(--divider); padding-top: 0.5rem; line-height: 1.5; }
+.empty { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 4rem 2rem; color: var(--muted); }
+.metric-tip { font-size: 0.6rem; color: var(--faint); margin-top: 2px; }
+.kpi.clickable { cursor: pointer; transition: all var(--tx); }
+.kpi.clickable:hover { transform: translateY(-2px); box-shadow: var(--sh-md); border-color: var(--primary); }
+.glossary-card { display: flex; flex-direction: column; gap: 1.25rem; padding: 1.5rem; color: var(--text); font-size: var(--sm); line-height: 1.5; }
+.glossary-card strong { color: var(--primary); font-size: var(--base); display: block; margin-bottom: 0.25rem; }
+@media(max-width: 768px) {
+  body { flex-direction: column; overflow: auto; }
+  .sidebar { width: 100%; min-width: unset; height: auto; position: relative; flex-direction: row; flex-wrap: wrap; }
+  .sb-logo { border-bottom: none; border-right: 1px solid var(--divider); }
+  .nav-sec { display: flex; gap: 0.25rem; padding: 0.5rem; flex-wrap: wrap; }
+  .nav-lbl { display: none; }
+  .sb-footer { border-top: none; border-left: 1px solid var(--divider); margin-top: 0; padding: 0.5rem; }
+  .main { height: auto; overflow: visible; }
+  .charts-row, .charts-row-3 { grid-template-columns: 1fr; }
+  .page { padding: 1rem; gap: 1rem; }
+  .sc-grid { grid-template-columns: 1fr; }
+}
+th:hover { background-color: var(--surface2); cursor: pointer; }
+</style>
+</head>
+<body>
+<aside class="sidebar">
+  <div class="sb-logo">
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-label="Logo">
+      <rect width="32" height="32" rx="8" fill="var(--primary)"/>
+      <path d="M8 22L16 10L24 22" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    Property Dash
+  </div>
+  <nav class="nav-sec">
+    <a href="#dashboard" class="nav-item active" onclick="nav('dashboard')">
+      <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6z"></path></svg>
+      <span class="nav-lbl">Dashboard</span>
+    </a>
+    <a href="#analysis" class="nav-item" onclick="nav('analysis')">
+      <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10"></path></svg>
+      <span class="nav-lbl">Investment Analysis</span>
+    </a>
+        <a href="#target" class="nav-item" onclick="nav('target')">
+      <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+      <span class="nav-lbl">Target Properties</span>
+    </a>
+<a href="#summary" class="nav-item" onclick="nav('summary')">
+      <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path></svg>
+      <span class="nav-lbl">Property Specs</span>
+    </a>
+    <a href="#forsale" class="nav-item" onclick="nav('forsale')">
+      <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3"></path></svg>
+      <span class="nav-lbl">For Sale Data</span>
+    </a>
+    <a href="#glossary" class="nav-item" onclick="nav('glossary')">
+      <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253"></path></svg>
+      <span class="nav-lbl">Definitions</span>
+    </a>
+  </nav>
+  <div class="sb-footer">
+    <div id="last-upd">Loading...</div>
+    <div style="margin-top:0.5rem">v5.0 &copy; 2026</div>
+  </div>
+</aside>
+
+<main class="main">
+  <header class="topbar">
+    <div class="tb-title">
+      <h1 id="page-title">Dashboard</h1>
+      <div class="tb-sub" id="page-sub">Overview of latest scrapes</div>
+    </div>
+    <div class="tb-actions">
+      <button class="btn-icon" id="theme-btn" onclick="toggleTheme()" title="Toggle Dark Mode">
+        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+      </button>
+      <button class="btn btn-primary" id="refresh-btn" onclick="loadAll()">
+        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+        Refresh Data
+      </button>
+    </div>
+  </header>
+
+  <div class="content">
+
+    <!-- DASHBOARD -->
+    <section id="dashboard" class="page active">
+      <div class="section-head">
+        <div>
+          <h2>Market Overview</h2>
+          <p>Key metrics across all monitored regions</p>
+        </div>
+      </div>
+      <div class="kpi-grid" id="kpi-grid"></div>
+
+      <div class="charts-row">
+        <div class="chart-card">
+          <div class="chart-title">Listings by Suburb</div>
+          <div class="chart-wrap"><canvas id="ch-suburb"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">Property Types</div>
+          <div class="chart-wrap"><canvas id="ch-type"></canvas></div>
+        </div>
+      </div>
+
+      <div class="charts-row-3">
+        <div class="chart-card">
+          <div class="chart-title">Cashflow Status</div>
+          <div class="chart-wrap"><canvas id="ch-cashflow"></canvas></div>
+        </div>
+        <div class="chart-card wide" style="grid-column: span 2;">
+          <div class="chart-title">Median Acreage Rent by Suburb</div>
+          <div class="chart-wrap"><canvas id="ch-rent"></canvas></div>
+        </div>
+      </div>
+
+      <div class="charts-row">
+        <div class="chart-card wide">
+          <div class="chart-title">House Price Bands</div>
+          <div class="chart-wrap"><canvas id="ch-pricebands"></canvas></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ANALYSIS -->
+    <section id="analysis" class="page">
+      <div class="section-head">
+        <div>
+          <h2>Investment Analysis</h2>
+          <p>Properties scored and ranked by algorithmic metrics</p>
+        </div>
+        <div class="filters">
+          <select id="ana-suburb" onchange="renderAnalysis()">
+            <option value="">All Suburbs</option>
+          </select>
+          <select id="ana-sort" onchange="renderAnalysis()">
+            <option value="score">Sort: Investment Score (High to Low)</option>
+            <option value="irr">Sort: 10-Yr IRR (High to Low)</option>
+            <option value="cap">Sort: Cap Rate (High to Low)</option>
+            <option value="coc">Sort: Cash-on-Cash (High to Low)</option>
+            <option value="price">Sort: Asking Price (Low to High)</option>
+          </select>
+        </div>
+      </div>
+      <div style="font-size:var(--xs);color:var(--muted);margin-bottom:0.5rem">Showing: <span id="ana-count" style="font-weight:600;color:var(--text)">0</span></div>
+      <div class="sc-grid" id="sc-grid"></div>
+    </section>
+
+    <!-- PROPERTY SPECS SUMMARY -->
+    <section id="summary" class="page">
+      <div class="section-head">
+        <div>
+          <h2>Property Specs & Details</h2>
+          <p>Physical characteristics, land size, and second dwelling feasibility</p>
+        </div>
+        <div class="filters">
+          <select id="sum-suburb" onchange="renderSummary()"><option value="">All Suburbs</option></select>
+          <select id="sum-type" onchange="renderSummary()"><option value="">All Types</option></select>
+          <select id="sum-sort" onchange="renderSummary()">
+            <option value="land">Sort: Land Size (High to Low)</option>
+            <option value="price">Sort: Price (Low to High)</option>
+            <option value="dom">Sort: Days on Market (High to Low)</option>
+          </select>
+        </div>
+      </div>
+      <div class="tbl-card">
+        <div class="tbl-wrap">
+          <table id="tbl-summary">
+            <thead>
+              <tr>
+                <th>Address</th>
+                <th>Suburb</th>
+                <th>Type</th>
+                <th>Beds</th>
+                <th>Baths</th>
+                <th>Cars</th>
+                <th>Land Size</th>
+                <th>2nd Dwelling Room</th>
+                <th>Price</th>
+                <th>DOM</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOR SALE -->
+    <section id="forsale" class="page">
+      <div class="section-head">
+        <div>
+          <h2>For Sale Inventory</h2>
+          <p>Raw data of all currently listed properties</p>
+        </div>
+        <div class="filters">
+          <select id="fs-suburb" onchange="renderForSale()"><option value="">All Suburbs</option></select>
+          <select id="fs-type" onchange="renderForSale()"><option value="">All Types</option></select>
+          <select id="fs-feature" onchange="renderForSale()">
+            <option value="">All Features</option>
+            <option value="dual">Dual Living</option>
+            <option value="sub">Subdivision</option>
+            <option value="usable">Usable Land</option>
+          </select>
+          <select id="fs-cashflow" onchange="renderForSale()">
+            <option value="">All Cashflows</option>
+            <option value="Positive">Positive</option>
+            <option value="Negative">Negative</option>
+            <option value="Unknown">Unknown</option>
+          </select>
+          <select id="fs-priceband" onchange="renderForSale()">
+            <option value="">All Price Bands</option>
+            <option value="1.0-1.4">$1.0m-$1.4m</option>
+            <option value="1.4-1.8">$1.4m-$1.8m</option>
+            <option value="1.8+">$1.8m+</option>
+          </select>
+        </div>
+      </div>
+      <div class="tbl-card">
+        <div class="tbl-wrap">
+          <table id="tbl-forsale">
+            <thead>
+              <tr>
+                <th>Address</th>
+                <th>Suburb</th>
+                <th>B/B/C</th>
+                <th>Price</th>
+                <th>Est. Rent</th>
+                <th>Monthly CF</th>
+                <th>Cap Rate</th>
+                <th>IRR</th>
+                <th>Flags</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- GLOSSARY -->
+    <section id="glossary" class="page">
+      <div class="section-head">
+        <div>
+          <h2>Glossary & Definitions</h2>
+          <p>Key metrics and scoring criteria used in the dashboard algorithm</p>
+        </div>
+      </div>
+      <div class="tbl-card glossary-card">
+        <div><strong>2nd Dwelling Room</strong> A heuristic assessing if the property can fit a second dwelling or granny flat. Rated "High Potential" if land is >1000m² and usable. "Needs Review" if the land is large but flagged for poor usability (e.g. slope or terrain).</div>
+        <div><strong>Cap Rate (Capitalisation Rate)</strong> The expected rate of return generated on a real estate investment property based on current income. Calculated as Net Operating Income (NOI) divided by the property's purchase price. Higher is generally better for pure cash flow.</div>
+        <div><strong>DSCR (Debt Service Coverage Ratio)</strong> A measure of cash flow available to pay current debt obligations. A DSCR > 1.0 means the property generates enough income to cover its debt payments entirely on its own.</div>
+        <div><strong>10-Yr IRR (Internal Rate of Return)</strong> The annualized effective compounded return rate over a 10-year holding period. It accounts for rent growth, capital growth over time, debt paydown, and the eventual sale price of the asset.</div>
+        <div><strong>Cash-on-Cash Return</strong> The annual pre-tax cash flow divided by the total actual cash invested (deposit, stamp duty, renovation costs). It measures the immediate cash income earned on the exact cash you put into the deal.</div>
+        <div><strong>Net Weekly Cashflow</strong> The out-of-pocket surplus or deficit per week after all expenses, interest, property management, and taxes are accounted for. A positive number means the property pays you to own it.</div>
+        <div><strong>Value-Add Bonuses</strong> "Usable Land", "Subdivision Potential", and "Dual Living / Granny Flat" are binary flags that indicate the property has physical characteristics allowing for manufacturing equity or adding a secondary income stream, triggering bonus points in the score.</div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<script>
+// === DATA & HELPERS ===
+const RAW = 'https://raw.githubusercontent.com/sinkosinkoinvestments/Property-Investment-Dashboard/main/data/';
+let DATA = { buy: [], sold: [], market: [], leads: [] };
+let charts = {};
+
+function parseCSV(txt) {
+  const lines = txt.trim().split('\n');
+  if (lines.length < 2) return [];
+  const hdrs = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
+  return lines.slice(1).map(line => {
+    const vals = []; let cur = '', inQ = false;
+    for (let i = 0; i < line.length; i++) {
+      const c = line[i];
+      if (c === '"') { inQ = !inQ; }
+      else if (c === ',' && !inQ) { vals.push(cur.trim()); cur = ''; }
+      else { cur += c; }
+    }
+    vals.push(cur.trim());
+    const o = {}; hdrs.forEach((h, i) => o[h] = vals[i] ?? ''); return o;
+  });
+}
+
+function fN(v) {
+  if(v === null || v === undefined || v === '') return null;
+  const clean = String(v).replace(/[^0-9.-]+/g, '');
+  if(clean === '') return null;
+  const n = parseFloat(clean);
+  return isNaN(n) ? null : n;
+}
+
+function fmtPrice(v){ const p=fN(v); if(p===null||p===0) return '—'; return '$'+p.toLocaleString(); }
+
+function cc(){
+  const dark=document.documentElement.getAttribute('data-theme')==='dark';
+  return {
+    text: dark ? '#e6e4df' : '#1e1c17',
+    grid: dark ? '#2f2d28' : '#dbd8d0',
+    bg: dark ? '#1a1916' : '#ffffff',
+    pal: ['#01696f','#437a22','#006494','#d19900','#964219','#7a39bb','#a13544','#da7101']
+  };
+}
+
+function destroyChart(name){ if(charts[name]){ charts[name].destroy(); charts[name]=null; } }
+
+function buildCharts(){
+  const buy=DATA.buy||[], market=DATA.market||[], C=cc();
+  Chart.defaults.color = C.text;
+  Chart.defaults.borderColor = C.grid;
+
+  const onHoverPtr = (e, elements, chart) => { chart.canvas.style.cursor = elements.length ? 'pointer' : 'default'; };
+  const onClickSuburb = (e, elements, chart) => { if(elements.length) goToForSale('', chart.data.labels[elements[0].index], '', ''); };
+  const onClickType = (e, elements, chart) => { if(elements.length) goToForSale('', '', chart.data.labels[elements[0].index], ''); };
+  const onClickCF = (e, elements, chart) => { if(elements.length) goToForSale('', '', '', chart.data.labels[elements[0].index]); };
+
+  const suburbCounts={};
+  buy.forEach(r=>{ if(r.Suburb) suburbCounts[r.Suburb]=(suburbCounts[r.Suburb]||0)+1; });
+  destroyChart('suburb');
+  const suburbEl=document.getElementById('ch-suburb');
+  if(suburbEl){
+    charts.suburb=new Chart(suburbEl,{
+      type:'bar',
+      data:{labels:Object.keys(suburbCounts),datasets:[{label:'Listings',data:Object.values(suburbCounts),backgroundColor:C.pal,borderRadius:4,borderSkipped:false}]},
+      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},onClick:onClickSuburb,onHover:onHoverPtr,scales:{x:{ticks:{color:C.text,font:{size:11}},grid:{color:C.grid}},y:{beginAtZero:true,ticks:{color:C.text,font:{size:11}},grid:{color:C.grid}}}}
+    });
+  }
+
+  const typeCounts={};
+  buy.forEach(r=>{ const t=r['Property Type']||'Unknown'; typeCounts[t]=(typeCounts[t]||0)+1; });
+  destroyChart('type');
+  const typeEl=document.getElementById('ch-type');
+  if(typeEl){
+    charts.type=new Chart(typeEl,{
+      type:'doughnut',
+      data:{labels:Object.keys(typeCounts),datasets:[{data:Object.values(typeCounts),backgroundColor:C.pal,borderWidth:2,borderColor:C.bg}]},
+      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:C.text,font:{size:11},padding:12}}},onClick:onClickType,onHover:onHoverPtr}
+    });
+  }
+
+  const cashflowCounts={'Positive':0,'Negative':0,'Unknown':0};
+  buy.forEach(r=>{ const s=(r['Cashflow Status']||'Unknown'); if(cashflowCounts[s]===undefined) cashflowCounts[s]=0; cashflowCounts[s]++; });
+  destroyChart('cf');
+  const cfEl=document.getElementById('ch-cashflow');
+  if(cfEl){
+    charts.cf=new Chart(cfEl,{
+      type:'doughnut',
+      data:{labels:['Positive','Negative','Unknown'],datasets:[{data:[cashflowCounts['Positive']||0,cashflowCounts['Negative']||0,cashflowCounts['Unknown']||0],backgroundColor:['#3a7a1e','#b83232','#b0afa9'],borderWidth:2,borderColor:C.bg}]},
+      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:C.text,font:{size:11},padding:12}}},onClick:onClickCF,onHover:onHoverPtr}
+    });
+  }
+
+  const rentMap={};
+  market.forEach(r=>{ if(r.Suburb){ const v=parseFloat(r['Median Acreage Rent ($)']||0); rentMap[r.Suburb]=isNaN(v)?0:v; } });
+  destroyChart('rent');
+  const rentEl=document.getElementById('ch-rent');
+  if(rentEl){
+    charts.rent=new Chart(rentEl,{
+      type:'bar',
+      data:{labels:Object.keys(rentMap),datasets:[{label:'Median Acreage Rent',data:Object.values(rentMap),backgroundColor:C.pal[1],borderRadius:4}]},
+      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},onClick:onClickSuburb,onHover:onHoverPtr,scales:{x:{ticks:{color:C.text,font:{size:11}},grid:{color:C.grid}},y:{beginAtZero:true,ticks:{color:C.text,font:{size:11},callback:v=>'$'+v},grid:{color:C.grid}}}}
+    });
+  }
+
+  const bands = {'$1.0m-$1.4m':0,'$1.4m-$1.8m':0,'$1.8m+':0};
+  buy.forEach(r=>{
+    const p = fN(r['Asking Price ($)']);
+    if(p===null) return;
+    if(p < 1400000) bands['$1.0m-$1.4m']++;
+    else if(p < 1800000) bands['$1.4m-$1.8m']++;
+    else bands['$1.8m+']++;
+  });
+  destroyChart('pricebands');
+  const pbEl=document.getElementById('ch-pricebands');
+  if(pbEl){
+    charts.pricebands=new Chart(pbEl,{
+      type:'bar',
+      data:{labels:Object.keys(bands),datasets:[{label:'Listings',data:Object.values(bands),backgroundColor:C.pal[3],borderRadius:4}]},
+      options:{
+        responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+        onHover:onHoverPtr,
+        onClick:(e,elements,chart)=>{
+          if(!elements.length) return; 
+          const band=chart.data.labels[elements[0].index]; 
+          let pbVal = '';
+          if(band==='$1.0m-$1.4m') pbVal = '1.0-1.4'; 
+          else if(band==='$1.4m-$1.8m') pbVal = '1.4-1.8'; 
+          else if(band==='$1.8m+') pbVal = '1.8+';
+          goToForSale('', '', '', '', pbVal);
+        },
+        scales:{x:{ticks:{color:C.text,font:{size:11}},grid:{color:C.grid}},y:{beginAtZero:true,ticks:{color:C.text,font:{size:11}},grid:{color:C.grid}}}
+      }
+    });
+  }
+}
+
+// === INVESTMENT SCORE ===
+function scoreProperty(r) {
+  if (!fN(r['Asking Price ($)'])) return null;
+  let s = 0, notes = [];
+  const cap = fN(r['Cap Rate (%)']);
+  const dscr = fN(r['DSCR']);
+  const irr = fN(r['Est 10-Yr IRR (%)']);
+  const coc = fN(r['Cash-on-Cash Return (%)']);
+  const wkcf = fN(r['Net Weekly Cashflow ($)']);
+  const dual = String(r['Dual Living / Granny Flat']).toLowerCase() === 'true';
+  const sub = String(r['Subdivision Potential']).toLowerCase() === 'true';
+
+  if (cap !== null) {
+    if (cap >= 5) { s += 20; notes.push('Cap rate ≥5%'); }
+    else if (cap >= 3) { s += 12; notes.push('Cap rate ≥3%'); }
+    else if (cap >= 2) { s += 6; notes.push('Cap rate ≥2%'); }
+  }
+  if (dscr !== null) {
+    if (dscr >= 1) { s += 20; notes.push('DSCR ≥1'); }
+    else if (dscr >= 0.8) { s += 14; notes.push('DSCR ≥0.8'); }
+    else if (dscr >= 0.6) { s += 8; notes.push('DSCR ≥0.6'); }
+    else if (dscr >= 0.4) { s += 4; notes.push('DSCR ≥0.4'); }
+  }
+  if (irr !== null) {
+    if (irr >= 10) { s += 20; notes.push('IRR ≥10%'); }
+    else if (irr >= 7) { s += 14; notes.push('IRR ≥7%'); }
+    else if (irr >= 5) { s += 8; notes.push('IRR ≥5%'); }
+    else if (irr >= 3) { s += 4; notes.push('IRR ≥3%'); }
+  }
+  if (coc !== null) {
+    if (coc >= -2) { s += 15; notes.push('CoC ≥-2%'); }
+    else if (coc >= -5) { s += 10; notes.push('CoC ≥-5%'); }
+    else if (coc >= -10) { s += 5; notes.push('CoC ≥-10%'); }
+  }
+  if (wkcf !== null) {
+    if (wkcf >= 0) { s += 15; notes.push('Positive cashflow'); }
+    else if (wkcf >= -200) { s += 10; notes.push('CF > -$200'); }
+    else if (wkcf >= -500) { s += 5; notes.push('CF > -$500'); }
+  }
+  if (dual) { s += 5; notes.push('Dual living potential'); }
+  if (sub) { s += 5; notes.push('Subdivision potential'); }
+  return { score: s, notes };
+}
+
+function scoreGrade(s) { if(s>=70)return'A'; if(s>=50)return'B'; if(s>=35)return'C'; if(s>=20)return'D'; return'F'; }
+function scoreClass(s) { if(s>=70)return'score-a'; if(s>=50)return'score-b'; if(s>=35)return'score-c'; if(s>=20)return'score-d'; return'score-f'; }
+
+// === LOAD & RENDER ===
+async function loadAll() {
+  const btn = document.getElementById('refresh-btn');
+  btn.classList.add('spinning');
+  try {
+    const [bt, st, mt, lt] = await Promise.all([
+      fetch(RAW+'buy_properties_v5.csv').then(r=>r.text()).catch(() => ''),
+      fetch(RAW+'sold_properties_v5.csv').then(r=>r.text()).catch(() => ''),
+      fetch(RAW+'market_data_v5.csv').then(r=>r.text()).catch(() => ''),
+      fetch(RAW+'offmarket_leads_v3.csv').then(r=>r.text()).catch(() => '')
+    ]);
+    DATA.buy = bt ? parseCSV(bt) : [];
+    DATA.sold = st ? parseCSV(st) : [];
+    DATA.market = mt ? parseCSV(mt) : [];
+    DATA.leads = lt ? parseCSV(lt) : [];
+
+    document.getElementById('last-upd').textContent = 'Last pulled: ' + new Date().toLocaleDateString();
+
+    populateFilters();
+    renderDashboard();
+    buildCharts();
+    renderTarget();
+    renderAnalysis();
+    renderSummary();
+    renderForSale();
+  } catch(e) {
+    document.getElementById('last-upd').textContent = 'Error loading';
+    console.error(e);
+  }
+  btn.classList.remove('spinning');
+}
+
+function populateFilters() {
+  const suburbs = [...new Set(DATA.buy.map(r=>r.Suburb).filter(Boolean))].sort();
+  // Populate Target suburb
+  const tgt = document.getElementById('target-suburb');
+  if (tgt) {
+    tgt.innerHTML = '<option value="">All Suburbs</option>' + suburbs.map(s=>`<option value="${s}">${s}</option>`).join('');
+  }
+  const types = [...new Set(DATA.buy.map(r=>r['Property Type']).filter(Boolean))].sort();
+  ['ana-suburb','fs-suburb','sum-suburb'].forEach(id => {
+    document.getElementById(id).innerHTML = '<option value="">All Suburbs</option>' + suburbs.map(s=>`<option>${s}</option>`).join('');
+  });
+  ['fs-type','sum-type'].forEach(id => {
+    document.getElementById(id).innerHTML = '<option value="">All Types</option>' + types.map(t=>`<option>${t}</option>`).join('');
+  });
+}
+
+function renderDashboard() {
+  const buy = DATA.buy, sold = DATA.sold, market = DATA.market;
+  const priced = buy.filter(r => fN(r['Asking Price ($)']) > 0);
+  const dual = buy.filter(r => String(r['Dual Living / Granny Flat']).toLowerCase() === 'true').length;
+  const sub = buy.filter(r => String(r['Subdivision Potential']).toLowerCase() === 'true').length;
+  const usable = buy.filter(r => String(r['Usable Land']).toLowerCase() === 'true').length;
+  const scored = buy.map(r => scoreProperty(r)).filter(Boolean);
+  const bestScore = scored.length ? Math.max(...scored.map(x => x.score)) : 0;
+  const avgCapVals = priced.map(r => fN(r['Cap Rate (%)'])).filter(v => v !== null);
+  const avgIRRVals = priced.map(r => fN(r['Est 10-Yr IRR (%)'])).filter(v => v !== null);
+  const avgCap = avgCapVals.length ? (avgCapVals.reduce((a,b)=>a+b,0)/avgCapVals.length).toFixed(2) : '—';
+  const avgIRR = avgIRRVals.length ? (avgIRRVals.reduce((a,b)=>a+b,0)/avgIRRVals.length).toFixed(1) : '—';
+
+  document.getElementById('kpi-grid').innerHTML = `
+    <div class="kpi accent clickable" onclick="goToForSale('')" title="Click to view all listings"><div class="kpi-lbl">Total Listings</div><div class="kpi-val">${buy.length}</div><div class="kpi-sub">${priced.length} with price</div></div>
+    <div class="kpi"><div class="kpi-lbl">Sold Comparables</div><div class="kpi-val">${sold.length}</div><div class="kpi-sub">Recent sales</div></div>
+    <div class="kpi clickable" onclick="goToForSale('dual')" title="Click to view Dual Living properties"><div class="kpi-lbl">Dual Living / GF</div><div class="kpi-val">${dual}</div><div class="kpi-sub">of ${buy.length} listings</div></div>
+    <div class="kpi clickable" onclick="goToForSale('sub')" title="Click to view Subdivision properties"><div class="kpi-lbl">Subdiv. Potential</div><div class="kpi-val">${sub}</div><div class="kpi-sub">of ${buy.length} listings</div></div>
+    <div class="kpi clickable" onclick="goToForSale('usable')" title="Click to view Usable Land properties"><div class="kpi-lbl">Usable Land</div><div class="kpi-val">${usable}</div><div class="kpi-sub">of ${buy.length} listings</div></div>
+    <div class="kpi good"><div class="kpi-lbl">Avg Cap Rate</div><div class="kpi-val">${avgCap}%</div><div class="kpi-sub">Priced props only</div></div>
+    <div class="kpi"><div class="kpi-lbl">Avg 10-Yr IRR</div><div class="kpi-val">${avgIRR}%</div><div class="kpi-sub">Priced props only</div></div>
+    <div class="kpi"><div class="kpi-lbl">Best Score</div><div class="kpi-val">${bestScore}/100</div><div class="kpi-sub">Investment score</div></div>
+  `;
+}
+
+
+function renderTarget() {
+  const grid = document.getElementById('target-grid');
+  const sub = document.getElementById('target-suburb').value;
+  const sort = document.getElementById('target-sort').value;
+  grid.innerHTML = '';
+  if (!DATA.buy || DATA.buy.length === 0) return;
+
+  let targets = DATA.buy.filter(r => {
+    const price = parseFloat(r['Asking Price ($)']) || 0;
+    const land = parseFloat(r['Land Size (m2)']) || 0;
+    if (sub && r.Suburb !== sub) return false;
+    return price > 0 && price <= 1800000 && land >= 8093;
+  });
+
+  if (sort === 'score') targets.sort((a,b) => (scoreProperty(b)?.score??-1) - (scoreProperty(a)?.score??-1));
+  else if (sort === 'price') targets.sort((a,b) => (fN(a['Asking Price ($)'])||1e9) - (fN(b['Asking Price ($)'])||1e9));
+  else if (sort === 'land') targets.sort((a,b) => (fN(b['Land Size (m2)'])||0) - (fN(a['Land Size (m2)'])||0));
+  else if (sort === 'cap') targets.sort((a,b) => (fN(b['Cap Rate (%)'])||0) - (fN(a['Cap Rate (%)'])||0));
+  else if (sort === 'cashflow') targets.sort((a,b) => (fN(b['Net Annual Cashflow ($)'])||0) - (fN(a['Net Annual Cashflow ($)'])||0));
+  else if (sort === 'dom') targets.sort((a,b) => (fN(b['Days on Market'])||0) - (fN(a['Days on Market'])||0));
+
+  document.getElementById('target-count').textContent = targets.length + ' properties';
+
+  if (!targets.length) {
+    grid.innerHTML = '<div class="empty"><p>No properties match the target criteria.</p></div>';
+    return;
+  }
+
+  const landAcres = (m2) => m2 ? (m2 / 4046.86).toFixed(1) + ' ac' : '—';
+  const cf = (v) => { const n = fN(v); return n === null ? '—' : (n >= 0 ? '+' : '') + '$' + Math.round(n/52).toLocaleString() + '/wk'; };
+
+  grid.innerHTML = targets.map(r => {
+    const s = scoreProperty(r);
+    const hasScore = s !== null;
+    const cls = hasScore ? scoreClass(s.score) : 'score-f';
+    const land = fN(r['Land Size (m2)']);
+    const cashflowPos = (fN(r['Net Annual Cashflow ($)']) || 0) >= 0;
+    return `
+      <div class="sc-card">
+        <div class="sc-card-head">
+          <div>
+            <div class="sc-addr"><a href="${r['URL']||'#'}" target="_blank">${r['Address']||'—'}</a></div>
+            <div class="sc-suburb">${r['Suburb']||'—'}</div>
+          </div>
+          <div class="score-ring ${cls}">${hasScore ? s.score : 'N/A'}</div>
+        </div>
+        <div class="sc-metrics">
+          <div class="sc-metric"><div class="sc-metric-lbl">Price</div><div class="sc-metric-val">${fmtPrice(r['Asking Price ($)'])}</div></div>
+          <div class="sc-metric"><div class="sc-metric-lbl">Land</div><div class="sc-metric-val">${land ? land.toLocaleString()+'m²' : '—'} (${landAcres(land)})</div></div>
+          <div class="sc-metric"><div class="sc-metric-lbl">Beds / Baths</div><div class="sc-metric-val">${r['Beds']||'—'} bd / ${r['Baths']||'—'} ba</div></div>
+          <div class="sc-metric"><div class="sc-metric-lbl">Days on Market</div><div class="sc-metric-val">${r['Days on Market']||'—'} days</div></div>
+          <div class="sc-metric"><div class="sc-metric-lbl">Cap Rate</div><div class="sc-metric-val">${(fN(r['Cap Rate (%)'])||0).toFixed(2)}%</div></div>
+          <div class="sc-metric"><div class="sc-metric-lbl">Net Yield</div><div class="sc-metric-val">${(fN(r['Net Yield (%)'])||0).toFixed(2)}%</div></div>
+          <div class="sc-metric"><div class="sc-metric-lbl">Weekly Cashflow</div><div class="sc-metric-val" style="color:${cashflowPos?'var(--success)':'var(--error)'}">${cf(r['Net Annual Cashflow ($)'])}</div></div>
+          <div class="sc-metric"><div class="sc-metric-lbl">10-Yr IRR</div><div class="sc-metric-val">${(fN(r['Est 10-Yr IRR (%)'])||0).toFixed(2)}%</div></div>
+        </div>
+        ${hasScore ? `<div class="sc-verdict">${s.notes.join(' · ')}</div>` : ''}
+      </div>
+    `;
+  }).join('');
+}
+
+function renderAnalysis() {
+  const sub = document.getElementById('ana-suburb').value;
+  const sort = document.getElementById('ana-sort').value;
+  let rows = DATA.buy.filter(r => !sub || r.Suburb === sub);
+  const scored = rows.map(r => ({ r, s: scoreProperty(r) }));
+
+  if(sort === 'score') scored.sort((a,b) => (b.s?.score ?? -1) - (a.s?.score ?? -1));
+  else if(sort === 'irr') scored.sort((a,b) => (fN(b.r['Est 10-Yr IRR (%)'])||0) - (fN(a.r['Est 10-Yr IRR (%)'])||0));
+  else if(sort === 'cap') scored.sort((a,b) => (fN(b.r['Cap Rate (%)'])||0) - (fN(a.r['Cap Rate (%)'])||0));
+  else if(sort === 'coc') scored.sort((a,b) => (fN(b.r['Cash-on-Cash Return (%)'])||0) - (fN(a.r['Cash-on-Cash Return (%)'])||0));
+  else if(sort === 'price') scored.sort((a,b) => (fN(a.r['Asking Price ($)'])||1e9) - (fN(b.r['Asking Price ($)'])||1e9));
+
+  document.getElementById('ana-count').textContent = scored.length + ' properties';
+  const grid = document.getElementById('sc-grid');
+
+  if (!scored.length) { grid.innerHTML = '<div class="empty"><p>No properties found.</p></div>'; return; }
+
+  grid.innerHTML = scored.map(({r,s}) => {
+    const hasScore = s !== null;
+    const cls = hasScore ? scoreClass(s.score) : 'score-f';
+    const grade = hasScore ? scoreGrade(s.score) : '?';
+    return `
+      <div class="sc-card">
+        <div class="sc-card-head">
+          <div>
+            <div class="sc-addr"><a href="${r.URL||'#'}" target="_blank">${r.Address||'—'}</a></div>
+            <div class="sc-suburb">${r.Suburb||'—'}</div>
+          </div>
+          <div class="score-ring ${cls}">${hasScore ? s.score : 'N/A'}</div>
+        </div>
+        <div class="sc-metrics">
+          <div class="sc-metric"><div class="sc-metric-lbl">Price</div><div class="sc-metric-val">$${fN(r['Asking Price ($)'])?.toLocaleString() || '—'}</div></div>
+          <div class="sc-metric"><div class="sc-metric-lbl">IRR</div><div class="sc-metric-val">${fN(r['Est 10-Yr IRR (%)'])?.toFixed(2) || '—'}%</div></div>
+        </div>
+        <div class="sc-verdict">${hasScore ? s.notes.join(' · ') : 'Metrics unavailable'}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderSummary() {
+  const sub = document.getElementById('sum-suburb').value;
+  const type = document.getElementById('sum-type').value;
+  const sort = document.getElementById('sum-sort').value;
+
+  let rows = DATA.buy.filter(r => {
+    if (sub && r.Suburb !== sub) return false;
+    if (type && r['Property Type'] !== type) return false;
+    return true;
+  });
+
+  if(sort === 'land') rows.sort((a,b) => (fN(b['Land Size (m2)'])||0) - (fN(a['Land Size (m2)'])||0));
+  else if(sort === 'price') rows.sort((a,b) => (fN(a['Asking Price ($)'])||1e9) - (fN(b['Asking Price ($)'])||1e9));
+  else if(sort === 'dom') rows.sort((a,b) => (fN(b['Days on Market'])||0) - (fN(a['Days on Market'])||0));
+
+  const tbody = document.querySelector('#tbl-summary tbody');
+  tbody.innerHTML = rows.map(r => {
+    const land = fN(r['Land Size (m2)']);
+    const landStr = land ? (land >= 10000 ? (land/10000).toFixed(2)+' ha' : land.toLocaleString()+' m²') : '—';
+
+    // Evaluate 2nd Dwelling Room based on size and existing flags
+    let secondDwelling = '—';
+    const dual = String(r['Dual Living / Granny Flat']).toLowerCase() === 'true';
+    const usable = String(r['Usable Land']).toLowerCase() === 'true';
+
+    if(dual) {
+      secondDwelling = '<span class="badge bg">Already Exists</span><div class="metric-tip">Dual living present</div>';
+    } else if (land) {
+      if (land >= 1000 && usable) {
+        secondDwelling = '<span class="badge bb">High Potential</span><div class="metric-tip">Large & Usable</div>';
+      } else if (land >= 1000 && !usable) {
+        secondDwelling = '<span class="badge bw">Needs Review</span><div class="metric-tip">Terrain/Slope risk</div>';
+      } else if (land < 1000) {
+        secondDwelling = '<span class="badge bgray">Low / STCA</span><div class="metric-tip">< 1000m²</div>';
+      }
+    } else {
+      secondDwelling = '<span class="badge bgray">Unknown</span>';
+    }
+
+    return `
+      <tr>
+        <td class="td-addr"><a href="${r.URL||'#'}" target="_blank">${r.Address||'—'}</a></td>
+        <td>${r.Suburb||'—'}</td>
+        <td>${r['Property Type']||'—'}</td>
+        <td>${r.Beds||'-'}</td>
+        <td>${r.Baths||'-'}</td>
+        <td>${r.Cars||'-'}</td>
+        <td>${landStr}</td>
+        <td>${secondDwelling}</td>
+        <td>${fmtPrice(r['Asking Price ($)'])}</td>
+        <td>${r['Days on Market'] ? r['Days on Market'] + ' days' : '—'}</td>
+      </tr>
+    `;
+  }).join('');
+}
+
+function renderForSale() {
+  const sub = document.getElementById('fs-suburb').value;
+  const type = document.getElementById('fs-type').value;
+  const feature = document.getElementById('fs-feature').value;
+  const cf = document.getElementById('fs-cashflow').value;
+  const pbEl = document.getElementById('fs-priceband');
+  const pb = pbEl ? pbEl.value : '';
+
+  // Combine Domain listings (DATA.buy) with Email leads (DATA.leads)
+  const combinedData = DATA.buy.concat(
+    (DATA.leads || []).map(lead => ({
+      Address: lead.Subject,
+      Suburb: "Off-Market", 
+      'Property Type': "Lead",
+      Beds: "—", Baths: "—", Cars: "—",
+      'Asking Price ($)': null,
+      'Est Weekly Rent ($)': null,
+      'Net Annual Cashflow ($)': null,
+      'Cap Rate (%)': null,
+      'Est 10-Yr IRR (%)': null,
+      'Cashflow Status': 'Unknown',
+      'Dual Living / Granny Flat': lead['Dual Living / Granny Flat'] || 'false',
+      'Subdivision Potential': lead['Subdivision Potential'] || 'false',
+      'Usable Land': lead['Usable Land'] || 'false',
+      URL: ''
+    }))
+  );
+
+  const rows = combinedData.filter(r => {
+    if (sub && r.Suburb !== sub) return false;
+    if (type && r['Property Type'] !== type) return false;
+    if (feature === 'dual' && String(r['Dual Living / Granny Flat']).toLowerCase() !== 'true') return false;
+    if (feature === 'sub' && String(r['Subdivision Potential']).toLowerCase() !== 'true') return false;
+    if (feature === 'usable' && String(r['Usable Land']).toLowerCase() !== 'true') return false;
+    if (cf && (r['Cashflow Status'] || 'Unknown') !== cf) return false;
+
+    const price = fN(r['Asking Price ($)']);
+    if (pb) {
+        if(price === null) return false;
+        if(pb === '1.0-1.4' && (price < 1000000 || price >= 1400000)) return false;
+        if(pb === '1.4-1.8' && (price < 1400000 || price >= 1800000)) return false;
+        if(pb === '1.8+' && price < 1800000) return false;
+    }
+
+    return true;
+  });
+
+  const tbody = document.querySelector('#tbl-forsale tbody');
+  tbody.innerHTML = rows.map(r => {
+    let cfBadge = '<span class="badge bgray">Unknown</span>';
+    const ann = fN(r['Net Annual Cashflow ($)']);
+    if (ann !== null) {
+      const mth = Math.round(ann / 12);
+      const mthStr = Math.abs(mth).toLocaleString();
+      if (mth > 0) cfBadge = '<span class="badge bg">+$' + mthStr + '</span>';
+      else if (mth < 0) cfBadge = '<span class="badge br">-$' + mthStr + '</span>';
+      else cfBadge = '<span class="badge bgray">Neutral</span>';
+    }
+
+    return `
+      <tr>
+        <td class="td-addr"><a href="${r.URL||'#'}" target="_blank">${r.Address||'—'}</a></td>
+        <td>${r.Suburb||'—'}</td>
+        <td>${r.Beds||'-'} / ${r.Baths||'-'} / ${r.Cars||'-'}</td>
+        <td>$${fN(r['Asking Price ($)'])?.toLocaleString() || '—'}</td>
+        <td>$${fN(r['Est Weekly Rent ($)']) || '—'}/wk</td>
+        <td>${cfBadge}</td>
+        <td>${fN(r['Cap Rate (%)'])?.toFixed(2) || '—'}%</td>
+        <td>${fN(r['Est 10-Yr IRR (%)'])?.toFixed(2) || '—'}%</td>
+        <td>
+          ${String(r['Dual Living / Granny Flat']).toLowerCase() === 'true' ? '<span class="badge bg">Dual</span>' : ''}
+          ${String(r['Subdivision Potential']).toLowerCase() === 'true' ? '<span class="badge bb">Subdiv</span>' : ''}
+        </td>
+      </tr>
+    `;
+  }).join('');
+}
+
+function goToForSale(feature='', suburb='', type='', cf='', pb='') {
+  nav('forsale');
+  document.getElementById('fs-feature').value = feature || '';
+  document.getElementById('fs-suburb').value = suburb || '';
+  document.getElementById('fs-type').value = type || '';
+  document.getElementById('fs-cashflow').value = cf || '';
+  const pbEl = document.getElementById('fs-priceband');
+  if(pbEl) pbEl.value = pb || '';
+  renderForSale();
+  window.scrollTo(0, 0);
+}
+
+function nav(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelector(`a[href="#${id}"]`).classList.add('active');
+}
+
+function toggleTheme() {
+  const html = document.documentElement;
+  html.setAttribute('data-theme', html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  buildCharts();
+}
+
+window.onload = loadAll;
+</script>
+</body>
+</html
+<!-- TARGET PROPERTIES -->
+<section id="target" class="page">
+  <div class="section-head">
+    <div>
+      <h2>Target Properties</h2>
+      <p>Filtered: Price &lt; $1.8M &amp; Land &gt; 2 Acres &nbsp;&bull;&nbsp; <span id="target-count" style="font-weight:600;color:var(--text)">0 properties</span></p>
+    </div>
+    <div class="filters">
+      <select id="target-suburb" onchange="renderTarget()"><option value="">All Suburbs</option></select>
+      <select id="target-sort" onchange="renderTarget()">
+        <option value="score">Sort: Score (High to Low)</option>
+        <option value="price">Sort: Price (Low to High)</option>
+        <option value="land">Sort: Land Size (High to Low)</option>
+        <option value="cap">Sort: Cap Rate (High to Low)</option>
+        <option value="cashflow">Sort: Cashflow (High to Low)</option>
+        <option value="dom">Sort: Days on Market (High to Low)</option>
+      </select>
+    </div>
+  </div>
+  <div class="sc-grid" id="target-grid" style="max-height: calc(100vh - 220px); overflow-y: auto; padding-right: 0.5rem;"></div>
+</section>
